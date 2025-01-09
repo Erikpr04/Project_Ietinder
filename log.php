@@ -13,12 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 function createLog($action) {
-    $date = date("d-m-Y"); // Usar guiones para evitar problemas con nombres de archivos
-    $message = "[{$date}] {$action}\n"; // Añadir salto de línea para separar entradas
+    $date = date("d-m-Y"); 
+    $timedate = date("d-m-Y H:i:s");
+    $message = "[{$timedate}] {$action}\n"; 
     $logDir = __DIR__ . "/logs";
     echo $logDir;
 
-    // Asegurarse de que el directorio exista
     if (!is_dir($logDir)) {
         mkdir($logDir, 0777, true);
     }
