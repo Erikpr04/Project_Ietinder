@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfiles Generados Automáticamente</title>
+    <style>
+      .profile {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+      }
+      img {
+        max-width: 100px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Perfiles Generados Automáticamente</h1>
+    <h1>Crear perfiles</h1>
+    <button onclick="generateProfiles(40)">Crear</button>
+    <button onclick="showUsers()">Mostrar perfiles</button>
+
+    <div id="profiles"></div>
+
+    <script>
+      const fetchRandomUser = async (count) => {
+        const response = await fetch(
+          `https://randomuser.me/api/?nat=es&results=${count}`
+        );
+        const data = await response.json();
+        return data.results;
+      };
+
+      let profilesDB = [];
+      let profilesToShow = [];
+
+      const generateProfiles = async (count) => {
+        const profiles = await fetchRandomUser(count);
+        const profilesContainer = document.getElementById("profiles");
+        profilesContainer.innerHTML = "";
+
+        // Opciones de orientación sexual
+        const orientationOptions = ["heterosexual", "homosexual", "bisexual"];
+
+        profilesDB = profiles.map((profile) => {
+          const alias = profile.login.username;
+          const sex =
+            Math.random() < 0.1
+              ? "no binari"
+              : profile.gender === "male"
+              ? "home"
+              : profile.gender === "female"
+              ? "dona"
+              : "no binari";
+
+          const sexualOrientation =
+            orientationOptions[
+              Math.floor(Math.random() * orientationOptions.length)
+            ];
+
+          const profileData = {
+            name: profile.name.first,
+            last_name: profile.name.last,
+            alias,
+            location: {
+              city: profile.location.city,
+              latitude: profile.location.coordinates.latitude,
+              longitude: profile.location.coordinates.longitude,
+            },
+            sex,
+            sexualOrientation,
+            picture: `https://picsum.photos/300/533?random=${Math.random()}`,
+            picture2: `https://picsum.photos/300/533?random=${Math.random()}`,
+            birthdate: profile.dob.date.split("T")[0],
+            email: profile.email,
+            password: profile.login.password,
+          };
+
+          const profileDiv = document.createElement("div");
+          profileDiv.classList.add("profile");
+          profileDiv.innerHTML = `
+            <h2>${
+              profileData.name + " " + profileData.last_name
+            } (${alias})</h2>
+            <p><strong>Ubicación:</strong> ${profileData.location.city}
+            [Lat: ${profileData.location.latitude}, Long: ${
+            profileData.location.longitude
+          }]</p>
+            <p><strong>Sexo:</strong> ${profileData.sex}</p>
+            <p><strong>Orientación sexual:</strong> ${
+              profileData.sexualOrientation
+            }</p>
+            <img src="${profileData.picture}" alt="Foto de ${alias}">
+            <img src="${profileData.picture2}" alt="Foto de ${alias}">
+            <p><strong>Fecha de nacimiento:</strong> ${
+              profileData.birthdate
+            }</p>
+            <p><strong>Email:</strong> ${profileData.email}</p>
+            <p><strong>Password:</strong> ${profileData.password}</p>
+
+
+
+          `;
+          profilesContainer.appendChild(profileDiv);
+
+          return profileData;
+        });
+      };
+
+      const insertDB = () => {
+        profilesToShow = profilesDB;
+        if (profilesToShow.length === 0) {
+          alert("Primero genera perfiles para insertar en la base de datos.");
+          return;
+        }
+        console.log("Insertando en la base de datos:", profilesToShow);
+        alert("Perfiles insertados en la base de datos.");
+      };
+
+      const showUsers = () => {
+        profilesToShow = profilesDB;
+        if (profilesToShow.length === 0) {
+          alert("No hay perfiles generados para mostrar.");
+          return;
+        }
+        console.log("Perfiles almacenados:", profilesToShow);
+      };
+    </script>
+
+    <div></div>
+  </body>
+</html>

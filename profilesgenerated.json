@@ -1,0 +1,682 @@
+[
+    {
+        "name": "Leandro",
+        "last_name": "Zabala",
+        "alias": "lzabalaoled",
+        "location": {
+            "city": "Ferrol",
+            "latitude": "-83.5856",
+            "longitude": "-178.1043"
+        },
+        "sex": "home",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://i.ibb.co/8Kq8f1c/image.png",
+        "picture2": "https://picsum.photos/300/533?random=0.4692198948886328",
+        "birthdate": "1963-04-26",
+        "email": "lzabala.soto@iesesteveterradas.cat",
+        "password": "revolver"
+    },
+    {
+        "name": "Fátima",
+        "last_name": "Pascual",
+        "alias": "ticklishfish181",
+        "location": {
+            "city": "Palma de Mallorca",
+            "latitude": "-6.4769",
+            "longitude": "52.8796"
+        },
+        "sex": "no binari",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.5611959050887794",
+        "picture2": "https://picsum.photos/300/533?random=0.034135514029844716",
+        "birthdate": "1949-06-30",
+        "email": "fatima.pascual@iesesteveterradas.cat",
+        "password": "meister"
+    },
+    {
+        "name": "Amparo",
+        "last_name": "Pérez",
+        "alias": "brownmouse246",
+        "location": {
+            "city": "Alicante",
+            "latitude": "-10.9732",
+            "longitude": "-4.3865"
+        },
+        "sex": "dona",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.9791442301553261",
+        "picture2": "https://picsum.photos/300/533?random=0.562338050405282",
+        "birthdate": "1967-10-21",
+        "email": "amparo.perez@iesesteveterradas.cat",
+        "password": "corsair"
+    },
+    {
+        "name": "Beatriz",
+        "last_name": "Rubio",
+        "alias": "angryladybug986",
+        "location": {
+            "city": "Barcelona",
+            "latitude": "-19.0224",
+            "longitude": "83.4442"
+        },
+        "sex": "dona",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.3037372483104668",
+        "picture2": "https://picsum.photos/300/533?random=0.9870731653128397",
+        "birthdate": "1963-10-09",
+        "email": "beatriz.rubio@iesesteveterradas.cat",
+        "password": "bethany"
+    },
+    {
+        "name": "Samuel",
+        "last_name": "Aguilar",
+        "alias": "whiteladybug498",
+        "location": {
+            "city": "Logroño",
+            "latitude": "-19.6404",
+            "longitude": "176.1425"
+        },
+        "sex": "home",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.5368217805245099",
+        "picture2": "https://picsum.photos/300/533?random=0.07512752682979129",
+        "birthdate": "1981-06-07",
+        "email": "samuel.aguilar@iesesteveterradas.cat",
+        "password": "chloe1"
+    },
+    {
+        "name": "Diego",
+        "last_name": "Garrido",
+        "alias": "blueleopard216",
+        "location": {
+            "city": "Burgos",
+            "latitude": "-15.7073",
+            "longitude": "71.3159"
+        },
+        "sex": "home",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.8848752617844218",
+        "picture2": "https://picsum.photos/300/533?random=0.3578420394561661",
+        "birthdate": "1982-08-08",
+        "email": "diego.garrido@iesesteveterradas.cat",
+        "password": "stayout"
+    },
+    {
+        "name": "Raquel",
+        "last_name": "Sáez",
+        "alias": "bluegoose701",
+        "location": {
+            "city": "Murcia",
+            "latitude": "-74.5555",
+            "longitude": "50.9806"
+        },
+        "sex": "dona",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.6711919607779144",
+        "picture2": "https://picsum.photos/300/533?random=0.15578604695417742",
+        "birthdate": "1963-07-03",
+        "email": "raquel.saez@iesesteveterradas.cat",
+        "password": "mike"
+    },
+    {
+        "name": "Alfredo",
+        "last_name": "Rojas",
+        "alias": "organicelephant723",
+        "location": {
+            "city": "Hospitalet de Llobregat",
+            "latitude": "-37.9022",
+            "longitude": "-141.1002"
+        },
+        "sex": "home",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.8341605211529124",
+        "picture2": "https://picsum.photos/300/533?random=0.9261519780580347",
+        "birthdate": "1987-03-10",
+        "email": "alfredo.rojas@iesesteveterradas.cat",
+        "password": "tzpvaw"
+    },
+    {
+        "name": "Ignacio",
+        "last_name": "Calvo",
+        "alias": "goldendog787",
+        "location": {
+            "city": "Vitoria",
+            "latitude": "18.5055",
+            "longitude": "46.9657"
+        },
+        "sex": "home",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.745551935000291",
+        "picture2": "https://picsum.photos/300/533?random=0.7583107239335951",
+        "birthdate": "1998-03-08",
+        "email": "ignacio.calvo@iesesteveterradas.cat",
+        "password": "dewalt"
+    },
+    {
+        "name": "Lucas",
+        "last_name": "Romero",
+        "alias": "yellowdog655",
+        "location": {
+            "city": "Lugo",
+            "latitude": "65.9331",
+            "longitude": "-49.8651"
+        },
+        "sex": "home",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.2597596269997231",
+        "picture2": "https://picsum.photos/300/533?random=0.26491662226365986",
+        "birthdate": "1995-12-26",
+        "email": "lucas.romero@iesesteveterradas.cat",
+        "password": "11223344"
+    },
+    {
+        "name": "Eva",
+        "last_name": "Velasco",
+        "alias": "yellowbutterfly864",
+        "location": {
+            "city": "Toledo",
+            "latitude": "48.4238",
+            "longitude": "-40.9158"
+        },
+        "sex": "dona",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.865922971740889",
+        "picture2": "https://picsum.photos/300/533?random=0.12405789788049937",
+        "birthdate": "1969-09-10",
+        "email": "eva.velasco@iesesteveterradas.cat",
+        "password": "buzzard"
+    },
+    {
+        "name": "Carmelo",
+        "last_name": "Rojas",
+        "alias": "smallwolf231",
+        "location": {
+            "city": "Albacete",
+            "latitude": "3.0743",
+            "longitude": "95.7719"
+        },
+        "sex": "home",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.23741776454191643",
+        "picture2": "https://picsum.photos/300/533?random=0.7166321097269366",
+        "birthdate": "1972-09-14",
+        "email": "carmelo.rojas@iesesteveterradas.cat",
+        "password": "sweden"
+    },
+    {
+        "name": "Verónica",
+        "last_name": "González",
+        "alias": "ticklishcat381",
+        "location": {
+            "city": "Jerez de la Frontera",
+            "latitude": "66.5326",
+            "longitude": "59.4555"
+        },
+        "sex": "dona",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.5129177705017125",
+        "picture2": "https://picsum.photos/300/533?random=0.5789296727149686",
+        "birthdate": "1963-03-16",
+        "email": "veronica.gonzalez@iesesteveterradas.cat",
+        "password": "dharma"
+    },
+    {
+        "name": "Joaquin",
+        "last_name": "Lozano",
+        "alias": "blackbird397",
+        "location": {
+            "city": "Orihuela",
+            "latitude": "21.1669",
+            "longitude": "-89.9521"
+        },
+        "sex": "home",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.39439762415405566",
+        "picture2": "https://picsum.photos/300/533?random=0.8497740138419838",
+        "birthdate": "1964-06-06",
+        "email": "joaquin.lozano@iesesteveterradas.cat",
+        "password": "jorge"
+    },
+    {
+        "name": "Nicolas",
+        "last_name": "Campos",
+        "alias": "lazycat630",
+        "location": {
+            "city": "Santander",
+            "latitude": "-47.9467",
+            "longitude": "129.4736"
+        },
+        "sex": "home",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.3538277646150614",
+        "picture2": "https://picsum.photos/300/533?random=0.5921764594908525",
+        "birthdate": "1993-12-25",
+        "email": "nicolas.campos@iesesteveterradas.cat",
+        "password": "pppppp"
+    },
+    {
+        "name": "Carmelo",
+        "last_name": "Bravo",
+        "alias": "bigswan210",
+        "location": {
+            "city": "Arrecife",
+            "latitude": "74.0863",
+            "longitude": "-148.7708"
+        },
+        "sex": "home",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.06049746228306074",
+        "picture2": "https://picsum.photos/300/533?random=0.24634814007397687",
+        "birthdate": "1972-09-27",
+        "email": "carmelo.bravo@iesesteveterradas.cat",
+        "password": "bright"
+    },
+    {
+        "name": "Nuria",
+        "last_name": "Delgado",
+        "alias": "purplesnake619",
+        "location": {
+            "city": "Castellón de la Plana",
+            "latitude": "-54.2846",
+            "longitude": "30.9844"
+        },
+        "sex": "dona",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.22596813887323575",
+        "picture2": "https://picsum.photos/300/533?random=0.03707354962316578",
+        "birthdate": "1970-11-12",
+        "email": "nuria.delgado@iesesteveterradas.cat",
+        "password": "peaches"
+    },
+    {
+        "name": "Purificación",
+        "last_name": "Torres",
+        "alias": "lazyswan823",
+        "location": {
+            "city": "Pontevedra",
+            "latitude": "-12.7110",
+            "longitude": "-175.0187"
+        },
+        "sex": "dona",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.728114239652748",
+        "picture2": "https://picsum.photos/300/533?random=0.5636947230671823",
+        "birthdate": "1968-04-30",
+        "email": "purificacion.torres@iesesteveterradas.cat",
+        "password": "jets"
+    },
+    {
+        "name": "Guillermo",
+        "last_name": "Serrano",
+        "alias": "heavygorilla223",
+        "location": {
+            "city": "Gandía",
+            "latitude": "-28.4900",
+            "longitude": "122.9988"
+        },
+        "sex": "home",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.9872851487562309",
+        "picture2": "https://picsum.photos/300/533?random=0.2028090121739805",
+        "birthdate": "1966-01-17",
+        "email": "guillermo.serrano@iesesteveterradas.cat",
+        "password": "deerhunt"
+    },
+    {
+        "name": "Carla",
+        "last_name": "Álvarez",
+        "alias": "organicgoose726",
+        "location": {
+            "city": "Córdoba",
+            "latitude": "-33.7145",
+            "longitude": "-62.3063"
+        },
+        "sex": "dona",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.32707862484706474",
+        "picture2": "https://picsum.photos/300/533?random=0.566557430997203",
+        "birthdate": "1961-01-23",
+        "email": "carla.alvarez@iesesteveterradas.cat",
+        "password": "ghost"
+    },
+    {
+        "name": "Carla",
+        "last_name": "Sánchez",
+        "alias": "bluesnake295",
+        "location": {
+            "city": "Alcobendas",
+            "latitude": "-67.2148",
+            "longitude": "117.0689"
+        },
+        "sex": "dona",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.3144950320172488",
+        "picture2": "https://picsum.photos/300/533?random=0.5178816944432745",
+        "birthdate": "1993-12-09",
+        "email": "carla.sanchez@iesesteveterradas.cat",
+        "password": "1227"
+    },
+    {
+        "name": "Isaac",
+        "last_name": "Carrasco",
+        "alias": "organiccat217",
+        "location": {
+            "city": "Albacete",
+            "latitude": "-40.1363",
+            "longitude": "174.5553"
+        },
+        "sex": "home",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.5608696389849939",
+        "picture2": "https://picsum.photos/300/533?random=0.16764280355560435",
+        "birthdate": "1992-04-21",
+        "email": "isaac.carrasco@iesesteveterradas.cat",
+        "password": "6464"
+    },
+    {
+        "name": "Gabriel",
+        "last_name": "Gómez",
+        "alias": "orangebird140",
+        "location": {
+            "city": "Elche",
+            "latitude": "-66.2960",
+            "longitude": "32.0256"
+        },
+        "sex": "no binari",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.139572647078694",
+        "picture2": "https://picsum.photos/300/533?random=0.745957801716336",
+        "birthdate": "1965-11-06",
+        "email": "gabriel.gomez@iesesteveterradas.cat",
+        "password": "mollydog"
+    },
+    {
+        "name": "Adriana",
+        "last_name": "Nieto",
+        "alias": "whitebutterfly392",
+        "location": {
+            "city": "Cuenca",
+            "latitude": "-78.8874",
+            "longitude": "-63.4033"
+        },
+        "sex": "dona",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.6445636317293868",
+        "picture2": "https://picsum.photos/300/533?random=0.11564362030811193",
+        "birthdate": "1960-12-19",
+        "email": "adriana.nieto@iesesteveterradas.cat",
+        "password": "marshall"
+    },
+    {
+        "name": "Jonathan",
+        "last_name": "Cortes",
+        "alias": "orangeladybug868",
+        "location": {
+            "city": "Torrente",
+            "latitude": "82.6405",
+            "longitude": "134.3100"
+        },
+        "sex": "home",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.5750095152575561",
+        "picture2": "https://picsum.photos/300/533?random=0.5491884080001701",
+        "birthdate": "1999-10-08",
+        "email": "jonathan.cortes@iesesteveterradas.cat",
+        "password": "rockstar"
+    },
+    {
+        "name": "Antonia",
+        "last_name": "Gutiérrez",
+        "alias": "goldenbird413",
+        "location": {
+            "city": "Alcalá de Henares",
+            "latitude": "32.2611",
+            "longitude": "46.5885"
+        },
+        "sex": "dona",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.25210254874139304",
+        "picture2": "https://picsum.photos/300/533?random=0.4776609547451285",
+        "birthdate": "1974-07-06",
+        "email": "antonia.gutierrez@iesesteveterradas.cat",
+        "password": "britney"
+    },
+    {
+        "name": "Virginia",
+        "last_name": "Núñez",
+        "alias": "brownladybug519",
+        "location": {
+            "city": "Zaragoza",
+            "latitude": "52.5781",
+            "longitude": "105.2858"
+        },
+        "sex": "dona",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.8846445140570582",
+        "picture2": "https://picsum.photos/300/533?random=0.9258904229422142",
+        "birthdate": "1963-10-25",
+        "email": "virginia.nunez@iesesteveterradas.cat",
+        "password": "maiden"
+    },
+    {
+        "name": "Vicenta",
+        "last_name": "Morales",
+        "alias": "bigrabbit883",
+        "location": {
+            "city": "Pamplona",
+            "latitude": "77.7638",
+            "longitude": "-166.7597"
+        },
+        "sex": "dona",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.032096800126868885",
+        "picture2": "https://picsum.photos/300/533?random=0.9942108893247044",
+        "birthdate": "1990-07-26",
+        "email": "vicenta.morales@iesesteveterradas.cat",
+        "password": "splurge"
+    },
+    {
+        "name": "Carla",
+        "last_name": "Castro",
+        "alias": "yellowgorilla235",
+        "location": {
+            "city": "Torrevieja",
+            "latitude": "-50.7146",
+            "longitude": "-11.8896"
+        },
+        "sex": "no binari",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.5631801703804362",
+        "picture2": "https://picsum.photos/300/533?random=0.274556387898675",
+        "birthdate": "1965-06-10",
+        "email": "carla.castro@iesesteveterradas.cat",
+        "password": "freedom1"
+    },
+    {
+        "name": "Catalina",
+        "last_name": "Delgado",
+        "alias": "blackfrog217",
+        "location": {
+            "city": "Guadalajara",
+            "latitude": "-7.5882",
+            "longitude": "30.2716"
+        },
+        "sex": "dona",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.28172867174146043",
+        "picture2": "https://picsum.photos/300/533?random=0.3966209596085819",
+        "birthdate": "1962-10-29",
+        "email": "catalina.delgado@iesesteveterradas.cat",
+        "password": "r2d2"
+    },
+    {
+        "name": "Domingo",
+        "last_name": "Pastor",
+        "alias": "angrycat996",
+        "location": {
+            "city": "Alicante",
+            "latitude": "42.9267",
+            "longitude": "-8.5594"
+        },
+        "sex": "home",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.21374949885643701",
+        "picture2": "https://picsum.photos/300/533?random=0.025592677159948396",
+        "birthdate": "1989-06-15",
+        "email": "domingo.pastor@iesesteveterradas.cat",
+        "password": "antonio"
+    },
+    {
+        "name": "Vanesa",
+        "last_name": "Cano",
+        "alias": "whitezebra329",
+        "location": {
+            "city": "Alcalá de Henares",
+            "latitude": "-19.2559",
+            "longitude": "48.6808"
+        },
+        "sex": "dona",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.033524997421746194",
+        "picture2": "https://picsum.photos/300/533?random=0.3718540699975741",
+        "birthdate": "1946-10-17",
+        "email": "vanesa.cano@iesesteveterradas.cat",
+        "password": "doug"
+    },
+    {
+        "name": "Margarita",
+        "last_name": "Caballero",
+        "alias": "smallfish724",
+        "location": {
+            "city": "Lugo",
+            "latitude": "-43.8700",
+            "longitude": "-162.0540"
+        },
+        "sex": "dona",
+        "sexualOrientation": "heterosexual",
+        "picture": "https://picsum.photos/300/533?random=0.5857546376227973",
+        "picture2": "https://picsum.photos/300/533?random=0.8728399337896946",
+        "birthdate": "1986-12-03",
+        "email": "margarita.caballero@iesesteveterradas.cat",
+        "password": "qian"
+    },
+    {
+        "name": "Andrés",
+        "last_name": "Morales",
+        "alias": "happyduck696",
+        "location": {
+            "city": "Oviedo",
+            "latitude": "56.9381",
+            "longitude": "-152.5899"
+        },
+        "sex": "home",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.06954243417383377",
+        "picture2": "https://picsum.photos/300/533?random=0.30241990585013245",
+        "birthdate": "1953-08-01",
+        "email": "andres.morales@iesesteveterradas.cat",
+        "password": "grumpy"
+    },
+    {
+        "name": "Manuel",
+        "last_name": "Moya",
+        "alias": "whiteelephant511",
+        "location": {
+            "city": "Fuenlabrada",
+            "latitude": "75.2205",
+            "longitude": "-87.8123"
+        },
+        "sex": "no binari",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.6334652060482828",
+        "picture2": "https://picsum.photos/300/533?random=0.327425009977101",
+        "birthdate": "1946-03-30",
+        "email": "manuel.moya@iesesteveterradas.cat",
+        "password": "chuckie"
+    },
+    {
+        "name": "Alfonso",
+        "last_name": "Vázquez",
+        "alias": "crazymeercat916",
+        "location": {
+            "city": "Hospitalet de Llobregat",
+            "latitude": "68.1014",
+            "longitude": "-176.6505"
+        },
+        "sex": "home",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.9251286575630155",
+        "picture2": "https://picsum.photos/300/533?random=0.662790406028301",
+        "birthdate": "1993-06-11",
+        "email": "alfonso.vazquez@iesesteveterradas.cat",
+        "password": "ping"
+    },
+    {
+        "name": "Marta",
+        "last_name": "Domínguez",
+        "alias": "brownpeacock532",
+        "location": {
+            "city": "Valladolid",
+            "latitude": "2.6349",
+            "longitude": "1.2896"
+        },
+        "sex": "dona",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.19290549548109848",
+        "picture2": "https://picsum.photos/300/533?random=0.3499821282465869",
+        "birthdate": "1958-08-01",
+        "email": "marta.dominguez@iesesteveterradas.cat",
+        "password": "delta1"
+    },
+    {
+        "name": "Esteban",
+        "last_name": "Caballero",
+        "alias": "purpleswan444",
+        "location": {
+            "city": "Pontevedra",
+            "latitude": "-87.3650",
+            "longitude": "-143.5692"
+        },
+        "sex": "home",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.6326450453991681",
+        "picture2": "https://picsum.photos/300/533?random=0.18167667074224836",
+        "birthdate": "1989-02-19",
+        "email": "esteban.caballero@iesesteveterradas.cat",
+        "password": "eureka"
+    },
+    {
+        "name": "Milagros",
+        "last_name": "Marín",
+        "alias": "sadcat846",
+        "location": {
+            "city": "Alcobendas",
+            "latitude": "-74.6907",
+            "longitude": "-70.1173"
+        },
+        "sex": "dona",
+        "sexualOrientation": "bisexual",
+        "picture": "https://picsum.photos/300/533?random=0.8696318247485131",
+        "picture2": "https://picsum.photos/300/533?random=0.8014944666991828",
+        "birthdate": "1975-08-20",
+        "email": "milagros.marin@iesesteveterradas.cat",
+        "password": "scotty"
+    },
+    {
+        "name": "Fernando",
+        "last_name": "Méndez",
+        "alias": "bluezebra243",
+        "location": {
+            "city": "Alcobendas",
+            "latitude": "44.0343",
+            "longitude": "80.4930"
+        },
+        "sex": "home",
+        "sexualOrientation": "homosexual",
+        "picture": "https://picsum.photos/300/533?random=0.048315809388633335",
+        "picture2": "https://picsum.photos/300/533?random=0.23631759510999073",
+        "birthdate": "1991-12-12",
+        "email": "fernando.mendez@iesesteveterradas.cat",
+        "password": "raquel"
+    }
+]
