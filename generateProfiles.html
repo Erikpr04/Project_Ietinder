@@ -22,10 +22,14 @@
     <h1>Crear perfiles</h1>
     <button onclick="generateProfiles(40)">Crear</button>
     <button onclick="showUsers()">Mostrar perfiles</button>
+    <button onclick="insertDB()">Insertar perfiles en Base de Datos</button>
 
     <div id="profiles"></div>
 
     <script>
+      let profilesDB = [];
+      let profilesToShow = [];
+
       const fetchRandomUser = async (count) => {
         const response = await fetch(
           `https://randomuser.me/api/?nat=es&results=${count}`
@@ -33,9 +37,6 @@
         const data = await response.json();
         return data.results;
       };
-
-      let profilesDB = [];
-      let profilesToShow = [];
 
       const generateProfiles = async (count) => {
         const profiles = await fetchRandomUser(count);
@@ -108,16 +109,6 @@
 
           return profileData;
         });
-      };
-
-      const insertDB = () => {
-        profilesToShow = profilesDB;
-        if (profilesToShow.length === 0) {
-          alert("Primero genera perfiles para insertar en la base de datos.");
-          return;
-        }
-        console.log("Insertando en la base de datos:", profilesToShow);
-        alert("Perfiles insertados en la base de datos.");
       };
 
       const showUsers = () => {
