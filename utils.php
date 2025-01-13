@@ -81,6 +81,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
                     $stmtMedia->execute([
                         ':user_id' => $userId,
                         ':media_path' => $profile['picture'],
+                        
+                    ]);
+                    $stmtMedia->execute([
+                        ':user_id' => $userId,
+                        ':media_path' => $profile['picture2'],
+                        
                     ]);
 
                     // Confirmar la transacción
@@ -109,7 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
-                    <th>Ciudad</th>
                 </tr>";
             foreach ($users as $user) {
                 echo "<tr>
