@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
 </head>
 <body>
     <h1>Insertar Perfiles desde JSON a la Base de Datos</h1>
-    <form method="POST" action="process.php" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
         <label for="jsonFile">Selecciona un archivo JSON:</label>
         <input type="file" name="jsonFile" id="jsonFile" accept=".json" required>
         <button type="submit">Cargar Perfiles</button>
@@ -19,10 +18,10 @@
 
 <?php
 // Configuración de la base de datos
-$host = "localhost";
+$host = "localhost:3306";
 $dbname = "SwipeITDB";
-$username = "client";
-$password = "milt0n";
+$username = "root";
+$password = "NuevoPAssword";
 
 // Conexión a la base de datos
 try {
@@ -41,9 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
         $profiles = json_decode($jsonData, true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
-            $insertQuery = "
-                INSERT INTO users (name, last_name, alias, city, latitude, longitude, sex, sexualOrientation, picture, picture2, birthdate, email, password)
-                VALUES (:name, :last_name, :alias, :city, :latitude, :longitude, :sex, :sexualOrientation, :picture, :picture2, :birthdate, :email, :password)
+            $insertUserQuery = "
+                INSERT INTO user (name, last_name, alias,  latitude, longitude, sex, sexual_orientation, birth_date, email, password)
+                VALUES (:name, :last_name, :alias, :latitude, :longitude, :sex, :sexual_orientation, :birth_date, :email, :password)
+            ";
+
+            $insertMediaQuery = "
+                INSERT INTO media (user_id, media_path)
+                VALUES (:user_id, :media_path)
             ";
 
             $inserted = 0;
@@ -51,30 +55,71 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
 
             foreach ($profiles as $profile) {
                 try {
-                    $stmt = $pdo->prepare($insertQuery);
-                    $stmt->execute([
+                    // Iniciar una transacción para asegurar atomicidad
+                    $pdo->beginTransaction();
+
+                    // Insertar datos del usuario
+                    $stmtUser = $pdo->prepare($insertUserQuery);
+                    $stmtUser->execute([
                         ':name' => $profile['name'],
                         ':last_name' => $profile['last_name'],
                         ':alias' => $profile['alias'],
-                        ':city' => $profile['location']['city'],
                         ':latitude' => $profile['location']['latitude'],
                         ':longitude' => $profile['location']['longitude'],
                         ':sex' => $profile['sex'],
-                        ':sexualOrientation' => $profile['sexualOrientation'],
-                        ':picture' => $profile['picture'],
-                        ':picture2' => $profile['picture2'],
-                        ':birthdate' => $profile['birthdate'],
+                        ':sexual_orientation' => $profile['sexualOrientation'],
+                        ':birth_date' => $profile['birthdate'],
                         ':email' => $profile['email'],
-                        ':password' => password_hash($profile['password'], PASSWORD_DEFAULT), // Encriptar la contraseña
+                        ':password' => hash('sha256', $profile['password']), // Encriptar contraseña
                     ]);
+
+                    // Obtener el ID del usuario insertado
+                    $userId = $pdo->lastInsertId();
+
+                    // Insertar datos de media
+                    $stmtMedia = $pdo->prepare($insertMediaQuery);
+                    $stmtMedia->execute([
+                        ':user_id' => $userId,
+                        ':media_path' => $profile['picture'],
+                    ]);
+
+                    // Confirmar la transacción
+                    $pdo->commit();
                     $inserted++;
                 } catch (PDOException $e) {
+                    echo $e;
+                    // Revertir la transacción en caso de error
+                    $pdo->rollBack();
                     $errors++;
                 }
             }
 
             echo "<p>Perfiles insertados: $inserted</p>";
             echo "<p>Errores: $errors</p>";
+
+            // Mostrar todos los usuarios insertados
+            $selectQuery = "SELECT * FROM user";
+            $stmt = $pdo->query($selectQuery);
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo "<h2>Usuarios en la base de datos:</h2>";
+            echo "<table border='1'>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Ciudad</th>
+                </tr>";
+            foreach ($users as $user) {
+                echo "<tr>
+                    <td>{$user['id']}</td>
+                    <td>{$user['name']}</td>
+                    <td>{$user['last_name']}</td>
+                    <td>{$user['email']}</td>
+                </tr>";
+            }
+            echo "</table>";
         } else {
             echo "<p>Error al decodificar el archivo JSON.</p>";
         }
