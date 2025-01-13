@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- api maps
+    <script async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlpD9X2jl0jwfH92yjVCIw2y_ecoVmWRA&callback=initMap"> 
+    </script>
+    <style> #map { height: 100%; } html, body { height: 100%; margin: 0; padding: 0; } </style>  -->
+    
+    <script src="profile.js"></script>
+
     <title>Tu perfil</title>
 </head>
 
@@ -10,7 +19,7 @@
 
     <main>
         <form method="post">
-            <legend>Datos personales</legend>
+            <legend>Datos personales</legend> <br/><br/>
             
             <label for="name">nombre:</label>
             <input type="text" id="name" name="name"/> <br/><br/>
@@ -25,6 +34,18 @@
             <input type="date" id="birthDate" name="birthDate"/> <br/><br/>
 
             <label for="location">Localización:</label> <br/><br/>
+
+            <iframe
+                width="450"
+                height="250"
+                frameborder="0" style="border:0"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDlpD9X2jl0jwfH92yjVCIw2y_ecoVmWRA
+                    &center=41.357273232584475, 2.0780836830809464
+                    &zoom=15"
+                allowfullscreen>
+            </iframe>
+            <br/><br/>
 
             <label for="sexe">Sexo:</label>
             <input type="radio" name="gender" id="male" value="male">
@@ -48,7 +69,7 @@
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" disabled style="cursor:not-allowed"> <br/><br/>
 
-            <input type="submit" value="Guardar Cambios"/>
+            <input type="submit"  onclick="return false" value="Guardar Cambios"/>
 
         </form>
     </main>
