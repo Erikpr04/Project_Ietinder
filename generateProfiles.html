@@ -46,69 +46,84 @@
         // Opciones de orientación sexual
         const orientationOptions = ["heterosexual", "homosexual", "bisexual"];
 
-        profilesDB = profiles.map((profile) => {
-          const alias = profile.login.username;
-          const sex =
-            Math.random() < 0.1
-              ? "no binari"
-              : profile.gender === "male"
-              ? "home"
-              : profile.gender === "female"
-              ? "dona"
-              : "no binari";
+        profilesDB = await Promise.all(
+          profiles.map(async (profile) => {
+            const alias = profile.login.username;
+            const sex =
+              Math.random() < 0.1
+                ? "no binari"
+                : profile.gender === "male"
+                ? "home"
+                : profile.gender === "female"
+                ? "dona"
+                : "no binari";
 
-          const sexualOrientation =
-            orientationOptions[
-              Math.floor(Math.random() * orientationOptions.length)
-            ];
+            const sexualOrientation =
+              orientationOptions[
+                Math.floor(Math.random() * orientationOptions.length)
+              ];
 
-          const profileData = {
-            name: profile.name.first,
-            last_name: profile.name.last,
-            alias,
-            location: {
-              city: profile.location.city,
-              latitude: profile.location.coordinates.latitude,
-              longitude: profile.location.coordinates.longitude,
-            },
-            sex,
-            sexualOrientation,
-            picture: `https://picsum.photos/300/533?random=${Math.random()}`,
-            picture2: `https://picsum.photos/300/533?random=${Math.random()}`,
-            birthdate: profile.dob.date.split("T")[0],
-            email: profile.email,
-            password: profile.login.password,
-          };
+            // Generar URLs de las imágenes
+            const picture1Url = `https://picsum.photos/300/533?random=${Math.random()}`;
+            const picture2Url = `https://picsum.photos/300/533?random=${Math.random()}`;
 
-          const profileDiv = document.createElement("div");
-          profileDiv.classList.add("profile");
-          profileDiv.innerHTML = `
-            <h2>${
-              profileData.name + " " + profileData.last_name
-            } (${alias})</h2>
-            <p><strong>Ubicación:</strong> ${profileData.location.city}
-            [Lat: ${profileData.location.latitude}, Long: ${
-            profileData.location.longitude
-          }]</p>
-            <p><strong>Sexo:</strong> ${profileData.sex}</p>
-            <p><strong>Orientación sexual:</strong> ${
-              profileData.sexualOrientation
-            }</p>
-            <img src="${profileData.picture}" alt="Foto de ${alias}">
-            <img src="${profileData.picture2}" alt="Foto de ${alias}">
-            <p><strong>Fecha de nacimiento:</strong> ${
-              profileData.birthdate
-            }</p>
-            <p><strong>Email:</strong> ${profileData.email}</p>
-            <p><strong>Password:</strong> ${profileData.password}</p>
+            // Descargar las imágenes y convertirlas en blobs
+            const downloadImage = async (url, filename) => {
+              const response = await fetch(url);
+              const blob = await response.blob();
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(blob);
+              link.download = filename;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            };
 
+            // Descargar imágenes como archivos
+            await downloadImage(picture1Url, `${alias}_1.jpg`);
+            await downloadImage(picture2Url, `${alias}_2.jpg`);
 
+            const profileData = {
+              name: profile.name.first,
+              last_name: profile.name.last,
+              alias,
+              location: {
+                city: profile.location.city,
+                latitude: profile.location.coordinates.latitude,
+                longitude: profile.location.coordinates.longitude,
+              },
+              sex,
+              sexualOrientation,
+              picture: `${alias}_1.jpg`, // Puedes dejar la ruta como nombre de archivo
+              picture2: `${alias}_2.jpg`,
+              birthdate: profile.dob.date.split("T")[0],
+              email: profile.email,
+              password: profile.login.password,
+            };
 
-          `;
-          profilesContainer.appendChild(profileDiv);
+            const profileDiv = document.createElement("div");
+            profileDiv.classList.add("profile");
+            profileDiv.innerHTML = `
+        <h2>${profileData.name + " " + profileData.last_name} (${alias})</h2>
+        <p><strong>Ubicación:</strong> ${profileData.location.city}
+        [Lat: ${profileData.location.latitude}, Long: ${
+              profileData.location.longitude
+            }]</p>
+        <p><strong>Sexo:</strong> ${profileData.sex}</p>
+        <p><strong>Orientación sexual:</strong> ${
+          profileData.sexualOrientation
+        }</p>
+        <img src="${picture1Url}" alt="Foto de ${alias}">
+        <img src="${picture2Url}" alt="Foto de ${alias}">
+        <p><strong>Fecha de nacimiento:</strong> ${profileData.birthdate}</p>
+        <p><strong>Email:</strong> ${profileData.email}</p>
+        <p><strong>Password:</strong> ${profileData.password}</p>
+      `;
+            profilesContainer.appendChild(profileDiv);
 
-          return profileData;
-        });
+            return profileData;
+          })
+        );
       };
 
       const showUsers = () => {
