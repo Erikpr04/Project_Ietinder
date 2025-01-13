@@ -8,11 +8,11 @@
     <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/login.js"></script>
+    <script src="./js/utils.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -25,8 +25,7 @@
 
                 <div class="data-container email-container">
                     <div class="input-field" id="email">
-                        <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" maxlength="30"
-                            required>
+                        <input type="text" name="email" maxlength="30" required>
                         <label>Introduce tu correo</label>
                     </div>
                     <p><i class="fa-solid fa-asterisk"></i>Este correo no está registrado</p>
@@ -34,8 +33,7 @@
 
                 <div class="data-container password-container">
                     <div class="input-field" id="password">
-                        <input type="password" name="password" value="<?php echo htmlspecialchars($password); ?>"
-                            maxlength="20" required>
+                        <input type="password" name="password" maxlength="20" required>
                         <label>Introduce la contraseña</label>
                         <i class="fa-solid fa-eye"></i>
                     </div>
