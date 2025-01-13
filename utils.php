@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
                     $stmtMedia = $pdo->prepare($insertMediaQuery);
                     $stmtMedia->execute([
                         ':user_id' => $userId,
-                        ':media_path' => $profile['picture'],
+                        ':media_path' => "media/".$profile['picture'],
                         
                     ]);
                     $stmtMedia->execute([
