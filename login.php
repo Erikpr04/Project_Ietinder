@@ -8,6 +8,7 @@
     <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/login.js"></script>
+    <script src="./js/utils.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,11 +60,12 @@
             </div>
         </form>
         <?php
-        // Verificar si ya existe una cookie
-        if (isset($_COOKIE['user_id'])) {
-            header("Location: discover.php");
-            exit();
-        }
+
+        ?>
+        <script>
+            sendLog("Redirigido a login");
+        </script>
+        <?php
 
         // Inicializar variables
         $email = null;
@@ -78,7 +80,6 @@
         
             if ($email && $password) {
                 // Conexión a la base de datos
-                // $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeItDB');
                 $connection = new mysqli('localhost', 'root', 'hywk78wz', 'SwipeITDB');
 
                 if ($connection->connect_error) {
@@ -104,19 +105,29 @@
                             setcookie("user_id", $user_id, time() + (30 * 24 * 60 * 60), "/"); // 30 días
                         }
                         header("Location: discover.php");
+                        ?>
+                        <script>
+                            // El usuario se ha logueado correctamente
+                            sendLog("Usuario logueado con éxito desde login.php");
+                        </script>
+                        <?php
                         exit();
                     } else {
                         echo "<script>
-                    document.querySelector('#password').classList.add('wrong-data');
-                    document.querySelector('.password-container p').style.display = 'block';
-                </script>";
+                            document.querySelector('#password').classList.add('wrong-data');
+                            document.querySelector('.password-container p').style.display = 'block';
+                            // Error de contraseña incorrecta
+                            sendLog('Error de login: contraseña incorrecta para email $email');
+                        </script>";
                     }
                 } else {
                     echo "<script>
-                document.querySelector('#email').classList.add('wrong-data');
-                document.querySelector('#password').classList.add('wrong-data');
-                document.querySelectorAll('.data-container p').forEach(el => el.style.display = 'block');
-            </script>";
+                        document.querySelector('#email').classList.add('wrong-data');
+                        document.querySelector('#password').classList.add('wrong-data');
+                        document.querySelectorAll('.data-container p').forEach(el => el.style.display = 'block');
+                        // Error de email no registrado
+                        sendLog('Error de login: email no registrado $email');
+                    </script>";
                 }
 
                 $stmt->close();
