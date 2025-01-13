@@ -7,10 +7,12 @@
     <link type="text/css" rel="stylesheet" href="./css/style.css" />
     <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
     <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/login.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -22,25 +24,28 @@
             <div class="input-container">
 
                 <div class="data-container email-container">
-                    <div class="input-field" id="email" >
-                        <input type="text" name="email" maxlength="20" required>
+                    <div class="input-field" id="email">
+                        <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" maxlength="30"
+                            required>
                         <label>Introduce tu correo</label>
                     </div>
                     <p><i class="fa-solid fa-asterisk"></i>Este correo no está registrado</p>
                 </div>
-                
+
                 <div class="data-container password-container">
-                    <div class="input-field" id="password" >
-                        <input type="password" name="password" maxlength="20" required>
+                    <div class="input-field" id="password">
+                        <input type="password" name="password" value="<?php echo htmlspecialchars($password); ?>"
+                            maxlength="20" required>
                         <label>Introduce la contraseña</label>
                         <i class="fa-solid fa-eye"></i>
                     </div>
                     <p><i class="fa-solid fa-asterisk"></i>La contraseña es incorrecta</p>
                 </div>
+
             </div>
 
             <div class="remember-container">
-                <input type="checkbox" name="remember" id="remember"> 
+                <input type="checkbox" name="remember" id="remember" checked>
                 <label for="remember">Mantener sesión iniciada</label>
             </div>
 
@@ -54,61 +59,74 @@
             </div>
         </form>
         <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $email = $_POST['email'];
-                $password = $_POST['password'];
+        // Verificar si ya existe una cookie
+        if (isset($_COOKIE['user_id'])) {
+            header("Location: discover.php");
+            exit();
+        }
+
+        // Inicializar variables
+        $email = null;
+        $password = null;
+
+        // Manejo del formulario POST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Validar que las variables existan antes de usarlas
+            $email = isset($_POST['email']) ? trim($_POST['email']) : null;
+            $password = isset($_POST['password']) ? trim($_POST['password']) : null;
+            $remember = isset($_POST['remember']); // Checkbox para mantener la sesión
         
-                $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeItDB');
-        
+            if ($email && $password) {
+                // Conexión a la base de datos
+                // $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeItDB');
+                $connection = new mysqli('localhost', 'root', 'hywk78wz', 'SwipeITDB');
+
                 if ($connection->connect_error) {
                     die("Conexión fallida: " . $connection->connect_error);
                 }
-        
-                $sql = "SELECT * FROM User WHERE email = ? AND account_status = 'active'";
+
+                // Consultar el usuario por email
+                $sql = "SELECT id, password FROM User WHERE email = ? AND account_status = 'active'";
                 $stmt = $connection->prepare($sql);
                 $stmt->bind_param("s", $email);
                 $stmt->execute();
                 $result = $stmt->get_result();
-        
+
                 if ($result->num_rows > 0) {
                     $user = $result->fetch_assoc();
                     $hashed_password = $user['password'];
-        
+                    $user_id = $user['id'];
+
+                    // Verificar la contraseña
                     if (hash('sha256', $password) === $hashed_password) {
+                        // Guardar cookie si se marca "recordar sesión"
+                        if ($remember) {
+                            setcookie("user_id", $user_id, time() + (30 * 24 * 60 * 60), "/"); // 30 días
+                        }
                         header("Location: discover.php");
                         exit();
                     } else {
                         echo "<script>
-                        $('#password').addClass('wrong-data');
-                        $('.password-container p').css('display', 'block');
-                        </script>";
+                    document.querySelector('#password').classList.add('wrong-data');
+                    document.querySelector('.password-container p').style.display = 'block';
+                </script>";
                     }
                 } else {
                     echo "<script>
-                    $('#email, #password').addClass('wrong-data');
-                    $('.data-container p').css('display', 'block');
-                    </script>";
+                document.querySelector('#email').classList.add('wrong-data');
+                document.querySelector('#password').classList.add('wrong-data');
+                document.querySelectorAll('.data-container p').forEach(el => el.style.display = 'block');
+            </script>";
                 }
-        
+
                 $stmt->close();
                 $connection->close();
             }
-            ?>
+        }
+        ?>
+
     </div>
 
-    <script>
-        $(function() {
-            $(".input-field").removeClass("wrong-data");
-            $(".data-container p").css("display", "none");
-            $("#password i").on("click", function() {
-                $(this).toggleClass("fa-eye fa-eye-slash");
-                $("#password input").attr("type", function(index, attr) {
-                    return attr == "password" ? "text" : "password";
-                });
-            });
-        });
-    </script>
-    
 </body>
 
 </html>

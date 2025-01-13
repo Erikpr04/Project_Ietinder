@@ -281,6 +281,7 @@ button:hover::after, button:hover {
 }
 
 .data-container p {
+    display: none;
     color: var(--dark-red-color);
     font-size: 0.8rem;
     margin-top: 0.25rem;
@@ -306,22 +307,23 @@ button:hover::after, button:hover {
 }
 
 input[type="checkbox"] {
-    display: none; /* Hide default checkbox */
+    display: none; 
 }
 
 input[type="checkbox"] + label {
-    display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Center items vertically */
-    cursor: pointer; /* Make it look clickable */
+    display: none;
+    /* display: flex;  */
+    align-items: center;
+    cursor: pointer;
 }
 
 input[type="checkbox"] + label::before {
     content: '';
     display: inline-block;
-    width: .6rem; /* Adjust size as needed */
-    height: .6rem; /* Adjust size as needed */
+    width: .6rem; 
+    height: .6rem;
     border: 2px solid var(--black-color);
-    border-radius: 3px; /* Rounded corners */
+    border-radius: 3px; 
     margin-right: .25rem;
 }
 
