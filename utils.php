@@ -41,12 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
 
         if (json_last_error() === JSON_ERROR_NONE) {
             $insertUserQuery = "
-                INSERT INTO user (name, last_name, alias,  latitude, longitude, sex, sexual_orientation, birth_date, email, password)
+                INSERT INTO User (name, last_name, alias,  latitude, longitude, sex, sexual_orientation, birth_date, email, password)
                 VALUES (:name, :last_name, :alias, :latitude, :longitude, :sex, :sexual_orientation, :birth_date, :email, :password)
             ";
 
             $insertMediaQuery = "
-                INSERT INTO media (user_id, media_path)
+                INSERT INTO Media (user_id, media_path)
                 VALUES (:user_id, :media_path)
             ";
 
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
                     ]);
                     $stmtMedia->execute([
                         ':user_id' => $userId,
-                        ':media_path' => $profile['picture2'],
+                        ':media_path' => "media/".$profile['picture2'],
                         
                     ]);
 
