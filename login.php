@@ -1,3 +1,11 @@
+<script src="./js/utils.js"></script>
+
+<?php
+if (isset($_COOKIE['user_id'])) {
+    echo "<script>sendLog('User {$_COOKIE['user_id']} tried to access into Login.php with an active session, redirecting him to discover.php').then(() => { window.location.href = 'discover.php'; });</script>";
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,11 +65,9 @@
             </div>
         </form>
         <?php
-        // Verificar si ya existe una cookie
-        if (isset($_COOKIE['user_id'])) {
-            header("Location: discover.php");
-            exit();
-        }
+
+        ?>
+        <?php
 
         // Inicializar variables
         $email = null;
@@ -76,8 +82,8 @@
         
             if ($email && $password) {
                 // Conexión a la base de datos
-                // $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeItDB');
-                $connection = new mysqli('localhost', 'root', 'hywk78wz', 'SwipeITDB');
+                // $connection = new mysqli('localhost', 'root', 'hywk78wz', 'SwipeITDB');
+                $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeITDB');
 
                 if ($connection->connect_error) {
                     die("Conexión fallida: " . $connection->connect_error);
@@ -100,21 +106,27 @@
                         // Guardar cookie si se marca "recordar sesión"
                         if ($remember) {
                             setcookie("user_id", $user_id, time() + (30 * 24 * 60 * 60), "/"); // 30 días
+                            echo "<script>sendLog('User $user_id logged in, redirecting him to discover.php from login.php.').then(() => { window.location.href = 'discover.php'; });</script>";
+                        } else {
+                            echo "<script>sendLog('User logged in, redirecting him to discover.php from login.php without session.').then(() => { window.location.href = 'discover.php'; });</script>";
                         }
-                        header("Location: discover.php");
                         exit();
                     } else {
                         echo "<script>
-                    document.querySelector('#password').classList.add('wrong-data');
-                    document.querySelector('.password-container p').style.display = 'block';
-                </script>";
+                            document.querySelector('#password').classList.add('wrong-data');
+                            document.querySelector('.password-container p').style.display = 'block';
+                            // Error de contraseña incorrecta
+                            sendLog('Error de login: contraseña incorrecta para email $email');
+                        </script>";
                     }
                 } else {
                     echo "<script>
-                document.querySelector('#email').classList.add('wrong-data');
-                document.querySelector('#password').classList.add('wrong-data');
-                document.querySelectorAll('.data-container p').forEach(el => el.style.display = 'block');
-            </script>";
+                        document.querySelector('#email').classList.add('wrong-data');
+                        document.querySelector('#password').classList.add('wrong-data');
+                        document.querySelectorAll('.data-container p').forEach(el => el.style.display = 'block');
+                        // Error de email no registrado
+                        sendLog('Error de login: email no registrado $email');
+                    </script>";
                 }
 
                 $stmt->close();
