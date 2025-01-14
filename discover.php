@@ -1,21 +1,20 @@
+<script src="./js/utils.js"></script>
+
 <?php
-// Verificar si la cookie "user_id" existe
 if (!isset($_COOKIE['user_id'])) {
-    // El script ahora estará antes de la cabecera HTML
-    echo "<script>sendLog('Intento de acceso a Discover sin sesión activa, redirigiendo a login.php');</script>";
-    header("Location: login.php");
+    echo "<script>sendLog('User tried to access into Discover.php without an active session, redirecting him to login.php').then(() => { window.location.href = 'login.php'; });</script>";
     exit();
 }
 
 // Cerrar sesión
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
-    echo "<script>sendLog('Usuario ha cerrado sesión, redirigiendo a login.php');</script>";
+    $userId_holder = $_COOKIE["user_id"];
     setcookie("user_id", "", time() - 3600, "/"); // Eliminar la cookie
-    header("Location: login.php");
+    echo "<script>sendLog('User $userId_holder dropped his session, redirecting him to login.php from discover.php').then(() => { window.location.href = 'login.php'; });</script>";
+
     exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,9 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discover</title>
-    
-    <!-- Asegúrate de que el script de utils.js esté cargado antes de usar la función sendLog -->
-    <script src="./js/utils.js"></script> 
 
 </head>
 

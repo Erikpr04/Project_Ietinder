@@ -1,3 +1,11 @@
+<script src="./js/utils.js"></script>
+
+<?php
+if (isset($_COOKIE['user_id'])) {
+    echo "<script>sendLog('User {$_COOKIE['user_id']} tried to access into Login.php with an active session, redirecting him to discover.php').then(() => { window.location.href = 'discover.php'; });</script>";
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,8 +34,7 @@
 
                 <div class="data-container email-container">
                     <div class="input-field" id="email">
-                        <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" maxlength="30"
-                            required>
+                        <input type="text" name="email" maxlength="30" required>
                         <label>Introduce tu correo</label>
                     </div>
                     <p><i class="fa-solid fa-asterisk"></i>Este correo no está registrado</p>
@@ -35,8 +42,7 @@
 
                 <div class="data-container password-container">
                     <div class="input-field" id="password">
-                        <input type="password" name="password" value="<?php echo htmlspecialchars($password); ?>"
-                            maxlength="20" required>
+                        <input type="password" name="password" maxlength="20" required>
                         <label>Introduce la contraseña</label>
                         <i class="fa-solid fa-eye"></i>
                     </div>
@@ -61,7 +67,7 @@
         </form>
         <?php
 
-        ?>¡
+        ?>
         <?php
 
         // Inicializar variables
@@ -77,7 +83,8 @@
         
             if ($email && $password) {
                 // Conexión a la base de datos
-                $connection = new mysqli('localhost', 'root', 'hywk78wz', 'SwipeITDB');
+                // $connection = new mysqli('localhost', 'root', 'hywk78wz', 'SwipeITDB');
+                $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeITDB');
 
                 if ($connection->connect_error) {
                     die("Conexión fallida: " . $connection->connect_error);
@@ -100,9 +107,9 @@
                         // Guardar cookie si se marca "recordar sesión"
                         if ($remember) {
                             setcookie("user_id", $user_id, time() + (30 * 24 * 60 * 60), "/"); // 30 días
-                            echo "sendLog('User {$_COOKIE['user_id']} logged in, redirecting him to discover.php from login.php').then(() => { window.location.href = 'discover.php'; });";
+                            echo "<script>sendLog('User $user_id logged in, redirecting him to discover.php from login.php.').then(() => { window.location.href = 'discover.php'; });</script>";
                         } else {
-                            echo "sendLog('User logged in, redirecting him to discover.php from login.php without session').then(() => { window.location.href = 'discover.php'; });";
+                            echo "<script>sendLog('User logged in, redirecting him to discover.php from login.php without session.').then(() => { window.location.href = 'discover.php'; });</script>";
                         }
                         exit();
                     } else {
