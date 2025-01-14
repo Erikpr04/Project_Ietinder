@@ -109,7 +109,7 @@
             <!-- <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" disabled style="cursor:not-allowed"> <br/><br/> -->
 
-            <input type="submit" onclick="return false" id="buttonSave" value="Guardar Cambios"/>
+            <input type="submit" id="buttonSave" value="Guardar Cambios"/>
 
         </form>
     </main>

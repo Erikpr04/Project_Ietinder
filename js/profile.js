@@ -6,7 +6,10 @@ $(function(){
     // inicializar el mapa
     initMap();
     // asignación de eventos click
-    $("#buttonSave").off().click(saveData);
+    $("#buttonSave").off().click(function(event){
+        event.preventDefault();  // Prevenir que el formulario se envíe y recargue la página
+        saveData(); 
+    });
 })
 
 // función de creación mapa google api
