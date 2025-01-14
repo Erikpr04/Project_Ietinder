@@ -19,6 +19,8 @@
     --color--brand-gradient-start: #fd267a;
     --color--brand-primary: #ff4458;
     --color--brand-primary-a11y: #d4004f;
+
+
 }
 
 @font-face {
@@ -383,3 +385,69 @@ input[type="checkbox"]:checked + label::before {
 .unknown {
     background-color: #b2b2b2;
 }
+
+/* MARK: messages*/
+body#messages{    
+    display: flex;
+    flex-direction: column;
+    max-width: 460px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+body#messages header,
+body#messages nav{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    margin: auto;
+}
+
+body#messages header{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 450px;
+}
+
+body#messages header h2 {
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+body#messages header a {
+    margin-bottom: 5%;
+    text-decoration: none;
+    color: inherit;
+}
+
+body#messages nav{
+    gap: 80px;
+}
+
+body#messages main #containerMatches,
+body#messages main #containerMessages {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 450px;
+    border: 1px solid #ccc;
+}
+
+body#messages main #containerMessages{
+    min-height: 300px;
+}
+
+body#messages main #containerMatches #matchedProfiles {
+    box-sizing: border-box;
+    min-height: 200px;
+    max-height: 200px;
+    padding: 10px;
+    width: 430px;
+    border: 1px solid #ccc;
+}
+
+
