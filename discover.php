@@ -1,18 +1,20 @@
+<script src="./js/utils.js"></script>
+
 <?php
-// Verificar si la cookie "user_id" existe
 if (!isset($_COOKIE['user_id'])) {
-    header("Location: login.php");
+    echo "<script>sendLog('User tried to access into Discover.php without an active session, redirecting him to login.php').then(() => { window.location.href = 'login.php'; });</script>";
     exit();
 }
 
 // Cerrar sesión
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
+    $userId_holder = $_COOKIE["user_id"];
     setcookie("user_id", "", time() - 3600, "/"); // Eliminar la cookie
-    header("Location: login.php");
+    echo "<script>sendLog('User $userId_holder dropped his session, redirecting him to login.php from discover.php').then(() => { window.location.href = 'login.php'; });</script>";
+
     exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,14 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discover</title>
-    <link type="text/css" rel="stylesheet" href="./css/style.css" />
-    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
-    <script src="./js/jquery-3.7.1.min.js"></script>
-    <script src="./js/utils.js"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
 
 <body>
     <h1>¡Bienvenido a Discover!</h1>
