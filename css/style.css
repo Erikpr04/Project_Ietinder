@@ -328,3 +328,9 @@ input[type="checkbox"] + label::before {
 input[type="checkbox"]:checked + label::before {
     background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
 }
+
+/* MARK: Profile*/
+body#profile #map {
+    height: 400px; /* Altura del mapa */
+    width: 30%;   /* Ancho del mapa */
+}
