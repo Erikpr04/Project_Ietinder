@@ -61,10 +61,7 @@
         </form>
         <?php
 
-        ?>
-        <script>
-            sendLog("Redirigido a login");
-        </script>
+        ?>¡
         <?php
 
         // Inicializar variables
@@ -103,14 +100,10 @@
                         // Guardar cookie si se marca "recordar sesión"
                         if ($remember) {
                             setcookie("user_id", $user_id, time() + (30 * 24 * 60 * 60), "/"); // 30 días
+                            echo "sendLog('User {$_COOKIE['user_id']} logged in, redirecting him to discover.php from login.php').then(() => { window.location.href = 'discover.php'; });";
+                        } else {
+                            echo "sendLog('User logged in, redirecting him to discover.php from login.php without session').then(() => { window.location.href = 'discover.php'; });";
                         }
-                        header("Location: discover.php");
-                        ?>
-                        <script>
-                            // El usuario se ha logueado correctamente
-                            sendLog("Usuario logueado con éxito desde login.php");
-                        </script>
-                        <?php
                         exit();
                     } else {
                         echo "<script>
