@@ -33,7 +33,7 @@ if (isset($_COOKIE['user_id'])) {
 
                 <div class="data-container email-container">
                     <div class="input-field" id="email">
-                        <input type="text" name="email" maxlength="40" required>
+                        <input type="text" name="email" maxlength="100" required>
                         <label>Introduce tu correo</label>
                     </div>
                     <p><i class="fa-solid fa-asterisk"></i>Este correo no está registrado</p>
@@ -101,7 +101,6 @@ if (isset($_COOKIE['user_id'])) {
                     $user_id = $user['id'];
 
                     // Verificar la contraseña
-                    echo hash('sha256', $password);
                     if (hash('sha256', $password) === $hashed_password) {
                         // Guardar cookie si se marca "recordar sesión"
                         if ($remember) {

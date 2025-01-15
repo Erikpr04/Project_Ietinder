@@ -2,8 +2,6 @@
     // !!! cookie: user_id:"n"
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
-    } else {
-        $cookieValue = "23";
     }
 
     // configuración de la base de datos

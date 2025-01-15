@@ -268,7 +268,7 @@ function renderProfiles($profiles) {
                 </div>
             </div>
             <div class="profile-info">
-                <h2>$name, $age</h2>
+                <p>$name, $age</p>
             </div>
         </div>
         HTML;
