@@ -1,36 +1,53 @@
-<script src="./js/utils.js"></script>
-
-<?php
-if (!isset($_COOKIE['user_id'])) {
-    echo "<script>sendLog('User tried to access into Discover.php without an active session, redirecting him to login.php').then(() => { window.location.href = 'login.php'; });</script>";
-    exit();
-}
-
-// Cerrar sesión
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
-    $userId_holder = $_COOKIE["user_id"];
-    setcookie("user_id", "", time() - 3600, "/"); // Eliminar la cookie
-    echo "<script>sendLog('User $userId_holder dropped his session, redirecting him to login.php from discover.php').then(() => { window.location.href = 'login.php'; });</script>";
-
-    exit();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- HEAD SECTION -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discover</title>
-
+    <title>SwipeIt! - Discover</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="../js/discover.js"></script>
 </head>
-
 <body>
-    <h1>¡Bienvenido a Discover!</h1>
-    <form method="post">
-        <button type="submit" name="logout">Cerrar sesión</button>
-    </form>
-</body>
 
+<?php
+require_once 'log.php';
+
+if (isset($_COOKIE['user_id'])) {
+    createLog(action: "Usuario entrado a discover con id: " . $_COOKIE['user_id']);
+}
+?>
+
+<!-- HTML STRUCTURE -->
+<div id="main-container">
+    <div id="main-header"><h2>S<span>w</span>ipeIt!</h2></div>
+    <div id="main-content">
+        <div class="match-overlay" id="matchOverlay">
+            <div class="match-notification">
+                <h2>¡Es un Match!</h>
+                <div>
+                    <button id="continueButton">Seguir Descubriendo</button>
+                    <button id="messagesButton">Ir a Mensajes</button>
+                </div>
+            </div>
+        </div>
+        <div id="main-content-container">
+            <div id="main-content-buttons">
+                <div id="dislike-button">
+                    <p>No</p>
+                </div>
+                <div id="like-button">
+                    <p>Yes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- aqui va footer-->
+
+</div>
+
+</body>
 </html>
