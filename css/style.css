@@ -765,7 +765,6 @@ footer p a:hover {
     flex-direction: column;
     overflow: hidden;
     transition: transform 0.5s ease, opacity 0.5s ease;
-    text-shadow: #212121 1px 1px;
 }
 
 .profile-picture {
