@@ -18,6 +18,7 @@ if (!$dbname || !$username || !$password) {
 
 
 
+
 header('Content-Type: application/json');
 
 
@@ -182,6 +183,7 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
         }
     } 
 
+
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':myId' => $myId]);
 
@@ -224,7 +226,8 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
         $profiles[$userId] = $row;  // Usamos el id del usuario como clave para evitar duplicados
     }
 
-    createLog("Se han encontrado " . count($profiles) . " Perfiles");
+    
+    createLog($myId."ha encontrado " . count($profiles) . " perfiles");
 
     // Convertimos el array en una lista indexada de perfiles (sin claves duplicadas)
     return array_values($profiles);
@@ -311,7 +314,5 @@ function getProfileImages($userId) {
         return [];
     }
 }
-
-
 
 ?>

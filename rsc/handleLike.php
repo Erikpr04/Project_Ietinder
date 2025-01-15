@@ -15,6 +15,7 @@ $dbname = getenv('DB_NAME');
 $username = getenv('DB_USERNAME');
 $password = getenv('DB_PASSWORD');
 
+
 if (!$dbname || !$username || !$password) {
     echo json_encode(['error' => 'Error de configuración del servidor']);
     exit();

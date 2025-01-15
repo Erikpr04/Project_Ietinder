@@ -17,7 +17,8 @@ function createLog($action) {
     $timedate= date("d-m-Y H:i:s", strtotime(date("d-m-Y H:i:s") . ' +1 hour'));
 
     $message = "[{$timedate}] {$action}\n"; 
-    $logDir = __DIR__ . "/../logs";
+    $logDir = dirname(__DIR__) . "/logs";
+
 
 
     if (!is_dir($logDir)) {

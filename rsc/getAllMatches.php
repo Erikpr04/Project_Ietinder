@@ -18,6 +18,7 @@ if (!$dbname || !$username || !$password) {
         $cookieValue = $_COOKIE['user_id'];
     } 
 
+
     // Conexión a la base de datos
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -46,3 +47,6 @@ if (!$dbname || !$username || !$password) {
     unset($pdo);
     unset($query);
 
+    createLog("Usuario con el id: ".$cookieValue." ha consultado sus matches en la página messages.php");
+
+    echo json_encode($results);
