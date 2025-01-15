@@ -16,41 +16,46 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
-    async function loadProfiles() {
+    function loadProfiles() {
         if (isLoading) return;
         isLoading = true;
-
-        try {
-            const response = await fetch('getDiscoverData.php');
-            const data = await response.json();
-
-            if (data.success) {
-                const newProfilesContainer = document.createElement('div');
-                newProfilesContainer.className = 'new-profile-content';
-                newProfilesContainer.innerHTML = data.html;
-
-                container.prepend(newProfilesContainer);
-
-                newProfilesContainer.querySelectorAll('.carousel').forEach(carousel => {
-                    initializeCarousel(carousel);
-                });
-
-                updateCardsArray();
-
-                if (currentIndex === 0 && cards.length > 0) {
-                    showCard(0);
+    
+        $.ajax({
+            url: './rsc/getDiscoverData.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    const newProfilesContainer = document.createElement('div');
+                    newProfilesContainer.className = 'new-profile-content';
+                    newProfilesContainer.innerHTML = data.html;
+    
+                    container.prepend(newProfilesContainer);
+    
+                    $(newProfilesContainer).find('.carousel').each(function() {
+                        initializeCarousel(this);
+                    });
+    
+                    updateCardsArray();
+    
+                    if (currentIndex === 0 && cards.length > 0) {
+                        showCard(0);
+                    }
+    
+                    console.log('Profiles loaded:', data.debug);
+                } else {
+                    console.error('Error loading profiles:', data.error);
                 }
-
-                console.log('Profiles loaded:', data.debug);
-            } else {
-                console.error('Error loading profiles:', data.error);
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX request failed:', error);
+            },
+            complete: function() {
+                isLoading = false;
             }
-        } catch (error) {
-            console.error('AJAX request failed:', error);
-        } finally {
-            isLoading = false;
-        }
+        });
     }
+    
 
     function updateCardsArray() {
         cards = Array.from(container.querySelectorAll('.profile-card'));
@@ -110,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('/handleLike.php', {
+        fetch('./src/handleLike.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

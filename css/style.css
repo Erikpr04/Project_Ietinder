@@ -85,7 +85,7 @@
     font-style: normal;
 }
 
-/* General reset */
+/* General reset 
 
 * {
     margin: 0;
@@ -94,6 +94,7 @@
     font-family: "GothamRnd", sans-serif;
     color: var(--black-color);
 }
+    */
 
 body {
     display: flex;
@@ -338,7 +339,6 @@ body#profile #map {
     height: 400px; /* Altura del mapa */
     width: 30%;   /* Ancho del mapa */
 }
-=======
 /* Definición de la fuente */
 @font-face {
     font-family: "HeavyHeap";
@@ -366,17 +366,6 @@ h2 span{
             var(--red-color));
 }
 
-:root {
-    --white-color: #F5F5F5;
-    --black-color: #212121;
-    --darkBlue-color: #2C3E50;
-    --red-color: #fe3232;
-    --orange-color: #FD5F35;
-    --tangerine-color: #FB8B37;
-    --gold-color: #F9B839;
-    --yellow-color: #f7e43b;
-}
-
 body {
     display: flex;
     align-items: flex-start; 
@@ -390,23 +379,10 @@ body {
     animation: gradient 15s ease infinite;
 }
 
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
 
 #main-header {
     width: 100%; 
     text-align: left; 
-    padding: 1rem; 
-    margin-left: 1rem;
     background-color: var(--darkBlue-color); 
     color: var(--white-color); 
     font-size: 1.5rem; 
@@ -414,6 +390,11 @@ body {
     top: 0; 
     z-index: 10; 
 }
+
+#main-header h2{
+    padding-left: 1rem;
+}
+
 
 #main-container {
     display: flex;
@@ -443,21 +424,6 @@ body {
     position: relative; 
 }
 
-#main-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%; 
-    height: 10%;
-    text-align: center; 
-    padding: 1rem; 
-    background-color: var(--darkBlue-color); 
-    color: var(--white-color); 
-    font-size: 1.5rem; 
-    position: sticky; 
-    bottom: 0; 
-    z-index: 10; 
-}
 
 #main-content-container {
     width: 100%; 
@@ -481,7 +447,7 @@ body {
     color: var(--white-color); 
     font-size: 1.5rem; 
     position: sticky; 
-    z-index: 12; 
+    z-index: 60; 
 }
 
 /* Estilo base para los botones */
