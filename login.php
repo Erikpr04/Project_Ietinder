@@ -20,14 +20,18 @@
 <body id="login">
 
     <?php
-        require_once './rsc/log.php';
+        require_once './rsc/db_config.php';
+
+        // Obtener las variables de entorno necesarias con valores por defecto
+        $host = getenv('DB_HOST');
+        $dbname = getenv('DB_NAME') ;
+        $username = getenv('DB_USERNAME');
+        $password = getenv('DB_PASSWORD') ;
 
         if (isset($_COOKIE['user_id'])) {
-            createLog(action: "Usuario con la id: " . $_COOKIE['user_id'] . "ha intentadio entrar a login.php con la sesióna activada, ha sido redirigido a discover.php");
             header('Location: ./discover.php');
         }
         else {
-            createLog(action: "Usuario no identificado ha entrado en login.php");
         }
     ?>
 
