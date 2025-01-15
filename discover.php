@@ -45,7 +45,8 @@ if (isset($_COOKIE['user_id'])) {
             </div>
         </div>
     </div>
-<!-- aqui va footer-->
+    
+    <?php include('footer.php'); ?>
 
 </div>
 
