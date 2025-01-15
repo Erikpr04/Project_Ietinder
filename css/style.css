@@ -777,19 +777,19 @@ footer p a:hover {
 .profile-info {
     font-size: 1.5rem;
     font-family: "Sour Gummy", serif;
-    padding: 10px;
+    padding: 5px;
+    width: fit-content;
     display: inline;
     background-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
     position: absolute;
     text-align: left;
-    z-index: 8;
-    margin-bottom: 20%;
-    position: absolute;
+    margin-bottom: 30%;
+    margin-left: 30px;
+    border-radius: .5rem;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 20px;
     z-index: 50;
 }
 
@@ -801,7 +801,6 @@ footer p a:hover {
 .match-overlay {
     position: fixed;
     top: 0;
-    left: 0;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
@@ -812,6 +811,13 @@ footer p a:hover {
     width: 460px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.match-overlay h2 {
+    font-family: "Sour Gummy", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: .1rem;
 }
 
 /* Estilos para la notificación */
@@ -849,7 +855,7 @@ footer p a:hover {
 .carousel {
     position: relative;
     width: 100%;
-    height: 80vh;
+    height: 100%;
     overflow: hidden;
     background-color: #f0f0f0;
 }
