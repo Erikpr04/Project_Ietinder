@@ -2,6 +2,8 @@
 // Cargar las variables del archivo .env
 require_once 'db_config.php';
 
+
+
 // Obtener las variables de entorno necesarias con valores por defecto
 $host = getenv('DB_HOST') ?: 'localhost';
 $dbname = getenv('DB_NAME') ?: '';
@@ -66,8 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'message' => 'Error al ejecutar la consulta: ' . $e->getMessage()
         ]);
     }
-
-    createLog($cookieValue." ha hecho cambios en su perfil");
 
     unset($pdo);
     unset($query);
