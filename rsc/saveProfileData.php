@@ -37,11 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
         $query->bindParam(":id", $cookieValue);
-    } else {
-        $cookieValue = "1";
-        $query->bindParam(":id", $cookieValue);
     }
-
     try {
         if ($query->execute()) {
             echo json_encode([
