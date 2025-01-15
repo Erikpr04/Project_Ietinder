@@ -341,7 +341,8 @@ body#profile #map {
 }
 
 /* MARK: messages*/
-body#messages{
+body#messages div#containerPrincipal{
+    background-color: var(--darkBlue-color);
     display: flex;
     flex-direction: column;
     max-width: 460px;
@@ -458,9 +459,14 @@ footer {
     display: flex;
     flex-direction: row;
     max-width: 100%;
+    position: sticky;
+    z-index: 10;
+
+    background-color: var(--darkBlue-color);
 }
 
 footer h3 a {
+    color: var(--white-color);
     text-decoration: none;
     color: inherit;
 }

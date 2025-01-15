@@ -19,28 +19,31 @@
 
 <body id="messages">
 
-    <header>
-        <h2>S<span>w</span>ipeIt</h2>
-        <a href="#"> Buscar </a>
-    </header>
+    <div id="containerPrincipal">
+        <header>
+            <h2>S<span>w</span>ipeIt</h2>
+            <a href="#"> Buscar </a>
+        </header>
 
-    <main>
-        <div id="containerMatches">
-            <h3>Mis matches</h3>
+        <main>
+            <div id="containerMatches">
+                <h3>Mis matches</h3>
 
-            <!-- para los que han dado match -->
-            <div id="matchedProfiles"></div>
+                <!-- para los que han dado match -->
+                <div id="matchedProfiles"></div>
 
-        </div>
+            </div>
 
-        <div id="containerMessages">
-            <h3>Mensajes</h3>
+            <div id="containerMessages">
+                <h3>Mensajes</h3>
 
-            <!-- para los que tienes una conversación -->
-            <div id="messagedProfiles"></div>
-        </div>
-    </main>
+                <!-- para los que tienes una conversación -->
+                <div id="messagedProfiles"></div>
+            </div>
+        </main>
 
-    <?php include('footer.php'); ?>
+        <?php include('footer.php'); ?>
+    </div>
+
 </body>
 </html>
