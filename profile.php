@@ -34,8 +34,8 @@
             // configuración de la base de datos
             $host = "localhost:3306";
             $dbname = "SwipeITDB";
-            $username = "admin";  //!!! cambiar nombre
-            $password = "admin";
+            $username = "client";
+            $password = "milt0n";
 
             // Conexión a la base de datos
             try {
