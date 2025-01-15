@@ -23,7 +23,7 @@ if (isset($_COOKIE['user_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body id="login">
     <div class="login-container">
         <form action="" method="post" autocomplete="off">
             <h2>S<span>w</span>ipeIt</h2>

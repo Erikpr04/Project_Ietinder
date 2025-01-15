@@ -19,6 +19,19 @@
     --color--brand-gradient-start: #fd267a;
     --color--brand-primary: #ff4458;
     --color--brand-primary-a11y: #d4004f;
+
+    background: linear-gradient(-45deg,
+    var(--red-color),
+    var(--gold-color),
+    var(--tangerine-color),
+    var(--orange-color),
+    var(--yellow-color));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @font-face {
@@ -94,20 +107,12 @@
     color: var(--black-color);
 }
 
-body {
+body#login body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-
-    background: linear-gradient(-45deg,
-            var(--red-color),
-            var(--gold-color),
-            var(--tangerine-color),
-            var(--orange-color),
-            var(--yellow-color));
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    height: 100dvh;
+    width: 460px;
 }
 
 @keyframes gradient {
@@ -138,7 +143,7 @@ body {
 }
 
 /* Form layout */
-form {
+body#login form {
     display: flex;
     flex-direction: column;
 }
@@ -150,7 +155,8 @@ h2 span {
     font-size: 4rem;
 }
 
-h2 span, .app-description span {
+h2 span, .app-description span 
+h3 span, .app-description span {
     color: transparent;
     margin-inline: 0.1px;
     background-clip: text;
@@ -229,7 +235,7 @@ h2 span, .app-description span {
 }
 
 /* Button styling */
-button {
+body#login button {
     position: relative;
     background: transparent;
     border: 2px solid var(--black-color);
@@ -241,7 +247,7 @@ button {
     margin-block: 2.5rem;
 }
 
-button::after {
+body#login button::after {
     content: "";
     position: absolute;
     background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
@@ -254,9 +260,9 @@ button::after {
     z-index: -1;
 }
 
-button:hover::after, button:hover {
+body#login button:hover::after, body#login button:hover {
     opacity: 1;
-    border-color: transparent;
+    border-color: transparent;  
     color: var(--white-color);
 }
 
@@ -307,18 +313,18 @@ button:hover::after, button:hover {
     justify-content: start;
 }
 
-input[type="checkbox"] {
+body#login input[type="checkbox"] {
     display: none; 
 }
 
-input[type="checkbox"] + label {
+body#login input[type="checkbox"] + label {
     display: none;
     /* display: flex;  */
     align-items: center;
     cursor: pointer;
 }
 
-input[type="checkbox"] + label::before {
+body#login input[type="checkbox"] + label::before {
     content: '';
     display: inline-block;
     width: .6rem; 
@@ -328,12 +334,144 @@ input[type="checkbox"] + label::before {
     margin-right: .25rem;
 }
 
-input[type="checkbox"]:checked + label::before {
+body#login input[type="checkbox"]:checked + label::before {
     background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
 }
 
-/* MARK: Profile*/
+/* MARK: Profile */
+body#profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    width: 460px;
+}
+
+body#profile main {
+    width: 100%;
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(1rem);
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
 body#profile #map {
-    height: 400px; /* Altura del mapa */
-    width: 30%;   /* Ancho del mapa */
+    height: 200px; /* Altura del mapa */
+    background-color: var(--light-blue-color);
+    border-radius: .25rem;
+}
+
+body#profile form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+h3,
+h3 span {
+    font-family: "HeavyHeap", sans-serif;
+    font-size: 3rem;
+}
+
+.profile-personalData {
+    display: flex;
+    width: 100%;
+    gap: .5rem;
+}
+
+body#profile .profile-input {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    flex-grow: 1;
+}
+
+body#profile #mail {
+    background-color: #d6d6d6;
+}
+
+body#profile .google-maps {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+/* Input styling */
+body#profile .profile-input input, body#profile .profile-input select {
+    background-color: #fff;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    border: 2px solid #a5a5a5;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 2rem;
+    font-size: 1rem;
+    width: 100%;
+    appearance: none;
+    outline: none;
+}
+
+body#profile .profile-input label {
+    text-align: left;
+    padding-left: .25rem;
+}
+
+body#profile label {
+    font-family: "Sour Gummy", serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: .1rem;
+}
+
+body#profile input:focus, body#profile select:focus {
+    outline: transparent;
+    border: 2px solid transparent;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    background: linear-gradient(#fff, #fff) padding-box, 
+                linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end)) border-box;
+}
+
+body#profile input:focus + label, body#profile select:focus + label {
+    background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
+    background-clip: text;
+    color: transparent;
+}
+
+body#profile a {
+    text-align: left;
+}
+
+body#profile #buttonSave {
+    position: relative;
+    background: transparent;
+    border: 2px solid var(--black-color);
+    font-weight: 500;
+    padding-block: 0.5rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
+body#profile #buttonSave::after {
+    content: "";
+    position: absolute;
+    background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
+    opacity: 0;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: .5rem;
+    z-index: -1;
+}
+
+body#profile #buttonSave:hover::after, body#profile #buttonSave:hover {
+    opacity: 1;
+    border-color: transparent;  
+    color: var(--white-color);
 }
