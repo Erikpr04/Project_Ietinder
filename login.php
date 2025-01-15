@@ -20,13 +20,7 @@
 <body id="login">
 
     <?php
-        require_once './rsc/db_config.php';
 
-        // Obtener las variables de entorno necesarias con valores por defecto
-        $host = getenv('DB_HOST');
-        $dbname = getenv('DB_NAME') ;
-        $username = getenv('DB_USERNAME');
-        $password = getenv('DB_PASSWORD') ;
 
         if (isset($_COOKIE['user_id'])) {
             header('Location: ./discover.php');
@@ -86,6 +80,16 @@
 
         // Manejo del formulario POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            require_once './rsc/db_config.php';
+
+            // Obtener las variables de entorno necesarias con valores por defecto
+            $host = getenv('DB_HOST');
+            $dbname = getenv('DB_NAME') ;
+            $username = getenv('DB_USERNAME');
+            $pass = getenv('DB_PASSWORD') ;
+
+
             // Validar que las variables existan antes de usarlas
             $email = isset($_POST['email']) ? trim($_POST['email']) : null;
             $password = isset($_POST['password']) ? trim($_POST['password']) : null;
@@ -93,7 +97,7 @@
         
             if ($email && $password) {
                 // Conexión a la base de datos
-                $connection = new mysqli($host, $user, $password, $dbname);
+                $connection = new mysqli($host, $username, $pass, $dbname);
 
                 if ($connection->connect_error) {
                     die("Conexión fallida: " . $connection->connect_error);

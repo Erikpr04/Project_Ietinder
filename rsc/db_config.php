@@ -19,7 +19,6 @@ function loadEnv($file) {
 }
 
 // Cargar las variables del archivo .env
-// Cargar las variables del archivo .env
 loadEnv(dirname(__DIR__) . '/.env');
 
 $host = getenv('DB_HOST');
