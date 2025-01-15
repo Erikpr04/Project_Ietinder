@@ -1,5 +1,5 @@
 <?php
-require_once 'log.php';
+require_once '../log.php';
 
 header('Content-Type: application/json');
 
@@ -181,6 +181,8 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
             $sql .= " AND (u.sex = 'hombre' OR u.sex = 'mujer') AND u.sexual_orientation IN ('bisexual')";
         }
     } 
+    
+    createLog($sql);
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':myId' => $myId]);
@@ -199,7 +201,7 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
             $age = $birthDate->diff($today)->y;  // Edad en años
             $row['age'] = $age;  // Asignamos la edad calculada al array $row
         } else {
-            $row['age'] = null;  // Si no hay fecha de nacimiento, podemos asignar null
+            $row['age'] = null;  
         }
         
         $profiles[] = $row;

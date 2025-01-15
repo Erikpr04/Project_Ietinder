@@ -1,4 +1,3 @@
-<script src="./js/utils.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,19 +8,17 @@
     <title>SwipeIt! - Discover</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src="./discover.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="../js/discover.js"></script>
 </head>
 <body>
 
 <?php
 require_once 'log.php';
 
-// COOKIE AND USER SESSION MANAGEMENT
 if (isset($_COOKIE['user_id'])) {
-    createLog(action: "Usuario entrado a discover.php con id: " . $_COOKIE['user_id']);
+    createLog(action: "Usuario entrado a discover con id: " . $_COOKIE['user_id']);
 }
-
 ?>
 
 <!-- HTML STRUCTURE -->
@@ -48,11 +45,8 @@ if (isset($_COOKIE['user_id'])) {
             </div>
         </div>
     </div>
-    <div id="main-footer">
-        <a href="/discover.php">Descubrir</a>
-        <a href="/messages.php">Mensajes</a>
-        <a href="/profile.php">Perfil</a>
-    </div>
+<!-- aqui va footer-->
+
 </div>
 
 </body>
