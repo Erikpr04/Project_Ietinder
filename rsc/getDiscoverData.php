@@ -1,5 +1,5 @@
 <?php
-require_once '../log.php';
+require_once './log.php';
 
 header('Content-Type: application/json');
 
@@ -180,9 +180,7 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
         } elseif ($sex_orientation == 'bisexual') {
             $sql .= " AND (u.sex = 'hombre' OR u.sex = 'mujer') AND u.sexual_orientation IN ('bisexual')";
         }
-    } 
-    
-    createLog($sql);
+    }
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':myId' => $myId]);
@@ -207,7 +205,7 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
         $profiles[] = $row;
     }
     
-    createLog("Se han encontrado " . count($profiles) . " Perfiles");
+    createLog($myId."ha encontrado " . count($profiles) . " perfiles");
 
 
     return $profiles;
@@ -320,8 +318,11 @@ function handleLike($user1_id, $user2_id) {
     if ($match) {
         $stmt = $pdo->prepare("UPDATE Interaction SET matched = true WHERE user1_id = ? AND user2_id = ?");
         $stmt->execute([$user1_id, $user2_id]);
+        createLog($user1_id." ha matcheado con ".$user2_id);
         return true;
     }
+
+    createLog($user1_id." ha dado like a ".$user2_id);
 
     return false;
 }

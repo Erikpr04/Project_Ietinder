@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <!-- HEAD SECTION -->
 <head>
     <meta charset="UTF-8">
@@ -9,20 +8,24 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css?t=<?php echo time();?>"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./js/utils.js"></script>
-    <script src="../js/discover.js"></script>
+    <script src="./js/discover.js"></script>
 </head>
 <body>
 
-<?php
-require_once 'log.php';
-
-if (isset($_COOKIE['user_id'])) {
-    createLog(action: "Usuario entrado a discover con id: " . $_COOKIE['user_id']);
-}
-?>
-
-<!-- HTML STRUCTURE -->
 <div id="main-container">
+    <?php
+        require_once './rsc/log.php';
+
+        if (isset($_COOKIE['user_id'])) {
+            createLog(action: "Usuario entrado a discover con id: " . $_COOKIE['user_id']);
+        }
+        else {
+            createLog(action: "Usuario no tiene cookie, redirigiendo de discover a login");
+
+            header('Location: ./login.php');
+        }
+    ?>
+
     <div id="main-header"><h2>S<span>w</span>ipeIt!</h2></div>
     <div id="main-content">
         <div class="match-overlay" id="matchOverlay">

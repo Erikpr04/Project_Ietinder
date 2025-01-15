@@ -1,9 +1,9 @@
 <?php
-    // !!! cookie: user_id:"n"
+
+    require_once './log.php';
+
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
-    } else {
-        $cookieValue = "23";
     }
 
     // configuración de la base de datos
@@ -39,5 +39,7 @@
     // Liberar recursos
     unset($pdo);
     unset($query);
+
+    createLog("Usuario con el id: ".$cookieValue." ha consultado sus matches en la página messages.php");
 
     echo json_encode($results);

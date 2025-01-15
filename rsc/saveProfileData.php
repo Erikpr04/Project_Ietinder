@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'message' => 'Error al conectar a la base de datos: ' . $e->getMessage()
         ]);
         exit;
-        die("Error al conectar a la base de datos: " . $e->getMessage());
     }
 
     $query = $pdo->prepare("UPDATE User
@@ -56,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'message' => 'Error al ejecutar la consulta: ' . $e->getMessage()
         ]);
     }
+
+    createLog($cookieValue." ha hehco cambios en su perfil");
 
     unset($pdo);
     unset($query);
