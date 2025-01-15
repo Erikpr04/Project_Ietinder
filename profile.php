@@ -23,6 +23,18 @@
     <main>
         <!-- cookie: user_id:"n" -->
         <?php
+            require_once './rsc/log.php';
+
+            if (isset($_COOKIE['user_id'])) {
+                createLog(action: "Usuario entrado a profile.php con id: " . $_COOKIE['user_id']);
+            }
+            else {
+                createLog(action: "Usuario no tiene cookie, redirigiendo de profile.php a login.php");
+    
+                header('Location: ./login.php');
+            }
+
+            // recoger cookie
             if (isset($_COOKIE['user_id'])) {
                 $cookieValue = $_COOKIE['user_id'];
             }
@@ -46,8 +58,6 @@
             $query->bindParam(":id", $cookieValue);
             $query->execute();
             $result = $query->fetch();
-
-            if($result) var_dump($result);
 
             // Liberar recursos
             unset($pdo);

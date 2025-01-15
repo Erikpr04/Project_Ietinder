@@ -1,9 +1,6 @@
 <?php
-    // !!! cookie: user_id:"n"
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
-    } else {
-        $cookieValue = "23";
     }
 
     // configuración de la base de datos
@@ -39,5 +36,7 @@
     // Liberar recursos
     unset($pdo);
     unset($query);
+
+    createLog($cookieValue." ha buscado sus mathces y mensajes");
 
     echo json_encode($results);

@@ -1,11 +1,3 @@
-<script src="./js/utils.js"></script>
-
-<?php
-if (isset($_COOKIE['user_id'])) {
-    echo "<script>sendLog('User {$_COOKIE['user_id']} tried to access into Login.php with an active session, redirecting him to discover.php').then(() => { window.location.href = 'discover.php'; });</script>";
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +16,19 @@ if (isset($_COOKIE['user_id'])) {
 </head>
 
 <body id="login">
+
+    <?php
+        require_once './rsc/log.php';
+
+        if (isset($_COOKIE['user_id'])) {
+            createLog(action: "Usuario con la id: " . $_COOKIE['user_id'] . "ha intentadio entrar a login.php con la sesióna activada, ha sido redirigido a discover.php");
+            header('Location: ./discover.php');
+        }
+        else {
+            createLog(action: "Usuario inidentificado ha entrado en login.php");
+        }
+    ?>
+
     <div class="login-container">
         <form action="" method="post" autocomplete="off">
             <h2>S<span>w</span>ipeIt</h2>

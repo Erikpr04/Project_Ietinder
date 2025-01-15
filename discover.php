@@ -13,16 +13,20 @@
 </head>
 <body>
 
-<?php
-require_once 'log.php';
-
-if (isset($_COOKIE['user_id'])) {
-    createLog(action: "Usuario entrado a discover con id: " . $_COOKIE['user_id']);
-}
-?>
-
-<!-- HTML STRUCTURE -->
 <div id="main-container">
+    <?php
+        require_once './rsc/log.php';
+
+        if (isset($_COOKIE['user_id'])) {
+            createLog(action: "Usuario entrado a discover con id: " . $_COOKIE['user_id']);
+        }
+        else {
+            createLog(action: "Usuario no tiene cookie, redirigiendo de discover a login");
+
+            header('Location: ./login.php');
+        }
+    ?>
+
     <div id="main-header"><h2>S<span>w</span>ipeIt!</h2></div>
     <div id="main-content">
         <div class="match-overlay" id="matchOverlay">

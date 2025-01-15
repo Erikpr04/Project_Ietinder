@@ -19,6 +19,19 @@
 
 <body id="messages">
 
+    <?php
+        require_once './rsc/log.php';
+
+        if (isset($_COOKIE['user_id'])) {
+            createLog(action: "Usuario entrado a messages con id: " . $_COOKIE['user_id']);
+        }
+        else {
+            createLog(action: "Usuario no tiene cookie, redirigiendo de messages a login");
+
+            header('Location: ./login.php');
+        }
+    ?>
+
     <div id="containerPrincipal">
         <header>
             <h2>S<span>w</span>ipeIt</h2>

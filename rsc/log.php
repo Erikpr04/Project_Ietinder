@@ -16,7 +16,7 @@ function createLog($action) {
     $date = date("d-m-Y"); 
     $timedate = date("d-m-Y H:i:s");
     $message = "[{$timedate}] {$action}\n"; 
-    $logDir = __DIR__ . "/logs";
+    $logDir = dirname(__DIR__) . "/logs";
 
 
     if (!is_dir($logDir)) {
@@ -32,7 +32,3 @@ function createLog($action) {
         file_put_contents($filename, $message);
     }
 }
-
-
-?>
-
