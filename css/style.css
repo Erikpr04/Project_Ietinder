@@ -1,3 +1,4 @@
+
 /* UTILS */
 
 :root {
@@ -20,6 +21,7 @@
     --color--brand-primary: #ff4458;
     --color--brand-primary-a11y: #d4004f;
 
+
     background: linear-gradient(-45deg,
     var(--red-color),
     var(--gold-color),
@@ -32,6 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 @font-face {
@@ -97,7 +100,7 @@
     font-style: normal;
 }
 
-/* General reset */
+/* General reset 
 
 * {
     margin: 0;
@@ -106,6 +109,7 @@
     font-family: "GothamRnd", sans-serif;
     color: var(--black-color);
 }
+    */
 
 body#login body {
     display: flex;
@@ -474,4 +478,449 @@ body#profile #buttonSave:hover::after, body#profile #buttonSave:hover {
     opacity: 1;
     border-color: transparent;  
     color: var(--white-color);
+}
+
+
+/* MARK: messages*/
+body#messages div#containerPrincipal{
+    background-color: var(--darkBlue-color);
+    display: flex;
+    flex-direction: column;
+    max-width: 460px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+body#messages header{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+}
+
+body#messages header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 450px;
+}
+
+body#messages header h2 {
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+body#messages header a {
+    margin-bottom: 5%;
+    text-decoration: none;
+    color: inherit;
+}
+
+body#messages main #containerMatches,
+body#messages main #containerMessages {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 450px;
+}
+
+body#messages main .centerContentInContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+body#messages main div.centerTextMessage{
+    text-align: center;
+}
+
+/* profiles sin conversaciones */
+body#messages main #containerMatches #matchedProfiles {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px;
+    min-height: 150px;
+    align-items: flex-start;
+}
+
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 120px;
+}
+
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage img {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+}
+
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p {
+    margin: 10px 0 0 0;
+    text-align: center;
+    width: 100%;
+}
+
+
+/* profiles con conversaciones */
+body#messages main #containerMessages #messagedProfiles{
+    min-height: 334px;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage p {
+    margin: 0;
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* MARK: footer */
+footer {
+    gap: 80px;
+    margin: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    position: sticky;
+    z-index: 10;
+
+    background-color: var(--darkBlue-color);
+}
+
+footer h3 a {
+    color: var(--white-color);
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Definición de la fuente */
+@font-face {
+    font-family: "HeavyHeap";
+    src: url("/fonts/heavy_heap_rg.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+#main-header {
+    width: 100%; 
+    text-align: left; 
+    background-color: var(--darkBlue-color); 
+    color: var(--white-color); 
+    font-size: 1.5rem; 
+    position: sticky; 
+    top: 0; 
+    z-index: 10; 
+}
+
+#main-header h2{
+    padding-left: 1rem;
+}
+
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    min-width: 375px; 
+    width: 460px; 
+    height: 100vh; 
+    background-color: var(--white-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+    position: relative; 
+}
+
+#main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    min-width: 375px; 
+    width: 100%;
+    height: 95%; 
+    background-color: var(--white-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+    position: relative; 
+}
+
+
+#main-content-container {
+    width: 100%; 
+    height: 100%;
+    text-align: center; 
+    color: var(--white-color); 
+    font-size: 1.5rem; 
+    bottom: 0; 
+    z-index: 10; 
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#main-content-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%; 
+    text-align: center; 
+    color: var(--white-color); 
+    font-size: 1.5rem; 
+    position: sticky; 
+    z-index: 60; 
+}
+
+/* Estilo base para los botones */
+#dislike-button,
+#like-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Botón Dislike */
+#dislike-button {
+    background: linear-gradient(135deg, var(--red-color), var(--orange-color)); 
+}
+
+#dislike-button:hover {
+    transform: scale(1.1); 
+}
+
+#dislike-button i {
+    color: white;
+    transition: transform 0.3s, color 0.3s;
+}
+#dislike-button:hover i {
+    transform: scale(1.2);
+    color: rgba(255, 255, 255, 0.8); 
+}
+
+/* Botón Like */
+#like-button {
+    background: linear-gradient(135deg, var(--gold-color), var(--tangerine-color));
+}
+
+#like-button:hover {
+    transform: scale(1.1);
+}
+
+#like-button i {
+    color: white;
+    transition: transform 0.3s, color 0.3s;
+}
+
+#like-button:hover i {
+    transform: scale(1.2); 
+    color: rgba(255, 255, 255, 0.8); 
+}
+
+.profile-card {
+    justify-content: end;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    text-shadow: #212121 1px 1px;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    padding: 10px;
+    position: absolute;
+    text-align: left;
+    z-index: 8;
+    margin-bottom: 20%;
+}
+
+#main-footer a{
+    text-decoration: none;
+    color: var(--white-color);
+    transition: transform 0.3s ease, color 0.3s ease; 
+
+}
+#main-footer a:hover{
+    text-decoration: none;
+    color: var(--white-color);
+    transform: scale(1.1); 
+
+}
+
+
+/* Matches */
+
+
+/* Estilos para el overlay desenfocado */
+.match-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Estilos para la notificación */
+.match-notification {
+    display: flex;
+    flex-direction: column;
+    background-color: #28a745;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+
+}
+
+/* Botones */
+.match-notification button {
+    margin: 10px 5px 0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #28a745;
+    cursor: pointer;
+    font-size: 0.5rem;
+}
+
+.match-notification button:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.carousel-images {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none;
+}
+
+.carousel-image.active {
+    opacity: 1;
+    display: block;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    z-index: 100;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background-color: white;
+    transform: scale(1.2);
+}
+
+/* Ajustes para las tarjetas de perfil */
+.profile-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    overflow: hidden;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.profile-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    color: white;
+    z-index: 50;
+}
+
+/* Ajuste para el contenedor principal */
+#main-content-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
 }

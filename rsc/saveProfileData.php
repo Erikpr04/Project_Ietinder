@@ -5,8 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // configuración de la base de datos
     $host = "localhost:3306";
     $dbname = "SwipeITDB";
-    $username = "admin"; //!!! cambiar nombre
-    $password = "admin";
+    $username = "client";
+    $password = "milt0n";
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -37,11 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
         $query->bindParam(":id", $cookieValue);
-    } else {
-        $cookieValue = "1";
-        $query->bindParam(":id", $cookieValue);
     }
-
     try {
         if ($query->execute()) {
             echo json_encode([

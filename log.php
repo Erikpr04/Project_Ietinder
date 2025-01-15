@@ -17,7 +17,7 @@ function createLog($action) {
     $timedate = date("d-m-Y H:i:s");
     $message = "[{$timedate}] {$action}\n"; 
     $logDir = __DIR__ . "/logs";
-    echo $logDir;
+
 
     if (!is_dir($logDir)) {
         mkdir($logDir, 0777, true);
@@ -35,3 +35,4 @@ function createLog($action) {
 
 
 ?>
+
