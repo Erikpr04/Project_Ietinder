@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>SwipeIt! - login</title>
 </head>
 
 <body id="login">
@@ -25,7 +27,7 @@
             header('Location: ./discover.php');
         }
         else {
-            createLog(action: "Usuario inidentificado ha entrado en login.php");
+            createLog(action: "Usuario no identificado ha entrado en login.php");
         }
     ?>
 

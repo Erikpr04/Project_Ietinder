@@ -1,5 +1,5 @@
 <?php
-require_once '../log.php';
+require_once './log.php';
 
 header('Content-Type: application/json');
 

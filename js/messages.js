@@ -55,8 +55,27 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
         }
         else{
             hasMessages = true;
-            $('#messagedProfiles').append(newMatchedProfile);
-            $('#profile'+profile.idConversation).append(image,name);
+
+            //buscar el último mensaje
+            $.ajax({
+                url: '/rsc/getLastMessage.php',
+                method: 'POST',
+                data: { idUsuario: profile.user2_id },
+                success: function(lastMessageInfo) {
+
+                    const lastMessage = $("<p></p>").text(lastMessageInfo.slice(1, -1));
+                    // contenedor que almecena los datos relacionados
+                    const sectionContainer = $("<section></section>").append(name, lastMessage);
+
+                    $('#messagedProfiles').append(newMatchedProfile);
+                    $('#profile' + profile.idConversation).append(image,sectionContainer);
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Hubo un error al obtener el último mensaje: ' + error);
+                }
+            }); 
+
         }
 
     };

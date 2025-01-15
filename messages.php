@@ -6,15 +6,15 @@
     <meta name="author" content="Victor Valero, Erik Pinto, Marta Arévalo">
     <meta name="description" content="Esta es la vista mensajes de la app SwipeIt">
 
-    <script src="/js/jquery-3.7.1.min.js"></script>
-    <script src="/js/messages.js"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/messages.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="/css/style.css?t=<?php echo time();?>"/>
+    <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time();?>"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">    
 
-    <title>Mensajes</title>
+    <title>SwipeIt! - Messages</title>
 </head>
 
 <body id="messages">

@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <!-- HEAD SECTION -->
 <head>
     <meta charset="UTF-8">
@@ -9,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css?t=<?php echo time();?>"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./js/utils.js"></script>
-    <script src="../js/discover.js"></script>
+    <script src="./js/discover.js"></script>
 </head>
 <body>
 

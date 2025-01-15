@@ -3,7 +3,7 @@
 header('Content-Type: application/json');
 
 
-require_once '../log.php';
+require_once './log.php';
 error_log("entered handlelike");
 
 createLog("Procesando likes");

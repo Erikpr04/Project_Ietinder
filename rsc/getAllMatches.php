@@ -1,4 +1,7 @@
 <?php
+
+    require_once './log.php';
+
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
     }
@@ -37,6 +40,6 @@
     unset($pdo);
     unset($query);
 
-    createLog($cookieValue." ha buscado sus mathces y mensajes");
+    createLog("Usuario con el id: ".$cookieValue." ha consultado sus matches en la página messages.php");
 
     echo json_encode($results);
