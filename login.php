@@ -1,6 +1,8 @@
 <script src="./js/utils.js"></script>
 
 <?php
+    include_once 'index.php';
+
 if (isset($_COOKIE['user_id'])) {
     echo "<script>sendLog('User {$_COOKIE['user_id']} tried to access into Login.php with an active session, redirecting him to discover.php').then(() => { window.location.href = 'discover.php'; });</script>";
     exit();
@@ -82,7 +84,7 @@ if (isset($_COOKIE['user_id'])) {
         
             if ($email && $password) {
                 // Conexión a la base de datos
-                $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeITDB');
+                $connection = new mysqli($host, $user, $password, $dbname);
 
                 if ($connection->connect_error) {
                     die("Conexión fallida: " . $connection->connect_error);

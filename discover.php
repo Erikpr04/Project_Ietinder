@@ -14,7 +14,7 @@
 <body>
 
 <?php
-require_once 'log.php';
+require_once './rsc/log.php';
 
 if (isset($_COOKIE['user_id'])) {
     createLog(action: "Usuario entrado a discover con id: " . $_COOKIE['user_id']);

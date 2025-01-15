@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isLoading = true;
     
         $.ajax({
-            url: './rsc/getDiscoverData.php',
+            url: 'rsc/getDiscoverData.php',
             method: 'GET',
             dataType: 'json',
             success: function(data) {
@@ -48,7 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             },
             error: function(xhr, status, error) {
-                console.error('AJAX request failed:', error);
+                console.error('AJAX request failed:', {
+                    status: status,
+                    error: error,
+                    response: xhr.responseText
+                });
+                try {
+                    const errorData = JSON.parse(xhr.responseText);
+                    console.error('Server error:', errorData.error);
+                } catch (e) {
+                    console.error('Could not parse error response:', xhr.responseText);
+                }
             },
             complete: function() {
                 isLoading = false;
@@ -96,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
 
         if (direction === 'like') {
-            await processLikeInteraction(card);
+             processLikeInteraction(card);
         }
 
         await new Promise(resolve => setTimeout(resolve, 300));
@@ -115,12 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('./src/handleLike.php', {
+        fetch('/rsc/handleLike.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 user1_id: parseInt(user1_id),
-                user2_id: parseInt(user2_id)
+                user2_id: parseInt(user2_id),
             }),
         })
         .then(function(response) {
@@ -134,6 +144,22 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(function(error) {
             console.error('Error processing like:', error);
+        });
+        
+        
+    }
+
+
+    function showMatchNotification() {
+        const overlay = document.getElementById('matchOverlay');
+        overlay.style.display = 'flex';
+
+        document.getElementById('continueButton').addEventListener('click', () => {
+            overlay.style.display = 'none';
+        });
+
+        document.getElementById('messagesButton').addEventListener('click', () => {
+            window.location.href = '/messages.php';
         });
     }
 

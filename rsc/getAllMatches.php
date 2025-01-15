@@ -1,16 +1,22 @@
 <?php
+// Cargar las variables del archivo .env
+require_once 'db_config.php';
+
+// Obtener las variables de entorno necesarias con valores por defecto
+$host = getenv('DB_HOST');
+$dbname = getenv('DB_NAME') ;
+$username = getenv('DB_USERNAME');
+$password = getenv('DB_PASSWORD') ;
+
+// Verificar que las variables requeridas estén definidas
+if (!$dbname || !$username || !$password) {
+    die("Error de configuración de la base de datos");
+}
+
     // !!! cookie: user_id:"n"
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
-    } else {
-        $cookieValue = "23";
-    }
-
-    // configuración de la base de datos
-    $host = "localhost:3306";
-    $dbname = "SwipeITDB";
-    $username = "client";
-    $password = "milt0n";
+    } 
 
     // Conexión a la base de datos
     try {
@@ -40,4 +46,3 @@
     unset($pdo);
     unset($query);
 
-    echo json_encode($results);
