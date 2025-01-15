@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Mostrar/ocultar contraseña
-    document.querySelector("#password i").addEventListener("click", function () {
+    document.querySelector("#togglePassword").addEventListener("click", function () {
         const passwordInput = document.querySelector("#password input");
         if (passwordInput) {
             this.classList.toggle("fa-eye");

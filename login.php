@@ -50,7 +50,7 @@
                     <div class="input-field" id="password">
                         <input type="password" name="password" maxlength="20" required>
                         <label>Introduce la contraseña</label>
-                        <i class="fa-solid fa-eye"></i>
+                        <button id="togglePassword"><i class="fa-solid fa-eye"></i></button>
                     </div>
                     <p><i class="fa-solid fa-asterisk"></i>La contraseña es incorrecta</p>
                 </div>

@@ -211,7 +211,7 @@ h3 span, .app-description span {
     padding-left: 0;
 }
 
-.input-field i {
+#togglePassword {
     position: absolute;
     right: 0;
     top: 50%;
