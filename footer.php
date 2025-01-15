@@ -1,5 +1,5 @@
 <footer>
-    <h4><a href="/discover.php">Descubrir</a></h4>
-    <h4><a href="/messages.php">Mensajes</a></h4>
-    <h4><a href="/profile.php">Perfil</a></h4>
+    <p><a href="/discover.php">Descubrir</a></p>
+    <p><a href="/messages.php">Mensajes</a></p>
+    <p><a href="/profile.php">Perfil</a></p>
 </footer>

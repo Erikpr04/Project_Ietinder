@@ -8,12 +8,18 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css?t=<?php echo time();?>"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./js/utils.js"></script>
+
     <script src="./js/discover.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
 
-<div id="main-container">
+<!-- HTML STRUCTURE -->
+
+<div class="main-container">
     <?php
         require_once './rsc/log.php';
 
@@ -25,8 +31,7 @@
             header('Location: ./login.php');
         }
     ?>
-
-    <div id="main-header"><h2>S<span>w</span>ipeIt!</h2></div>
+    <div class="main-header"><h2>S<span>w</span>ipeIt</h2></div>
     <div id="main-content">
         <div class="match-overlay" id="matchOverlay">
             <div class="match-notification">
@@ -43,7 +48,7 @@
                     <p>No</p>
                 </div>
                 <div id="like-button">
-                    <p>Yes</p>
+                    <p>Sí</p>
                 </div>
             </div>
         </div>

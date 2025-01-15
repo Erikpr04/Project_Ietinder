@@ -18,7 +18,8 @@ if (!$dbname || !$username || !$password) {
     // !!! cookie: user_id:"n"
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
-    } 
+    }
+
 
 
     // Conexión a la base de datos
