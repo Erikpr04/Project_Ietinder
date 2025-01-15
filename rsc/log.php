@@ -14,9 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 function createLog($action) {
     $date = date("d-m-Y"); 
-    $timedate = date("d-m-Y H:i:s");
+    $timedate= date("d-m-Y H:i:s", strtotime(date("d-m-Y H:i:s") . ' +1 hour'));
+
     $message = "[{$timedate}] {$action}\n"; 
-    $logDir = __DIR__ . "/logs";
+    $logDir = dirname(__DIR__) . "/logs";
+
 
 
     if (!is_dir($logDir)) {
@@ -32,7 +34,3 @@ function createLog($action) {
         file_put_contents($filename, $message);
     }
 }
-
-
-?>
-

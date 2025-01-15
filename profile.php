@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlpD9X2jl0jwfH92yjVCIw2y_ecoVmWRA"></script>
-    <script src="/js/jquery-3.7.1.min.js"></script>
-    <script src="/js/profile.js"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/profile.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="/css/style.css?t=<?php echo time();?>"/>" />
+    <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time();?>"/>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">   
 
-    <title>Tu perfil</title>
+    <title>SwipeIt! - Your Profile</title>
 
 </head>
 
@@ -23,15 +23,30 @@
     <main>
         <!-- cookie: user_id:"n" -->
         <?php
+            require_once './rsc/log.php';
+            require_once './rsc/db_config.php';
+
+            // Obtener las variables de entorno necesarias con valores por defecto
+            $host = getenv('DB_HOST') ;
+            $dbname = getenv('DB_NAME') ;
+            $username = getenv('DB_USERNAME') ;
+            $password = getenv('DB_PASSWORD');
+
+
+
+            if (isset($_COOKIE['user_id'])) {
+                createLog(action: "Usuario entrado a profile.php con id: " . $_COOKIE['user_id']);
+            }
+            else {
+                createLog(action: "Usuario no tiene cookie, redirigiendo de profile.php a login.php");
+    
+                header('Location: ./login.php');
+            }
+
+            // recoger cookie
             if (isset($_COOKIE['user_id'])) {
                 $cookieValue = $_COOKIE['user_id'];
             }
-
-            // configuración de la base de datos
-            $host = "localhost:3306";
-            $dbname = "SwipeITDB";
-            $username = "client";
-            $password = "milt0n";
 
             // Conexión a la base de datos
             try {
@@ -46,8 +61,6 @@
             $query->bindParam(":id", $cookieValue);
             $query->execute();
             $result = $query->fetch();
-
-            if($result) var_dump($result);
 
             // Liberar recursos
             unset($pdo);

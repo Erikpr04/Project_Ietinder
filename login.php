@@ -1,13 +1,5 @@
-<script src="./js/utils.js"></script>
-
-<?php
-if (isset($_COOKIE['user_id'])) {
-    echo "<script>sendLog('User {$_COOKIE['user_id']} tried to access into Login.php with an active session, redirecting him to discover.php').then(() => { window.location.href = 'discover.php'; });</script>";
-    exit();
-}
-?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -21,9 +13,24 @@ if (isset($_COOKIE['user_id'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>SwipeIt! - login</title>
 </head>
 
 <body id="login">
+
+    <?php
+        require_once './rsc/log.php';
+
+        if (isset($_COOKIE['user_id'])) {
+            createLog(action: "Usuario con la id: " . $_COOKIE['user_id'] . "ha intentadio entrar a login.php con la sesióna activada, ha sido redirigido a discover.php");
+            header('Location: ./discover.php');
+        }
+        else {
+            createLog(action: "Usuario no identificado ha entrado en login.php");
+        }
+    ?>
+
     <div class="login-container">
         <form action="" method="post" autocomplete="off">
             <h2>S<span>w</span>ipeIt</h2>
@@ -82,7 +89,7 @@ if (isset($_COOKIE['user_id'])) {
         
             if ($email && $password) {
                 // Conexión a la base de datos
-                $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeITDB');
+                $connection = new mysqli($host, $user, $password, $dbname);
 
                 if ($connection->connect_error) {
                     die("Conexión fallida: " . $connection->connect_error);

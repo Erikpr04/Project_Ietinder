@@ -1,6 +1,6 @@
 function sendLog(action) {
     console.log("Action to send:", action);
-    return fetch('log.php', {
+    return fetch('./rsc/log.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

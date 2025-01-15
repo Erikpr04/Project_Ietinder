@@ -1,84 +1,109 @@
 <?php
-// Establecer tipo de contenido como JSON
 header('Content-Type: application/json');
+include_once 'db_config.php';
 
-
-require_once '../log.php';
-error_log("entered handlelike");
-
-createLog("Procesando likes");
-
-// Obtener los datos enviados desde el cliente
-$data = json_decode(file_get_contents('php://input'), true);
-
-// Verificar si la cookie "user_id" está definida
-if (!isset($_COOKIE['user_id'])) {
-    echo json_encode(['error' => 'Cookie "user_id" no encontrada.']);
-    http_response_code(400); 
+// Verificar método POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['error' => 'Método no permitido']);
     exit();
 }
 
-// Obtener valores de los datos enviados
-$user1_id = (int)$data['user1_id'];  
-$user2_id = (int)$data['user2_id'];
+// Obtener y verificar variables de entorno
+$host = getenv('DB_HOST');
+$dbname = getenv('DB_NAME');
+$username = getenv('DB_USERNAME');
+$password = getenv('DB_PASSWORD');
 
-// Validar parámetros requeridos
+
+if (!$dbname || !$username || !$password) {
+    echo json_encode(['error' => 'Error de configuración del servidor']);
+    exit();
+}
+
+// Obtener y verificar datos de entrada
+$rawData = file_get_contents('php://input');
+$data = json_decode($rawData, true);
+
+if (json_last_error() !== JSON_ERROR_NONE) {
+    echo json_encode(['error' => 'Datos inválidos']);
+    exit();
+}
+
+// Verificar cookie
+if (!isset($_COOKIE['user_id'])) {
+    echo json_encode(['error' => 'No autorizado']);
+    exit();
+}
+
+// Validar IDs
+$user1_id = isset($data['user1_id']) ? (int)$data['user1_id'] : 0;
+$user2_id = isset($data['user2_id']) ? (int)$data['user2_id'] : 0;
+
 if (!$user1_id || !$user2_id) {
-    createLog("Error en alguno de los ids");
-
-    echo json_encode(['error' => 'Faltan parámetros']);
-    http_response_code(400); 
+    echo json_encode(['error' => 'IDs inválidos']);
     exit();
 }
 
 try {
-    // Conectar a la base de datos
-    $pdo = new PDO('mysql:host=localhost;dbname=SwipeITDB;charset=utf8mb4', 'client', 'milt0n');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Conexión a la base de datos
+    $pdo = new PDO(
+        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+        $username,
+        $password,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
 
-    // Consultar si existe una interacción entre los dos usuarios
-    $sql = "SELECT * FROM Interaction WHERE 
-            (user1_id = :user1_id AND user2_id = :user2_id) 
-            OR (user1_id = :user2_id AND user2_id = :user1_id)";
+    // Primero, verificar si el otro usuario ya nos dio like
+    $checkLikeSql = "SELECT * FROM Interaction 
+                     WHERE user1_id = :user2_id 
+                     AND user2_id = :user1_id 
+                     AND type = 'like'";
     
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':user1_id' => $user1_id, ':user2_id' => $user2_id]);
+    $checkStmt = $pdo->prepare($checkLikeSql);
+    $checkStmt->execute([
+        ':user1_id' => $user1_id,
+        ':user2_id' => $user2_id
+    ]);
+    
+    $existingLike = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
-    $interaction = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($existingLike) {
+        // El otro usuario ya nos dio like, actualizamos ambos registros a matched
+        $updateSql = "UPDATE Interaction 
+                     SET matched = true 
+                     WHERE ((user1_id = :user1_id AND user2_id = :user2_id) 
+                     OR (user1_id = :user2_id AND user2_id = :user1_id))
+                     AND type = 'like'";
+        
+        $updateStmt = $pdo->prepare($updateSql);
+        $updateStmt->execute([
+            ':user1_id' => $user1_id,
+            ':user2_id' => $user2_id
+        ]);
 
-    if ($interaction) {
-        // Si la interacción ya existe y `matched` es falso, actualizar a `true`
-        if ($interaction['type'] === 'like' && $interaction['matched'] == false) {
-            $updateSql = "UPDATE Interaction 
-                          SET matched = true 
-                          WHERE (user1_id = :user1_id AND user2_id = :user2_id) 
-                          OR (user1_id = :user2_id AND user2_id = :user1_id)";
-            
-            $updateStmt = $pdo->prepare($updateSql);
-            $updateStmt->execute([':user1_id' => $user1_id, ':user2_id' => $user2_id]);
-
-            // Lógica para notificar al usuario
-            echo json_encode(['match' => true]);
-            createLog("Usuario ha dado like, hay match");
-
-        } else {
-            // Si `matched` ya era verdadero, no hacer nada más
-            echo json_encode(['match' => false]);
-        }
+        // Hay match
+        echo json_encode(['match' => true]);
     } else {
-        // Si no existe interacción, crear una nueva con `matched = false`
+        // El otro usuario no nos ha dado like aún, creamos nuevo registro
         $insertSql = "INSERT INTO Interaction (user1_id, user2_id, type, matched) 
-                      VALUES (:user1_id, :user2_id, 'like', false)";
+                     VALUES (:user1_id, :user2_id, 'like', false)";
         
         $insertStmt = $pdo->prepare($insertSql);
-        $insertStmt->execute([':user1_id' => $user1_id, ':user2_id' => $user2_id]);
-        createLog("Usuario ha dado like, no hay match");
+        $insertStmt->execute([
+            ':user1_id' => $user1_id,
+            ':user2_id' => $user2_id
+        ]);
 
+        // No hay match aún
         echo json_encode(['match' => false]);
     }
+
 } catch (PDOException $e) {
-    echo json_encode(['error' => 'Error en la base de datos: ' . $e->getMessage()]);
-    http_response_code(500); // Código HTTP 500: Error interno del servidor
+    echo json_encode(['error' => 'Error en la base de datos']);
+    exit();
+} catch (Exception $e) {
+    echo json_encode(['error' => 'Error del servidor']);
     exit();
 }
 ?>
