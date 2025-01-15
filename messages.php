@@ -24,48 +24,76 @@
 
     
     <main>
-
-        <!-- cookie: user_id:"n" -->
-        <?php
-            if (isset($_COOKIE['user_id'])) {
-                $cookieValue = $_COOKIE['user_id'];
-                echo "The value of myCookie is: " . $cookieValue;
-            }
-            else{
-                $cookieValue = "1";
-            }
-
-            // configuración de la base de datos
-            $host = "localhost:3306";
-            $dbname = "SwipeITDB";
-            $username = "admin";  //!!! cambiar nombre
-            $password = "admin";
-
-            // Conexión a la base de datos
-            try {
-                $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $e) {
-                die("Error al conectar a la base de datos: " . $e->getMessage());
-            }
-
-            // Ejecutar consulta 
-            $query = $pdo->prepare("SELECT name, last_name,alias,birth_date,latitude,longitude,sex,sexual_orientation,email from User where id=:id;");
-            $query->bindParam(":id", $cookieValue);
-            $query->execute();
-            $result = $query->fetch();
-
-            // Liberar recursos
-            unset($pdo);
-            unset($query);
-
-        ?>
-
         <div id="containerMatches">
             <h3>Mis matches</h3>
 
             <!-- para los que han dado match -->
-            <div id="matchedProfiles"></div>
+            <div id="matchedProfiles">
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+            </div>
 
         </div>
 
@@ -73,7 +101,24 @@
             <h3>Mensajes</h3>
 
             <!-- para los que tienes una conversación -->
-            <div id="messagedProfiles"></div>
+            <div id="messagedProfiles">
+            <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+                <div>
+                    <img/>
+                    <p>hola</p>
+                </div>
+            </div>
         </div>
     </main>
 
