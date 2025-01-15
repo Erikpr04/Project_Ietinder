@@ -1,65 +1,209 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    let currentIndex = 0;
+    let cards = [];
+    let isLoading = false;
+
     const container = document.getElementById('main-content-container');
     const dislikeButton = document.getElementById('dislike-button');
     const likeButton = document.getElementById('like-button');
-    const cards = Array.from(container.querySelectorAll('.profile-card'));
-    let currentIndex = 0;
 
-    function showNextProfile() {
-        currentIndex++;
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
 
-        if (currentIndex < cards.length) {
-            // Mostramos la siguiente tarjeta
-            cards[currentIndex].style.zIndex = 10;
-            cards[currentIndex].style.opacity = 1;
-        } else {
-            showNoProfilesMessage();
+    async function loadProfiles() {
+        if (isLoading) return;
+        isLoading = true;
+
+        try {
+            const response = await fetch('getDiscoverData.php');
+            const data = await response.json();
+
+            if (data.success) {
+                const newProfilesContainer = document.createElement('div');
+                newProfilesContainer.className = 'new-profile-content';
+                newProfilesContainer.innerHTML = data.html;
+
+                container.prepend(newProfilesContainer);
+
+                newProfilesContainer.querySelectorAll('.carousel').forEach(carousel => {
+                    initializeCarousel(carousel);
+                });
+
+                updateCardsArray();
+
+                if (currentIndex === 0 && cards.length > 0) {
+                    showCard(0);
+                }
+
+                console.log('Profiles loaded:', data.debug);
+            } else {
+                console.error('Error loading profiles:', data.error);
+            }
+        } catch (error) {
+            console.error('AJAX request failed:', error);
+        } finally {
+            isLoading = false;
         }
     }
 
-    function handleSwipe(direction) {
+    function updateCardsArray() {
+        cards = Array.from(container.querySelectorAll('.profile-card'));
+        cards.forEach((card, index) => {
+            card.style.display = 'none';
+            card.style.transform = 'none';
+            card.style.opacity = '0';
+            card.style.zIndex = cards.length - index;
+        });
+    }
+
+    function showCard(index) {
+        if (index >= cards.length) {
+            showNoProfilesMessage();
+            return;
+        }
+
+        cards.forEach((card, i) => {
+            if (i === index) {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+                card.style.transform = 'none';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    async function handleSwipe(direction) {
         if (currentIndex >= cards.length) return;
 
         const card = cards[currentIndex];
         const translateX = direction === 'like' ? '100%' : '-100%';
         const rotate = direction === 'like' ? '15deg' : '-15deg';
 
-        // Efecto de deslizamiento
         card.style.transform = `translateX(${translateX}) rotate(${rotate})`;
-        card.style.opacity = 0;
+        card.style.opacity = '0';
+        card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
 
-        setTimeout(() => {
-            card.style.display = 'none';
-            showNextProfile();
-        }, 500);
+        if (direction === 'like') {
+            await processLikeInteraction(card);
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        currentIndex++;
+        showCard(currentIndex);
+    }
+
+    function processLikeInteraction(card) {
+        console.log("se va a procesar like");
+        const user1_id = getCookie('user_id');
+        const user2_id = card.getAttribute('data-user-id');
+
+        if (!user1_id || !user2_id || isNaN(user2_id)) {
+            console.error("Invalid user IDs:", { user1_id, user2_id });
+            return;
+        }
+
+        fetch('/handleLike.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user1_id: parseInt(user1_id),
+                user2_id: parseInt(user2_id)
+            }),
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.match) {
+                showMatchNotification();
+            }
+            return data;
+        })
+        .catch(function(error) {
+            console.error('Error processing like:', error);
+        });
     }
 
     function showNoProfilesMessage() {
         dislikeButton.style.display = 'none';
         likeButton.style.display = 'none';
-
+        
         const noProfilesMessage = document.createElement('div');
+        noProfilesMessage.className = 'no-profiles-message';
         noProfilesMessage.textContent = 'No hay más perfiles disponibles';
-
-        noProfilesMessage.style.position = 'absolute';
-        noProfilesMessage.style.top = '50%';
-        noProfilesMessage.style.left = '50%';
-        noProfilesMessage.style.transform = 'translate(-50%, -50%)';
-        noProfilesMessage.style.textAlign = 'center';
-        noProfilesMessage.style.fontSize = '1.5rem';
-        noProfilesMessage.style.color = 'var(--darkBlue-color)';
-        noProfilesMessage.style.fontWeight = 'bold';
-
+        noProfilesMessage.style.cssText = `
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--darkBlue-color);
+            font-weight: bold;
+        `;
+        
         container.appendChild(noProfilesMessage);
     }
+    function initializeCarousel(carousel) {
+        const images = carousel.querySelectorAll('.carousel-image');
+        const indicators = carousel.querySelectorAll('.indicator');
+        let currentImageIndex = 0;
+    
+        function changeImage(index) {
+            if (index < 0) index = images.length - 1;
+            if (index >= images.length) index = 0;
+    
+            images[currentImageIndex].classList.remove('active');
+            indicators[currentImageIndex].classList.remove('active');
+            
+            currentImageIndex = index;
+            
+            images[currentImageIndex].classList.add('active');
+            indicators[currentImageIndex].classList.add('active');
+        }
+    
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', (e) => {
+                e.stopPropagation();
+                changeImage(index);
+            });
+        });
+    
+        carousel.addEventListener('click', () => {
+            changeImage(currentImageIndex + 1);
+        });
+    
+        let touchStartX = 0;
+        let touchEndX = 0;
+    
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+    
+        carousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        });
+    
+        function handleSwipeGesture() {
+            if (touchStartX - touchEndX > 50) {
+                changeImage(currentImageIndex + 1);
+            } else if (touchEndX - touchStartX > 50) {
+                changeImage(currentImageIndex - 1);
+            }
+        }
+    }
 
-    // Eventos de los botones
     dislikeButton.addEventListener('click', () => handleSwipe('dislike'));
     likeButton.addEventListener('click', () => handleSwipe('like'));
 
-    // Mostramos la primera tarjeta
-    if (cards.length > 0) {
-        cards[0].style.zIndex = 10;
-        cards[0].style.opacity = 1;
-    }
+    loadProfiles();
 });
