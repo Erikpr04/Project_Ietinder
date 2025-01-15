@@ -1,13 +1,17 @@
 <?php
+
+require_once 'db_config.php';
+
 if (isset($_POST['idUsuario'])) {
 
     $idUsuario = $_POST['idUsuario'];
 
     // configuración de la base de datos
-    $host = "localhost:3306";
-    $dbname = "SwipeITDB";
-    $username = "client";
-    $password = "milt0n";
+// Obtener las variables de entorno necesarias con valores por defecto
+$host = getenv('DB_HOST') ;
+$dbname = getenv('DB_NAME') ;
+$username = getenv('DB_USERNAME') ;
+$password = getenv('DB_PASSWORD');
 
     // Conexión a la base de datos
     try {

@@ -8,7 +8,7 @@
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/profile.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time();?>"/>" />
+    <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time();?>"/>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,6 +24,15 @@
         <!-- cookie: user_id:"n" -->
         <?php
             require_once './rsc/log.php';
+            require_once './rsc/db_config.php';
+
+            // Obtener las variables de entorno necesarias con valores por defecto
+            $host = getenv('DB_HOST') ;
+            $dbname = getenv('DB_NAME') ;
+            $username = getenv('DB_USERNAME') ;
+            $password = getenv('DB_PASSWORD');
+
+
 
             if (isset($_COOKIE['user_id'])) {
                 createLog(action: "Usuario entrado a profile.php con id: " . $_COOKIE['user_id']);
@@ -38,9 +47,6 @@
             if (isset($_COOKIE['user_id'])) {
                 $cookieValue = $_COOKIE['user_id'];
             }
-
-            require_once '../index.php';
-
 
             // Conexión a la base de datos
             try {
