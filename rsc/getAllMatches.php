@@ -2,16 +2,15 @@
     // !!! cookie: user_id:"n"
     if (isset($_COOKIE['user_id'])) {
         $cookieValue = $_COOKIE['user_id'];
-        echo "The value of myCookie is: " . $cookieValue;
     } else {
-        $cookieValue = "1";
+        $cookieValue = "23";
     }
 
     // configuración de la base de datos
     $host = "localhost:3306";
     $dbname = "SwipeITDB";
-    $username = "admin";  //!!! cambiar nombre
-    $password = "admin";
+    $username = "client";
+    $password = "milt0n";
 
     // Conexión a la base de datos
     try {
@@ -22,30 +21,20 @@
     }
 
     // Ejecutar consulta 
-    $query = $pdo->prepare("SELECT c.id as idConversation, c.user1_id, c.user2_id, c.started, u.name, 
-                            GROUP_CONCAT(m.media_path SEPARATOR ',') as media_paths
-                            from Conversation c 
-                            join User u on c.user1_id=u.id or c.user2_id=u.id
-                            join Media m on u.id = m.user_id
-                            where :id in (c.user1_id, c.user2_id)
-                            group by c.id, c.user1_id, c.user2_id, c.started, u.name;
-                        ");
+    $query = $pdo->prepare("SELECT c.id AS idConversation,c.user1_id,c.user2_id,c.started,u2.name AS name,
+                                (SELECT m.media_path
+                                    FROM Media m
+                                    WHERE (m.user_id = c.user1_id OR m.user_id = c.user2_id)
+                                    LIMIT 1) AS media_path       
+                            FROM Conversation c
+                            JOIN User u ON c.user1_id = u.id OR c.user2_id = u.id
+                            JOIN User u2 ON c.user2_id = u2.id
+                            WHERE :id IN (c.user1_id, c.user2_id)
+                            GROUP BY c.id, c.user1_id, c.user2_id, c.started, u2.name;
+                            ");
     $query->bindParam(":id", $cookieValue);
     $query->execute();
     $results = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    // if ($results) {
-    //     foreach ($results as $row) {
-    //         echo "idConversation: " . htmlspecialchars($row['idConversation']) . "<br>";
-    //         echo "User1 ID: " . htmlspecialchars($row['user1_id']) . "<br>";
-    //         echo "User2 ID: " . htmlspecialchars($row['user2_id']) . "<br>";
-    //         echo "Started: " . htmlspecialchars($row['started']) . "<br>";
-    //         echo "Name: " . htmlspecialchars($row['name']) . "<br>";
-    //         echo "Media Paths: " . htmlspecialchars($row['media_paths']) . "<br><br>";
-    //     }
-    // } else {
-    //     echo "No hay resultados";
-    // }
 
     // Liberar recursos
     unset($pdo);

@@ -5,8 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // configuración de la base de datos
     $host = "localhost:3306";
     $dbname = "SwipeITDB";
-    $username = "admin"; //!!! cambiar nombre
-    $password = "admin";
+    $username = "client";
+    $password = "milt0n";
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);

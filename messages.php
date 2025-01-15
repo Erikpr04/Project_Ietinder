@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Victor Valero, Erik Pinto, Marta Arévalo">
+    <meta name="description" content="Esta es la vista mensajes de la app SwipeIt">
 
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/messages.js"></script>
@@ -22,78 +24,12 @@
         <a href="#"> Buscar </a>
     </header>
 
-    
     <main>
         <div id="containerMatches">
             <h3>Mis matches</h3>
 
             <!-- para los que han dado match -->
-            <div id="matchedProfiles">
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-            </div>
+            <div id="matchedProfiles"></div>
 
         </div>
 
@@ -101,33 +37,10 @@
             <h3>Mensajes</h3>
 
             <!-- para los que tienes una conversación -->
-            <div id="messagedProfiles">
-            <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-                <div>
-                    <img/>
-                    <p>hola</p>
-                </div>
-            </div>
+            <div id="messagedProfiles"></div>
         </div>
     </main>
 
-    <nav>
-        <h3>Descubrir</h3>
-        <h3>Mensajes</h3>
-        <h3>Perfil</h3>
-    </nav>
-
-
+    <?php include('footer.php'); ?>
 </body>
 </html>

@@ -3,7 +3,7 @@ $.ajax({
     method: 'GET',
     dataType: 'json',
     success: function(data) {
-        createProfilesDependsOfConversationStarted(data);
+        createProfilesDependsOfConversationStarted(data, data.length === 0 ? 1 : 0);
     },
     error: function(xhr, status, error) {
         console.error('Hubo un error al obtener los datos: ' + error);
@@ -11,30 +11,68 @@ $.ajax({
 });
 
 // filtra y crea en función de si ha empezado o no la conversación
-function createProfilesDependsOfConversationStarted(data){
+function createProfilesDependsOfConversationStarted(data,isEmpty){
+
+    // no hay ningún match aún
+    if(isEmpty===1){
+
+        //buscar el contenedor y ponerle que los items se alineen al centro
+        $('#matchedProfiles').addClass('centerContentInContainer');
+        $('#messagedProfiles').addClass('centerContentInContainer');
+        // crear contenedor
+        const noMatchedInfo = $('<div></div>').html('Hay gente esperando hablar contigo.<br>Devuélveles el like para empezar a charlar')
+                                              .addClass('centerTextMessage');
+        const noMessagesInfo = $('<div></div>').html('No hay ninguna conversación,<br>descubre gente nueva y haz match')
+                                               .addClass('centerTextMessage');
+
+        $('#matchedProfiles').append(noMatchedInfo);
+        $('#messagedProfiles').append(noMessagesInfo);
+
+        return;
+    }
+
+    // si hay matches
+    
+    // booleano de comprobación si hay perfiles
+    let hasMatches = false;
+    let hasMessages = false;
+
     for (let i = 0; i < data.length; i++) {
         const profile = data[i];
-
+        
         // crear contenedor
-        const newMatchedProfile = $("<div></div>").attr('id', 'profile' + profile.idConversation);
-
-        // obtener solo la primera foto
-        const mediaPaths = profile.media_paths;
-        const pathsArray = mediaPaths.split(',');
+        const newMatchedProfile = $("<div></div>").attr('id', 'profile' + profile.idConversation).addClass('cardProfileMessage');
 
         // crear la foto y el nombre
-        const image = $('<img>').attr('src',pathsArray[0]).attr('alt', 'Imagen de '+profile.name);
+        const image = $('<img>').attr('src',profile.media_path).attr('alt', 'Imagen de '+profile.name);
         const name = $("<p></p>").text(profile.name);
 
         // filtrar
         if(profile.started ===0){
+            hasMatches = true;
             $('#matchedProfiles').append(newMatchedProfile);
             $('#profile'+profile.idConversation).append(image,name);
         }
         else{
+            hasMessages = true;
             $('#messagedProfiles').append(newMatchedProfile);
             $('#profile'+profile.idConversation).append(image,name);
         }
 
     };
+
+    if(!hasMatches){
+        $('#matchedProfiles').addClass('centerContentInContainer');
+        const noMatchedInfo = $('<div></div>').html('Hay gente esperando hablar contigo.<br>Devuélveles el like para empezar a charlar')
+        .addClass('centerTextMessage');
+        $('#matchedProfiles').append(noMatchedInfo);
+    }
+
+    if (!hasMessages) {
+        $('#messagedProfiles').addClass('centerContentInContainer');
+        const noMessagesInfo = $('<div></div>').html('No hay ninguna conversación,<br>descubre gente nueva y haz match')
+                                               .addClass('centerTextMessage');
+        $('#messagedProfiles').append(noMessagesInfo);
+    }
+    
 }

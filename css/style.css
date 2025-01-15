@@ -341,7 +341,7 @@ body#profile #map {
 }
 
 /* MARK: messages*/
-body#messages{    
+body#messages{
     display: flex;
     flex-direction: column;
     max-width: 460px;
@@ -349,17 +349,14 @@ body#messages{
     box-sizing: border-box;
 }
 
-body#messages header,
-body#messages nav{
+body#messages header{
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     max-width: 100%;
-    margin: auto;
 }
 
 body#messages header{
-    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -379,56 +376,91 @@ body#messages header a {
     color: inherit;
 }
 
-body#messages nav{
-    gap: 80px;
-}
-
 body#messages main #containerMatches,
 body#messages main #containerMessages {
     box-sizing: border-box;
     padding: 10px;
     width: 450px;
-    border: 1px solid #ccc;
 }
 
-body#messages main #containerMessages{
-    min-height: 300px;
+body#messages main .centerContentInContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
 }
 
+body#messages main div.centerTextMessage{
+    text-align: center;
+}
+
+/* profiles sin conversaciones */
 body#messages main #containerMatches #matchedProfiles {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px;
+    min-height: 150px;
+    align-items: flex-start;
+}
+
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 120px;
+}
+
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage img {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+}
+
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p {
+    margin: 10px 0 0 0;
+    text-align: center;
+    width: 100%;
+}
+
+
+/* profiles con conversaciones */
+body#messages main #containerMessages #messagedProfiles{
+    min-height: 334px;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage p {
+    margin: 0;
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* MARK: footer */
+footer {
+    gap: 80px;
+    margin: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-
-    min-height: 200px;
-    max-height: 200px;
-    padding: 10px;
-    width: 430px;
-    overflow-x: auto;
-    border: 1px solid #ccc;
-}
-
-body#messages main #containerMatches #messagedProfiles {
-    display: flex;
-    flex-direction: column;
-}
-
-/* profiles with no conversation */
-
-body#messages main #containerMatches #matchedProfiles > div{
-    width: 30%;
-    height: 150px;
-    margin: 0px 20px;
-    
-    position: relative;
-}
-
-body#messages main #containerMatches #matchedProfiles > div img{
-    width: 100%; 
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
     max-width: 100%;
-    max-height: 100%;
+}
+
+footer h3 a {
+    text-decoration: none;
+    color: inherit;
 }
