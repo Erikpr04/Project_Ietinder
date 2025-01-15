@@ -45,11 +45,12 @@ function saveData(){
     data.lastName = $("#lastName").val();
     data.alias = $("#alias").val();
     data.birthDate = $("#birthDate").val();
-    data.gender = $("input[name='gender']:checked").val();
-    data.sexOrientation = $("input[name='sexOrientation']:checked").val();
+    data.gender = $("#sexe").val();
+    data.sexOrientation = $("#orientation").val();
     data.latitude = coordinates.lat;
     data.longitude = coordinates.lng;
     console.log(data);
+    
 
     // llamada ajax
     $.ajax({
