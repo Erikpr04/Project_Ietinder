@@ -227,7 +227,7 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
     }
 
     
-    createLog($myId."ha encontrado " . count($profiles) . " perfiles");
+    createLog($myId." ha encontrado " . count($profiles) . " perfiles");
 
     // Convertimos el array en una lista indexada de perfiles (sin claves duplicadas)
     return array_values($profiles);

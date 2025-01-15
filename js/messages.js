@@ -1,5 +1,5 @@
 $.ajax({
-    url: '/rsc/getAllMatches.php',
+    url: 'rsc/getAllMatches.php',
     method: 'GET',
     dataType: 'json',
     success: function(data) {

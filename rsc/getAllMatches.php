@@ -1,6 +1,8 @@
 <?php
 // Cargar las variables del archivo .env
 require_once 'db_config.php';
+require_once 'log.php';
+
 
 // Obtener las variables de entorno necesarias con valores por defecto
 $host = getenv('DB_HOST');

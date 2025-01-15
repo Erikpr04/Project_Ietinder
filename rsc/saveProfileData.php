@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
     }
 
-    createLog($cookieValue." ha hehco cambios en su perfil");
+    createLog($cookieValue." ha hecho cambios en su perfil");
 
     unset($pdo);
     unset($query);
