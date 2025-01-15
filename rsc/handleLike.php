@@ -33,7 +33,7 @@ if (!$user1_id || !$user2_id) {
 
 try {
     // Conectar a la base de datos
-    $pdo = new PDO('mysql:host=localhost;dbname=SwipeITDB;charset=utf8mb4', 'root', 'NuevoPAssword');
+    $pdo = new PDO('mysql:host=localhost;dbname=SwipeITDB;charset=utf8mb4', 'client', 'milt0n');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Consultar si existe una interacción entre los dos usuarios

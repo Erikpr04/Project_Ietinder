@@ -104,8 +104,8 @@ function calculateHaversineDistance($lat1, $lon1, $lat2, $lon2) {
 function getUserData($userId) {
     $host = "localhost";
     $dbname = "SwipeITDB";
-    $username = 'root';  
-    $password = 'NuevoPAssword'; 
+    $username = 'client';  
+    $password = 'milt0n'; 
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -146,8 +146,8 @@ function getUserData($userId) {
 function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
     $host = "localhost";
     $dbname = "SwipeITDB";
-    $username = 'root';  
-    $password = 'NuevoPAssword'; 
+    $username = 'client';  
+    $password = 'milt0n'; 
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -279,8 +279,8 @@ function renderProfiles($profiles) {
 function getProfileImages($userId) {
     $host = "localhost";
     $dbname = "SwipeITDB";
-    $username = 'root';  
-    $password = 'NuevoPAssword'; 
+    $username = 'client';  
+    $password = 'milt0n'; 
     
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -300,8 +300,8 @@ function getProfileImages($userId) {
 function handleLike($user1_id, $user2_id) {
     $host = "localhost";
     $dbname = "SwipeITDB";
-    $username = 'root';  
-    $password = 'NuevoPAssword'; 
+    $username = 'client';  
+    $password = 'milt0n'; 
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
