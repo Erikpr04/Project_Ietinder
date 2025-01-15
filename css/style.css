@@ -1,3 +1,344 @@
+
+/* UTILS */
+
+:root {
+    --white-color: #f5f5f5;
+    --black-color: #212121;
+    --darkBlue-color: #2c3e50;
+    --dark-red-color: #8c2525;
+    --red-color: #fe3232;
+    --light-red-color: #ff9595;
+    --orange-color: #fd5f35;
+    --tangerine-color: #fb8b37;
+    --gold-color: #f9b839;
+    --yellow-color: #f7e43b;
+    --light-yellow-color: #ffef67;
+    --light-blue-color: #9ad2ff;
+
+    /*tinder*/
+    --color--brand-gradient-end: #ff6036;
+    --color--brand-gradient-start: #fd267a;
+    --color--brand-primary: #ff4458;
+    --color--brand-primary-a11y: #d4004f;
+}
+
+@font-face {
+    font-family: "GothamRnd";
+    src: url("/fonts/gothamrnd_light.otf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "GothamRnd";
+    src: url("/fonts/gothamrnd_lightitalic.otf") format("opentype");
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "GothamRnd";
+    src: url("/fonts/gothamrnd_book.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "GothamRnd";
+    src: url("/fonts/gothamrnd_bookitalic.otf") format("opentype");
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "GothamRnd";
+    src: url("/fonts/gothamrnd_medium.otf") format("opentype");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "GothamRnd";
+    src: url("/fonts/gothamrnd_mediumitalic.otf") format("opentype");
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "GothamRnd";
+    src: url("/fonts/gothamrnd_bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "GothamRnd";
+    src: url("/fonts/gothamrnd_bolditalic.otf") format("opentype");
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "HeavyHeap";
+    src: url("/fonts/heavy_heap_rg.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* General reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "GothamRnd", sans-serif;
+    color: var(--black-color);
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+
+    background: linear-gradient(-45deg,
+            var(--red-color),
+            var(--gold-color),
+            var(--tangerine-color),
+            var(--orange-color),
+            var(--yellow-color));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Login container styles */
+.login-container {
+    width: clamp(350px, 40vw, 450px);
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(1rem);
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+/* Form layout */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Heading style */
+h2,
+h2 span {
+    font-family: "HeavyHeap", sans-serif;
+    font-size: 4rem;
+}
+
+h2 span, .app-description span {
+    color: transparent;
+    margin-inline: 0.1px;
+    background-clip: text;
+    width: max-content;
+    background-image: linear-gradient(45deg,
+            var(--color--brand-primary-a11y),
+            var(--color--brand-gradient-end));
+}
+
+.app-description, .app-description span {
+    font-family: "Sour Gummy", serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    letter-spacing: .1rem;
+}
+
+/* Input field styling */
+.input-field {
+    position: relative;
+    border-bottom: 2px solid var(--black-color);
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.15s ease;
+    padding-left: 0.5rem;
+}
+
+.input-field input {
+    width: 100%;
+    height: 30px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding-left: 0.5rem;
+}
+
+.input-field input:focus~label,
+.input-field input:valid~label {
+    font-size: 0.8rem;
+    top: 10px;
+    transform: translateY(-180%);
+    padding-left: 0;
+}
+
+.input-field i {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    min-width: 1.25rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* Link styles for forgotten password and creating an account */
+.forget-createAccount {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.forget-createAccount a {
+    text-decoration: none;
+}
+
+.forget-createAccount a:hover {
+    text-decoration: underline;
+}
+
+/* Button styling */
+button {
+    position: relative;
+    background: transparent;
+    border: 2px solid var(--black-color);
+    font-weight: 500;
+    padding-block: 0.5rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-block: 2.5rem;
+}
+
+button::after {
+    content: "";
+    position: absolute;
+    background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
+    opacity: 0;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: .5rem;
+    z-index: -1;
+}
+
+button:hover::after, button:hover {
+    opacity: 1;
+    border-color: transparent;
+    color: var(--white-color);
+}
+
+/* Container for input fields */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    /* Spacing between fields */
+}
+
+.wrong-data {
+    border-bottom-color: var(--red-color);
+}
+
+.wrong-data input {
+    background-color: var(--light-red-color);
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.wrong-data label {
+    color: var(--dark-red-color);
+}
+
+.data-container p {
+    display: none;
+    color: var(--dark-red-color);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    text-align: start;
+    /* position: absolute; */
+}
+
+.data-container p i {
+    margin-right: 0.25rem;
+    color: var(--dark-red-color);
+}
+
+.remember-container {
+    margin-top: .75rem;
+    display: flex;
+    gap: .25rem;
+}
+
+.remember-container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+input[type="checkbox"] {
+    display: none; 
+}
+
+input[type="checkbox"] + label {
+    display: none;
+    /* display: flex;  */
+    align-items: center;
+    cursor: pointer;
+}
+
+input[type="checkbox"] + label::before {
+    content: '';
+    display: inline-block;
+    width: .6rem; 
+    height: .6rem;
+    border: 2px solid var(--black-color);
+    border-radius: 3px; 
+    margin-right: .25rem;
+}
+
+input[type="checkbox"]:checked + label::before {
+    background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
+}
+
+/* MARK: Profile*/
+body#profile #map {
+    height: 400px; /* Altura del mapa */
+    width: 30%;   /* Ancho del mapa */
+}
+=======
 /* Definición de la fuente */
 @font-face {
     font-family: "HeavyHeap";
@@ -376,4 +717,5 @@ body {
     height: 100%;
     overflow: hidden;
 }
+
 

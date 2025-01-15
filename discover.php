@@ -1,3 +1,5 @@
+<script src="./js/utils.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- HEAD SECTION -->
