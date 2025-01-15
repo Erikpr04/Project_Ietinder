@@ -39,11 +39,8 @@
                 $cookieValue = $_COOKIE['user_id'];
             }
 
-            // configuración de la base de datos
-            $host = "localhost:3306";
-            $dbname = "SwipeITDB";
-            $username = "client";
-            $password = "milt0n";
+            require_once '../index.php';
+
 
             // Conexión a la base de datos
             try {

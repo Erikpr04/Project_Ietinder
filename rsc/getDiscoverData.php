@@ -1,26 +1,46 @@
 <?php
-require_once './log.php';
+// Cargar las variables del archivo .env
+require_once 'db_config.php';
+require_once 'log.php';
+
+
+// Obtener las variables de entorno necesarias con valores por defecto
+$host = getenv('DB_HOST') ;
+$dbname = getenv('DB_NAME') ;
+$username = getenv('DB_USERNAME') ;
+$password = getenv('DB_PASSWORD');
+
+// Verificar que las variables requeridas estén definidas
+if (!$dbname || !$username || !$password) {
+    die("Error de configuración de la base de datos");
+}
+
+
+
+
 
 header('Content-Type: application/json');
+
+
+if (!isset($_COOKIE['user_id']) ) {
+    echo json_encode(['error' => 'Usuario no autenticado']);
+    exit;
+}
+
 
 function getDiscoverData() {
     try {
         // Debug: Verificar cookie
-        error_log("Verificando cookie de usuario...");
         if (!isset($_COOKIE['user_id'])) {
-            error_log("Cookie no encontrada");
             return ['error' => 'Usuario no autenticado'];
         }
 
         $userId = $_COOKIE['user_id'];
-        error_log("Usuario ID encontrado: " . $userId);
 
         // Debug: Verificar datos de usuario
         $userData = getUserData($userId);
-        error_log("Datos de usuario obtenidos: " . print_r($userData, true));
 
         if (!$userData) {
-            error_log("No se encontraron datos para el usuario: " . $userId);
             return ['error' => 'No se encontró el usuario'];
         }
 
@@ -30,7 +50,6 @@ function getDiscoverData() {
         $lat = $userData->latitude;
         $lon = $userData->longitude;
         
-        error_log("Datos extraídos del usuario - Sexo: $userSex, Orientación: $sexOrientation, Lat: $lat, Lon: $lon");
 
         // Calcular edad
         $birthDate = new DateTime($userData->birth_date);
@@ -38,23 +57,13 @@ function getDiscoverData() {
         $ageInterval = $birthDate->diff($currentDate);  
         $age = $ageInterval->y;  
         
-        error_log("Edad calculada: " . $age);
 
-        // Debug: Obtener perfiles
-        error_log("Obteniendo perfiles...");
         $profiles = getDBprofiles($lon, $lat, $userSex, $sexOrientation, $userId);
-        error_log("Perfiles obtenidos: " . count($profiles));
-        error_log("Perfiles raw: " . print_r($profiles, true));
 
-        // Debug: Ordenar perfiles
+message: 
         $sortedProfiles = sortProfiles($profiles, $age);
-        error_log("Perfiles ordenados: " . count($sortedProfiles));
 
-        // Debug: Generar HTML
-        error_log("Generando HTML...");
         $html = renderProfiles($sortedProfiles);
-        error_log("Longitud del HTML generado: " . strlen($html));
-        error_log("Muestra del HTML: " . substr($html, 0, 200) . "...");
 
         // Preparar respuesta
         $response = [
@@ -67,11 +76,9 @@ function getDiscoverData() {
             ]
         ];
 
-        error_log("Respuesta preparada: " . print_r($response, true));
         return $response;
 
     } catch (Exception $e) {
-        error_log("Error en getDiscoverData: " . $e->getMessage());
         return [
             'error' => 'Error al procesar la solicitud: ' . $e->getMessage(),
             'trace' => $e->getTraceAsString()
@@ -81,7 +88,6 @@ function getDiscoverData() {
 
 // Debug: Capturar la respuesta antes de enviarla
 $response = getDiscoverData();
-error_log("Respuesta final: " . print_r($response, true));
 echo json_encode($response);
 
 
@@ -102,10 +108,8 @@ function calculateHaversineDistance($lat1, $lon1, $lat2, $lon2) {
 
 // DATABASE INTERACTION FUNCTIONS
 function getUserData($userId) {
-    $host = "localhost";
-    $dbname = "SwipeITDB";
-    $username = 'client';  
-    $password = 'milt0n'; 
+
+    global $host,$dbname,$username,$password;
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -144,10 +148,7 @@ function getUserData($userId) {
 }
 
 function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
-    $host = "localhost";
-    $dbname = "SwipeITDB";
-    $username = 'client';  
-    $password = 'milt0n'; 
+    global $host, $dbname, $username, $password;
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -180,36 +181,59 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
         } elseif ($sex_orientation == 'bisexual') {
             $sql .= " AND (u.sex = 'hombre' OR u.sex = 'mujer') AND u.sexual_orientation IN ('bisexual')";
         }
-    }
+    } 
+
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':myId' => $myId]);
 
     $profiles = [];
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        // Añadir imágenes en el array 'pictures'
+        $userId = $row['id'];
+        $images = [];
+
+        // Consultar todas las imágenes para el usuario actual
+        $stmtImages = $pdo->prepare("SELECT media_path FROM Media WHERE user_id = :userId");
+        $stmtImages->execute([':userId' => $userId]);
+
+        $imageIndex = 1;
+        while ($image = $stmtImages->fetch(PDO::FETCH_ASSOC)) {
+            $images["picture" . $imageIndex] = $image['media_path'];
+            $imageIndex++;
+        }
+
+        // Añadir la lista de imágenes al perfil
+        $row['pictures'] = $images;
+
+        // Añadir los otros datos
         $userData = getUserData($row['id']);
         $distance = calculateHaversineDistance($lat, $lon, $row['latitude'], $row['longitude']);
         $row['distance'] = $distance;
         $row['user_data'] = $userData;
-        
-        // Calcular la edad a partir de la fecha de nacimiento
+
+        // Calcular la edad
         if (!empty($row['birth_date'])) {
             $birthDate = new DateTime($row['birth_date']);
             $today = new DateTime('today');
             $age = $birthDate->diff($today)->y;  // Edad en años
-            $row['age'] = $age;  // Asignamos la edad calculada al array $row
+            $row['age'] = $age;
         } else {
-            $row['age'] = null;  
+            $row['age'] = null;
         }
-        
-        $profiles[] = $row;
+
+        // Solo agregar el perfil una vez
+        $profiles[$userId] = $row;  // Usamos el id del usuario como clave para evitar duplicados
     }
+
     
     createLog($myId."ha encontrado " . count($profiles) . " perfiles");
 
-
-    return $profiles;
+    // Convertimos el array en una lista indexada de perfiles (sin claves duplicadas)
+    return array_values($profiles);
 }
+
+
 
 // PROFILE MANAGEMENT FUNCTIONS
 function sortProfiles($profiles, $myAge) {
@@ -275,10 +299,8 @@ function renderProfiles($profiles) {
 }
 
 function getProfileImages($userId) {
-    $host = "localhost";
-    $dbname = "SwipeITDB";
-    $username = 'client';  
-    $password = 'milt0n'; 
+    global $host,$dbname,$username,$password;
+
     
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -289,43 +311,8 @@ function getProfileImages($userId) {
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        error_log("Error al obtener imágenes: " . $e->getMessage());
         return [];
     }
 }
-
-// INTERACTION HANDLING
-function handleLike($user1_id, $user2_id) {
-    $host = "localhost";
-    $dbname = "SwipeITDB";
-    $username = 'client';  
-    $password = 'milt0n'; 
-
-    try {
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $e) {
-        die("Error al conectar a la base de datos: " . $e->getMessage());
-    }
-
-    $stmt = $pdo->prepare("INSERT INTO Interaction (user1_id, user2_id, type, matched) VALUES (?, ?, 'like', false) ON DUPLICATE KEY UPDATE type='like'");
-    $stmt->execute([$user1_id, $user2_id]);
-
-    $stmt = $pdo->prepare("SELECT * FROM Interaction WHERE user1_id = ? AND user2_id = ? AND type = 'like'");
-    $stmt->execute([$user2_id, $user1_id]);
-    $match = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($match) {
-        $stmt = $pdo->prepare("UPDATE Interaction SET matched = true WHERE user1_id = ? AND user2_id = ?");
-        $stmt->execute([$user1_id, $user2_id]);
-        createLog($user1_id." ha matcheado con ".$user2_id);
-        return true;
-    }
-
-    createLog($user1_id." ha dado like a ".$user2_id);
-
-    return false;
-}
-
 
 ?>

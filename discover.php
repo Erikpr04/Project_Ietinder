@@ -12,6 +12,7 @@
 </head>
 <body>
 
+
 <div id="main-container">
     <?php
         require_once './rsc/log.php';
@@ -21,7 +22,6 @@
         }
         else {
             createLog(action: "Usuario no tiene cookie, redirigiendo de discover a login");
-
             header('Location: ./login.php');
         }
     ?>

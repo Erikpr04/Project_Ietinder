@@ -89,7 +89,7 @@
         
             if ($email && $password) {
                 // Conexión a la base de datos
-                $connection = new mysqli('localhost', 'client', 'milt0n', 'SwipeITDB');
+                $connection = new mysqli($host, $user, $password, $dbname);
 
                 if ($connection->connect_error) {
                     die("Conexión fallida: " . $connection->connect_error);
