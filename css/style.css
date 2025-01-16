@@ -604,6 +604,10 @@ body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage
     text-align:left;
 }
 
+.profile-name {
+    font-weight: bold;
+}
+
 .lastMessage {
     white-space: nowrap;
     overflow: hidden;

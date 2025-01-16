@@ -47,7 +47,8 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
 
         // crear la foto y el nombre
         const image = $('<img>').attr('src',profile.media_path).attr('alt', 'Imagen de '+profile.other_user_name);
-        const name = $("<p style='font-weight: 700;'></p>").text(profile.other_user_name);
+        const name = $("<p></p>").text(profile.other_user_name);
+        name.addClass('profileName');
 
         // filtrar
         if(profile.started ===0){
