@@ -31,6 +31,7 @@
             header('Location: ./login.php');
         }
     ?>
+    <script>createErrorTag("info", "Te has logueado crrectamente")</script>
     <div class="main-header"><h2>S<span>w</span>ipeIt</h2></div>
     <div id="main-content">
         <div class="match-overlay" id="matchOverlay">

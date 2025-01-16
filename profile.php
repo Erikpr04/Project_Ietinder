@@ -139,6 +139,11 @@
 
             </form>
             <?php include('footer.php'); ?>
+            <script>
+                botonSave.addEventListener('click', () => {
+                    createErrorTag("info", "Cambios guardados");
+                });
+            </script>
     </div>
     
 </body>
