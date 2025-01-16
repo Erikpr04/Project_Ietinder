@@ -39,6 +39,8 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
 
     for (let i = 0; i < data.length; i++) {
         const profile = data[i];
+        console.log(data);
+
         
         // crear contenedor
         const newMatchedProfile = $("<div></div>").attr('id', 'profile' + profile.idConversation).addClass('cardProfileMessage');
