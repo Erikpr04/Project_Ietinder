@@ -67,9 +67,7 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                 dataType: 'json',
                 success: function(lastMessageInfo) {
 
-                    if (typeof lastMessageInfo === "string") {
-                        lastMessageInfo = JSON.parse(lastMessageInfo);
-                    }
+                    
 
                     const messageString = lastMessageInfo.name + ': ' + lastMessageInfo.content;
 
