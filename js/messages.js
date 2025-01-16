@@ -71,8 +71,11 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                         lastMessageInfo = JSON.parse(lastMessageInfo);
                     }
 
-                    const lastMessage = $("<p class='lastMessage'></p>").text(`${lastMessageInfo.name} : ${lastMessageInfo.content}`);                    // contenedor que almecena los datos relacionados
+                    const messageString = lastMessageInfo.name + ': ' + lastMessageInfo.content;
+
+                    const lastMessage = $("<p class='lastMessage'></p>").text(messageString); // contenedor que almacena los datos relacionados
                     const sectionContainer = $("<section></section>").append(name, lastMessage);
+
 
                     $('#messagedProfiles').append(newMatchedProfile);
                     $('#profile' + profile.idConversation).append(image,sectionContainer);
