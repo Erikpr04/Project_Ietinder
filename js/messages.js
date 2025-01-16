@@ -65,19 +65,30 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                 method: 'POST',
                 data: { idUsuario: profile.user2_id },
                 success: function(lastMessageInfo) {
-
-                    const lastMessage = $("<p class='lastMessage'></p>").text(lastMessageInfo.slice(1, -1));
-                    // contenedor que almecena los datos relacionados
-                    const sectionContainer = $("<section></section>").append(name, lastMessage);
-
+                    // lastMessageInfo es un objeto con el nombre y el mensaje
+                    const lastMessageData = JSON.parse(lastMessageInfo);
+            
+                    // Si hay error, mostrarlo
+                    if (lastMessageData.error) {
+                        console.error(lastMessageData.error);
+                        return;
+                    }
+            
+                    // Crear el elemento con el nombre del usuario y el mensaje
+                    const lastMessage = $("<p class='lastMessage'></p>").text(lastMessageData.name + ": " + lastMessageData.content);
+            
+                    // Crear el contenedor que incluye la foto y el mensaje
+                    const sectionContainer = $("<section></section>").append(lastMessage);
+            
+                    // Añadir el nuevo perfil al contenedor
                     $('#messagedProfiles').append(newMatchedProfile);
-                    $('#profile' + profile.idConversation).append(image,sectionContainer);
-
+                    $('#profile' + profile.idConversation).append(image, sectionContainer);
                 },
                 error: function(xhr, status, error) {
                     console.error('Hubo un error al obtener el último mensaje: ' + error);
                 }
-            }); 
+            });
+            
 
         }
 
