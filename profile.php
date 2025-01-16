@@ -140,7 +140,8 @@
             </form>
             <?php include('footer.php'); ?>
             <script>
-                botonSave.addEventListener('click', () => {
+                const buttonSave = document.getElementById('buttonSave');
+                buttonSave.addEventListener('click', () => {
                     createErrorTag("info", "Cambios guardados");
                 });
             </script>
