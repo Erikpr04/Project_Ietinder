@@ -59,7 +59,7 @@
 </div>
 
 <script>
-    createErrorTag("info", "Te has logueado crrectamente")
+    createErrorTag("info", "Te has logueado correctamente")
 </script>
 
 </body>
