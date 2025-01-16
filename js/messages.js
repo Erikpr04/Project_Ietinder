@@ -39,13 +39,16 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
 
     for (let i = 0; i < data.length; i++) {
         const profile = data[i];
+        console.log(data);
+
         
         // crear contenedor
         const newMatchedProfile = $("<div></div>").attr('id', 'profile' + profile.idConversation).addClass('cardProfileMessage');
 
         // crear la foto y el nombre
-        const image = $('<img>').attr('src',profile.media_path).attr('alt', 'Imagen de '+profile.name);
-        const name = $("<p></p>").text(profile.name);
+        const image = $('<img>').attr('src',profile.media_path).attr('alt', 'Imagen de '+profile.other_user_name);
+        const name = $("<p></p>").text(profile.other_user_name);
+        name.addClass('profileName');
 
         // filtrar
         if(profile.started ===0){

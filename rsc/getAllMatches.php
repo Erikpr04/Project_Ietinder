@@ -31,17 +31,28 @@ if (!$dbname || !$username || !$password) {
     }
 
     // Ejecutar consulta 
-    $query = $pdo->prepare("SELECT c.id AS idConversation,c.user1_id,c.user2_id,c.started,u2.name AS name,
-                                (SELECT m.media_path
-                                    FROM Media m
-                                    WHERE (m.user_id = c.user1_id OR m.user_id = c.user2_id)
-                                    LIMIT 1) AS media_path       
-                            FROM Conversation c
-                            JOIN User u ON c.user1_id = u.id OR c.user2_id = u.id
-                            JOIN User u2 ON c.user2_id = u2.id
-                            WHERE :id IN (c.user1_id, c.user2_id)
-                            GROUP BY c.id, c.user1_id, c.user2_id, c.started, u2.name;
-                            ");
+    $query = $pdo->prepare("SELECT 
+        c.id AS idConversation,
+        c.user1_id,
+        c.user2_id,
+        c.started,
+        CASE 
+            WHEN c.user1_id = :id THEN u2.name
+            ELSE u1.name
+        END AS other_user_name,
+        (SELECT m.media_path
+         FROM Media m
+         WHERE m.user_id = CASE 
+                             WHEN c.user1_id = :id THEN c.user2_id
+                             ELSE c.user1_id
+                          END
+         LIMIT 1) AS media_path
+    FROM Conversation c
+    JOIN User u1 ON c.user1_id = u1.id
+    JOIN User u2 ON c.user2_id = u2.id
+    WHERE :id IN (c.user1_id, c.user2_id);
+");
+
     $query->bindParam(":id", $cookieValue);
     $query->execute();
     $results = $query->fetchAll(PDO::FETCH_ASSOC);

@@ -58,5 +58,9 @@
 
 </div>
 
+<script>
+    createErrorTag("info", "Te has logueado correctamente")
+</script>
+
 </body>
 </html>
