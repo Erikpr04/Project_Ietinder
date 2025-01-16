@@ -8,6 +8,7 @@
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/profile.js"></script>
     <script src="./js/utils.js"></script>
+    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
 
     <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time();?>"/>
     
