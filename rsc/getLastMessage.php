@@ -41,9 +41,9 @@ $query->bindParam(":idSender", $idUsuario);
             $result = $query->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 echo json_encode([
-                    $result['name'],
-                    $result['content']
-            ]);
+                    'name' => $result['name'],
+                    'content' => $result['content']
+                ]);                
             } else {
                 echo json_encode("No hay mensajes para este usuario.");
             }

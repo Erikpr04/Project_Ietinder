@@ -66,7 +66,7 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                 data: { idUsuario: profile.user2_id },
                 success: function(lastMessageInfo) {
 
-                    const lastMessage = $("<p class='lastMessage'></p>").text(lastMessageInfo.slice(1, -1));
+                    const lastMessage = $("<p class='lastMessage'></p>").text(lastMessageInfo.name + ' :'+lastMessageInfo.content);
                     // contenedor que almecena los datos relacionados
                     const sectionContainer = $("<section></section>").append(name, lastMessage);
 
