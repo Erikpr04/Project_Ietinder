@@ -31,7 +31,7 @@ if (!$dbname || !$username || !$password) {
     }
 
     // Ejecutar consulta 
-    $query = $pdo->prepare(" SELECT 
+    $query = $pdo->prepare("SELECT 
         c.id AS idConversation,
         c.user1_id,
         c.user2_id,
