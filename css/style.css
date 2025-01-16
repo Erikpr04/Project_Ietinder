@@ -24,6 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--white-color);
 
 }
 
@@ -105,7 +106,8 @@ body#login {
     align-items: center;
     justify-content: center;
     height: 100dvh;
-    width: 430px;
+    width: 460px;
+    padding: 30px;
 
     background: linear-gradient(-45deg,
     var(--red-color),
@@ -346,7 +348,8 @@ body#profile {
     align-items: center;
     justify-content: center;
     height: 100dvh;
-    width: 430px;
+    width: 460px;
+    padding: 30px;
 
     background: linear-gradient(-45deg,
     var(--red-color),
@@ -829,20 +832,20 @@ footer p a:hover {
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    width: 350px;
 
 }
 
 /* Botones */
 .match-notification button {
-    margin: 10px 5px 0;
-    padding: 10px 20px;
+    margin: 10px 0px 0 0;
+    padding: 3px 5px;
     border: none;
-    border-radius: 5px;
+    border-radius: .25rem;
     background-color: #ffffff;
     color: #28a745;
     cursor: pointer;
-    font-size: 0.5rem;
+    font-size: 1rem;
 }
 
 .match-notification button:hover {
