@@ -10,16 +10,13 @@ $.ajax({
     }
 });
 
-// filtra y crea en función de si ha empezado o no la conversación
-function createProfilesDependsOfConversationStarted(data,isEmpty){
-
-    // no hay ningún match aún
-    if(isEmpty===1){
-
-        //buscar el contenedor y ponerle que los items se alineen al centro
+// Filtra y crea en función de si ha empezado o no la conversación
+function createProfilesDependsOfConversationStarted(data, isEmpty) {
+    // No hay ningún match aún
+    if (isEmpty === 1) {
         $('#matchedProfiles').addClass('centerContentInContainer');
         $('#messagedProfiles').addClass('centerContentInContainer');
-        // crear contenedor
+
         const noMatchedInfo = $('<div></div>').html('Hay gente esperando hablar contigo.<br>Devuélveles el like para empezar a charlar')
                                               .addClass('centerTextMessage');
         const noMessagesInfo = $('<div></div>').html('No hay ninguna conversación,<br>descubre gente nueva y haz match')
@@ -27,39 +24,31 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
 
         $('#matchedProfiles').append(noMatchedInfo);
         $('#messagedProfiles').append(noMessagesInfo);
-
         return;
     }
 
-    // si hay matches
-    
-    // booleano de comprobación si hay perfiles
     let hasMatches = false;
     let hasMessages = false;
 
     for (let i = 0; i < data.length; i++) {
         const profile = data[i];
-        console.log(data);
 
-        
-        // crear contenedor
+        // Crear contenedor para el perfil
         const newMatchedProfile = $("<div></div>").attr('id', 'profile' + profile.idConversation).addClass('cardProfileMessage');
 
-        // crear la foto y el nombre
-        const image = $('<img>').attr('src',profile.media_path).attr('alt', 'Imagen de '+profile.other_user_name);
-        const name = $("<p></p>").text(profile.other_user_name);
-        name.addClass('profileName');
+        // Crear la foto y el nombre del usuario
+        const image = $('<img>').attr('src', profile.media_path).attr('alt', 'Imagen de ' + profile.other_user_name);
+        const name = $("<p></p>").text(profile.other_user_name).addClass('profileName');
 
-        // filtrar
-        if(profile.started ===0){
+        // Filtrar por si la conversación ha comenzado
+        if (profile.started === 0) {
             hasMatches = true;
             $('#matchedProfiles').append(newMatchedProfile);
-            $('#profile'+profile.idConversation).append(image,name);
-        }
-        else{
+            $('#profile' + profile.idConversation).append(image, name);
+        } else {
             hasMessages = true;
 
-            //buscar el último mensaje
+            // Buscar el último mensaje
             $.ajax({
                 url: '/rsc/getLastMessage.php',
                 method: 'POST',
@@ -69,17 +58,17 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                         console.error(lastMessageInfo.error);
                         return;
                     }
-            
-                    // Obtener el nombre del otro usuario (profile.other_user_name) antes de mostrar el mensaje
+
+                    // Obtener el nombre del usuario con el que estamos conversando
                     const otherUserName = profile.other_user_name;
-            
-                    // Crear el mensaje con el nombre y contenido del mensaje
+
+                    // Crear el mensaje con el nombre del usuario y el contenido
                     const lastMessage = $("<p class='lastMessage'></p>").text(otherUserName + ": " + lastMessageInfo.content);
-            
-                    // Crear el contenedor con el nombre y el mensaje
-                    const sectionContainer = $("<section></section>").append(lastMessage);
-            
-                    // Añadir el nuevo perfil al contenedor
+
+                    // Crear un contenedor para el nombre y el último mensaje
+                    const sectionContainer = $("<section></section>").append(name, lastMessage);
+
+                    // Añadir el perfil al contenedor
                     $('#messagedProfiles').append(newMatchedProfile);
                     $('#profile' + profile.idConversation).append(image, sectionContainer);
                 },
@@ -87,25 +76,22 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                     console.error('Hubo un error al obtener el último mensaje: ' + error);
                 }
             });
-            
-            
-
         }
+    }
 
-    };
-
-    if(!hasMatches){
+    // Si no hay matches
+    if (!hasMatches) {
         $('#matchedProfiles').addClass('centerContentInContainer');
         const noMatchedInfo = $('<div></div>').html('Hay gente esperando hablar contigo.<br>Devuélveles el like para empezar a charlar')
         .addClass('centerTextMessage');
         $('#matchedProfiles').append(noMatchedInfo);
     }
 
+    // Si no hay mensajes
     if (!hasMessages) {
         $('#messagedProfiles').addClass('centerContentInContainer');
         const noMessagesInfo = $('<div></div>').html('No hay ninguna conversación,<br>descubre gente nueva y haz match')
                                                .addClass('centerTextMessage');
         $('#messagedProfiles').append(noMessagesInfo);
     }
-    
 }
