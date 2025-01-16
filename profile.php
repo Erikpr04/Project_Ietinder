@@ -20,7 +20,8 @@
 
 <body id="profile">
 
-    <main>
+    <div class="main-container">
+        <div class="main-header"><h2>S<span>w</span>ipeIt</h2></div>
         <!-- cookie: user_id:"n" -->
         <?php
             require_once './rsc/log.php';
@@ -67,79 +68,78 @@
             unset($query);
 
         ?>
-        
-        <form method="post">
-            <h3>Datos personales</h3> 
+            <form method="post">
+                <h3>Datos personales</h3> 
+                <div class="profile-personalData">
+                    <div class="profile-input">
+                        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($result['name']); ?>" />
+                        <label for="name">Nombre:</label>
+                    </div>
 
-            <div class="profile-personalData">
-                <div class="profile-input">
-                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($result['name']); ?>" />
-                    <label for="name">Nombre:</label>
+                    <div class="profile-input">
+                        <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($result['last_name']); ?>" />
+                        <label for="lastName">Apellidos:</label>
+                    </div>
+                </div>
+
+                <div class="profile-personalData">
+                    <div class="profile-input">
+                        <input type="text" id="alias" name="alias" value="<?php echo htmlspecialchars($result['alias']); ?>" />
+                        <label for="alias">Alias:</label>
+                    </div>
+
+                    <div class="profile-input">
+                        <input type="date" id="birthDate" name="birthDate" value="<?php echo htmlspecialchars($result['birth_date']); ?>" />
+                        <label for="birthDate">Nacimiento:</label>
+                    </div>
+                </div>
+                
+                <div class="profile-personalData">
+                <!-- Sexo -->
+                    <div class="profile-input">
+                        <select name="gender" id="sexe">
+                            <option value="hombre" <?php echo ($result['sex'] === 'hombre') ? 'selected' : ''; ?>>Hombre</option>
+                            <option value="mujer" <?php echo ($result['sex'] === 'mujer') ? 'selected' : ''; ?>>Mujer</option>
+                            <option value="no binari" <?php echo ($result['sex'] === 'no binari') ? 'selected' : ''; ?>>No binaria</option>
+                        </select>
+                        <label for="sexe">Sexo:</label>
+                    </div>
+
+                    <!-- Orientación Sexual -->
+                    <div class="profile-input">
+                        <select name="sexOrientation" id="orientation">
+                            <option value="heterosexual" <?php echo ($result['sexual_orientation'] === 'heterosexual') ? 'selected' : ''; ?>>Heterosexual</option>
+                            <option value="homosexual" <?php echo ($result['sexual_orientation'] === 'homosexual') ? 'selected' : ''; ?>>Homosexual</option>
+                            <option value="bisexual" <?php echo ($result['sexual_orientation'] === 'bisexual') ? 'selected' : ''; ?>>Bisexual</option>
+                        </select>
+                        <label for="orientation">Orientación sexual:</label>
+                    </div>
                 </div>
 
                 <div class="profile-input">
-                    <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($result['last_name']); ?>" />
-                    <label for="lastName">Apellidos:</label>
-                </div>
-            </div>
-
-            <div class="profile-personalData">
-                <div class="profile-input">
-                    <input type="text" id="alias" name="alias" value="<?php echo htmlspecialchars($result['alias']); ?>" />
-                    <label for="alias">Alias:</label>
+                    <input type="email" id="mail" name="mail" value="<?php echo htmlspecialchars($result['email']); ?>" disabled style="cursor:not-allowed"> 
+                    <label for="mail">Email:</label>
                 </div>
 
-                <div class="profile-input">
-                    <input type="date" id="birthDate" name="birthDate" value="<?php echo htmlspecialchars($result['birth_date']); ?>" />
-                    <label for="birthDate">Nacimiento:</label>
-                </div>
-            </div>
-            
-            <div class="profile-personalData">
-            <!-- Sexo -->
-                <div class="profile-input">
-                    <select name="gender" id="sexe">
-                        <option value="hombre" <?php echo ($result['sex'] === 'hombre') ? 'selected' : ''; ?>>Hombre</option>
-                        <option value="mujer" <?php echo ($result['sex'] === 'mujer') ? 'selected' : ''; ?>>Mujer</option>
-                        <option value="no binari" <?php echo ($result['sex'] === 'no binari') ? 'selected' : ''; ?>>No binaria</option>
-                    </select>
-                    <label for="sexe">Sexo:</label>
+                <div class="google-maps">
+                    <label for="location">Localización:</label> 
+                    <div id="map"></div>
+                    <script>
+                        // pasar las coodenadas del php al js
+                        let coordinates = {
+                            lat: <?php echo htmlspecialchars($result['latitude']); ?>,
+                            lng: <?php echo htmlspecialchars($result['longitude']); ?>
+                        };
+                    </script>
                 </div>
 
-                <!-- Orientación Sexual -->
-                <div class="profile-input">
-                    <select name="sexOrientation" id="orientation">
-                        <option value="heterosexual" <?php echo ($result['sexual_orientation'] === 'heterosexual') ? 'selected' : ''; ?>>Heterosexual</option>
-                        <option value="homosexual" <?php echo ($result['sexual_orientation'] === 'homosexual') ? 'selected' : ''; ?>>Homosexual</option>
-                        <option value="bisexual" <?php echo ($result['sexual_orientation'] === 'bisexual') ? 'selected' : ''; ?>>Bisexual</option>
-                    </select>
-                    <label for="orientation">Orientación sexual:</label>
-                </div>
-            </div>
+                <a href="#">Cambiar fotos</a> 
 
-            <div class="profile-input">
-                <input type="email" id="mail" name="mail" value="<?php echo htmlspecialchars($result['email']); ?>" disabled style="cursor:not-allowed"> 
-                <label for="mail">Email:</label>
-            </div>
+                <button type="submit" id="buttonSave">Guardar Cambios</button>
 
-            <div class="google-maps">
-                <label for="location">Localización:</label> 
-                <div id="map"></div>
-                <script>
-                    // pasar las coodenadas del php al js
-                    let coordinates = {
-                        lat: <?php echo htmlspecialchars($result['latitude']); ?>,
-                        lng: <?php echo htmlspecialchars($result['longitude']); ?>
-                    };
-                </script>
-            </div>
-
-            <a href="#">Cambiar fotos</a> 
-
-            <button type="submit" id="buttonSave">Guardar Cambios</button>
-
-        </form>
-    </main>
+            </form>
+            <?php include('footer.php'); ?>
+    </div>
     
 </body>
 
