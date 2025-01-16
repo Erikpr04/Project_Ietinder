@@ -2,6 +2,7 @@
 header('Content-Type: application/json');
 include_once 'db_config.php';
 
+
 // Verificar método POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -82,8 +83,30 @@ try {
             ':user2_id' => $user2_id
         ]);
 
+
+
+        // Verificar si ya existe una conversación entre los dos usuarios
+        $checkSql = "SELECT COUNT(*) FROM Conversation WHERE (user1_id = :user1_id AND user2_id = :user2_id) OR (user1_id = :user2_id AND user2_id = :user1_id)";
+        $checkStmt = $pdo->prepare($checkSql);
+        $checkStmt->execute([
+            ':user1_id' => $user1_id,
+            ':user2_id' => $user2_id
+        ]);
+
+        if ($checkStmt->fetchColumn() > 0) {
+        } else {
+            $messageSql = "INSERT INTO Conversation (user1_id, user2_id, started) VALUES (:user1_id, :user2_id, 0)";
+            $updateStmt = $pdo->prepare($messageSql);
+            $updateStmt->execute([
+                ':user1_id' => $user1_id,
+                ':user2_id' => $user2_id
+            ]);
+        }
+
+
         // Hay match
         echo json_encode(['match' => true]);
+
     } else {
         // El otro usuario no nos ha dado like aún, creamos nuevo registro
         $insertSql = "INSERT INTO Interaction (user1_id, user2_id, type, matched) 
