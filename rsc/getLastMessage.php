@@ -26,43 +26,40 @@ $password = getenv('DB_PASSWORD');
     }
 
     $query = $pdo->prepare("
-    SELECT m.content, u.name
+    SELECT m.content, u.name, m.sender_id
     FROM Message m
     JOIN User u ON m.sender_id = u.id
     WHERE m.sender_id = :idSender
     ORDER BY m.timestamp DESC
     LIMIT 1
-");
-$query->bindParam(":idSender", $idUsuario);
-
+    ");
+    $query->bindParam(":idSender", $idUsuario);
 
     try {
         if ($query->execute()) {
             $result = $query->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 echo json_encode([
-                   'name' => $result['name'],
+                    'sender_id' => $result['sender_id'],
+                    'name' => $result['name'],
                     'content' => $result['content']
-            ]);
+                ]);
             } else {
                 echo json_encode("No hay mensajes para este usuario.");
             }
-        }
-        else {
+        } else {
             echo json_encode([
                 'status' => 'error',
                 'message' => 'Error al recoger el último mensaje'
             ]);
         }
-    }
-    catch (PDOException $e) {
+    } catch (PDOException $e) {
         echo json_encode([
             'status' => 'error',
             'message' => 'Error al ejecutar la consulta: ' . $e->getMessage()
         ]);
     }
-
-
+    
     unset($pdo);
     unset($query);
 }
