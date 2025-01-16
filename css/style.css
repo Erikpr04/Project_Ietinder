@@ -594,13 +594,22 @@ body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage
     width: 80px;
     height: 80px;
     object-fit: cover;
+    border-radius: 100%;
     margin-right: 10px;
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage p {
     margin: 0;
     flex-grow: 1;
-    text-align: left;
+    text-align:left;
+}
+
+.lastMessage {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    display: inline-block;
 }
 
 /* MARK: footer */

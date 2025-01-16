@@ -47,7 +47,7 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
 
         // crear la foto y el nombre
         const image = $('<img>').attr('src',profile.media_path).attr('alt', 'Imagen de '+profile.other_user_name);
-        const name = $("<p></p>").text(profile.other_user_name);
+        const name = $("<p style='font-weight: 700;'></p>").text(profile.other_user_name);
 
         // filtrar
         if(profile.started ===0){
@@ -65,7 +65,7 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                 data: { idUsuario: profile.user2_id },
                 success: function(lastMessageInfo) {
 
-                    const lastMessage = $("<p></p>").text(lastMessageInfo.slice(1, -1));
+                    const lastMessage = $("<p class='lastMessage'></p>").text(lastMessageInfo.slice(1, -1));
                     // contenedor que almecena los datos relacionados
                     const sectionContainer = $("<section></section>").append(name, lastMessage);
 

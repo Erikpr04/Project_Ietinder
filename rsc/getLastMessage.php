@@ -25,8 +25,16 @@ $password = getenv('DB_PASSWORD');
         exit;
     }
 
-    $query = $pdo->prepare("SELECT content FROM Message WHERE sender_id = :idSender ORDER BY timestamp DESC LIMIT 1");
-    $query->bindParam(":idSender", $idUsuario);
+    $query = $pdo->prepare("
+    SELECT m.content, u.name
+    FROM Message m
+    JOIN User u ON m.sender_id = u.id
+    WHERE m.sender_id = :idSender
+    ORDER BY m.timestamp DESC
+    LIMIT 1
+");
+$query->bindParam(":idSender", $idUsuario);
+
 
     try {
         if ($query->execute()) {
