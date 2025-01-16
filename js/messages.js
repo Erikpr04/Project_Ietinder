@@ -64,23 +64,11 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                 url: '/rsc/getLastMessage.php',
                 method: 'POST',
                 data: { idUsuario: profile.user2_id },
-                dataType: 'json',
                 success: function(lastMessageInfo) {
 
-                    
-
-                    // Verifica si la respuesta es una cadena y parsea manualmente si es necesario
-        const responseObject = typeof lastMessageInfo === 'string' 
-        ? JSON.parse(lastMessageInfo) 
-        : lastMessageInfo;
-
-    // Crea el mensaje utilizando las propiedades del objeto
-    const messageString = responseObject.name + ': ' + responseObject.content;
-
-
-                    const lastMessage = $("<p class='lastMessage'></p>").text(messageString); // contenedor que almacena los datos relacionados
+                    const lastMessage = $("<p></p>").text(lastMessageInfo.slice(1, -1));
+                    // contenedor que almecena los datos relacionados
                     const sectionContainer = $("<section></section>").append(name, lastMessage);
-
 
                     $('#messagedProfiles').append(newMatchedProfile);
                     $('#profile' + profile.idConversation).append(image,sectionContainer);
