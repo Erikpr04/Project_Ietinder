@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Victor Valero, Erik Pinto, Marta Arévalo">
+    <meta name="description" content="Esta es la vista mensajes de la app SwipeIt">
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/messages.js"></script>
+    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
+
+    <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time();?>"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">    
+
+    <title>SwipeIt! - Messages</title>
+</head>
+
+<body id="messages">
+  
+<?php
+  require_once './rsc/log.php';
+
+  if (isset($_COOKIE['user_id'])) {
+      createLog(action: "Usuario entrado a messages con id: " . $_COOKIE['user_id']);
+  }
+  else {
+      createLog(action: "Usuario no tiene cookie, redirigiendo de messages a login");
+
+      header('Location: ./login.php');
+  }
+?>
+
+
+
+    <div class="main-container">
+    <div class="main-header">
+        <h2>S<span>w</span>ipeIt</h2>
+        <a href="#"><i class="fa-solid fa-magnifying-glass"></i>Buscar</a>
+    </div>
+
+
+        <main>
+            <div id="containerMatches">
+                <h4>Mis matches</h4>
+
+                <!-- para los que han dado match -->
+                <div id="matchedProfiles"></div>
+
+            </div>
+
+            <div id="containerMessages">
+                <h4>Mensajes</h4>
+
+                <!-- para los que tienes una conversación -->
+                <div id="messagedProfiles"></div>
+            </div>
+        </main>
+
+        <?php include('footer.php'); ?>
+    </div>
+
+</body>
+</html>
