@@ -65,19 +65,19 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                 method: 'POST',
                 data: { idUsuario: profile.user2_id },
                 success: function(lastMessageInfo) {
-                    // lastMessageInfo es un objeto con el nombre y el mensaje
+                    // Asegúrate de parsear correctamente la respuesta JSON
                     const lastMessageData = JSON.parse(lastMessageInfo);
             
-                    // Si hay error, mostrarlo
+                    // Si hay error, manejarlo
                     if (lastMessageData.error) {
                         console.error(lastMessageData.error);
                         return;
                     }
             
-                    // Crear el elemento con el nombre del usuario y el mensaje
+                    // Crear el mensaje con el nombre y contenido del mensaje
                     const lastMessage = $("<p class='lastMessage'></p>").text(lastMessageData.name + ": " + lastMessageData.content);
             
-                    // Crear el contenedor que incluye la foto y el mensaje
+                    // Crear el contenedor con el nombre y el mensaje
                     const sectionContainer = $("<section></section>").append(lastMessage);
             
                     // Añadir el nuevo perfil al contenedor
