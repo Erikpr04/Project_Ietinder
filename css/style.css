@@ -940,3 +940,55 @@ footer p a:hover {
     overflow: hidden;
 
 }
+
+/* ERROR TAGS*/
+/* Estilo básico para el mensaje de error */
+.error-tag {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%); 
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    opacity: 0;
+    width: max-content;
+    max-width: 400px;
+    transition: top 0.5s ease, opacity 0.5s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.error-tag i {
+    margin-right: .5rem;
+}
+
+/* Animación para mostrar el error */
+.error-tag.show {
+    top: 1.5rem;
+    opacity: 1;
+}
+
+.error-tag.hide {
+    top: -1.5rem; /* Se mueve hacia arriba */
+    opacity: 0; /* Se vuelve transparente */
+}
+
+/* Colores para cada tipo de error */
+.warning {
+    background-color: var(--light-yellow-color);
+}
+
+.error {
+    background-color: var(--light-red-color);
+}
+
+.info {
+    background-color: var(--light-blue-color);
+}
+
+.unknown {
+    background-color: #b2b2b2;
+}
