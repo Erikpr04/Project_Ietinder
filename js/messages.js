@@ -69,7 +69,13 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
 
                     
 
-                    const messageString = lastMessageInfo['name'] + ': ' + lastMessageInfo['content'];
+                    // Verifica si la respuesta es una cadena y parsea manualmente si es necesario
+        const responseObject = typeof lastMessageInfo === 'string' 
+        ? JSON.parse(lastMessageInfo) 
+        : lastMessageInfo;
+
+    // Crea el mensaje utilizando las propiedades del objeto
+    const messageString = responseObject.name + ': ' + responseObject.content;
 
 
                     const lastMessage = $("<p class='lastMessage'></p>").text(messageString); // contenedor que almacena los datos relacionados
