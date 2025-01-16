@@ -65,17 +65,16 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                 method: 'POST',
                 data: { idUsuario: profile.user2_id },
                 success: function(lastMessageInfo) {
-                    // Asegúrate de parsear correctamente la respuesta JSON
-                    const lastMessageData = JSON.parse(lastMessageInfo);
-            
-                    // Si hay error, manejarlo
-                    if (lastMessageData.error) {
-                        console.error(lastMessageData.error);
+                    if (lastMessageInfo.error) {
+                        console.error(lastMessageInfo.error);
                         return;
                     }
             
+                    // Obtener el nombre del otro usuario (profile.other_user_name) antes de mostrar el mensaje
+                    const otherUserName = profile.other_user_name;
+            
                     // Crear el mensaje con el nombre y contenido del mensaje
-                    const lastMessage = $("<p class='lastMessage'></p>").text(lastMessageData.name + ": " + lastMessageData.content);
+                    const lastMessage = $("<p class='lastMessage'></p>").text(otherUserName + ": " + lastMessageInfo.content);
             
                     // Crear el contenedor con el nombre y el mensaje
                     const sectionContainer = $("<section></section>").append(lastMessage);
@@ -88,6 +87,7 @@ function createProfilesDependsOfConversationStarted(data,isEmpty){
                     console.error('Hubo un error al obtener el último mensaje: ' + error);
                 }
             });
+            
             
 
         }
