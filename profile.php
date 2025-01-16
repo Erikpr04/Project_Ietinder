@@ -7,6 +7,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlpD9X2jl0jwfH92yjVCIw2y_ecoVmWRA"></script>
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/profile.js"></script>
+    <script src="./js/utils.js"></script>
 
     <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time();?>"/>
     
