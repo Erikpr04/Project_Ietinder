@@ -10,13 +10,16 @@ $.ajax({
     }
 });
 
-// Filtra y crea en función de si ha empezado o no la conversación
-function createProfilesDependsOfConversationStarted(data, isEmpty) {
-    // No hay ningún match aún
-    if (isEmpty === 1) {
+// filtra y crea en función de si ha empezado o no la conversación
+function createProfilesDependsOfConversationStarted(data,isEmpty){
+
+    // no hay ningún match aún
+    if(isEmpty===1){
+
+        //buscar el contenedor y ponerle que los items se alineen al centro
         $('#matchedProfiles').addClass('centerContentInContainer');
         $('#messagedProfiles').addClass('centerContentInContainer');
-
+        // crear contenedor
         const noMatchedInfo = $('<div></div>').html('Hay gente esperando hablar contigo.<br>Devuélveles el like para empezar a charlar')
                                               .addClass('centerTextMessage');
         const noMessagesInfo = $('<div></div>').html('No hay ninguna conversación,<br>descubre gente nueva y haz match')
@@ -24,15 +27,21 @@ function createProfilesDependsOfConversationStarted(data, isEmpty) {
 
         $('#matchedProfiles').append(noMatchedInfo);
         $('#messagedProfiles').append(noMessagesInfo);
+
         return;
     }
 
+    // si hay matches
+    
+    // booleano de comprobación si hay perfiles
     let hasMatches = false;
     let hasMessages = false;
 
     for (let i = 0; i < data.length; i++) {
         const profile = data[i];
+        console.log(data);
 
+        
         // crear contenedor
         const newMatchedProfile = $("<div></div>").attr('id', 'profile' + profile.idConversation).addClass('cardProfileMessage');
 
@@ -42,7 +51,7 @@ function createProfilesDependsOfConversationStarted(data, isEmpty) {
         name.addClass('profileName');
 
         // filtrar
-        if(profile.started === 0){
+        if(profile.started ===0){
             hasMatches = true;
             $('#matchedProfiles').append(newMatchedProfile);
             $('#profile'+profile.idConversation).append(image,name);
@@ -50,38 +59,28 @@ function createProfilesDependsOfConversationStarted(data, isEmpty) {
         else{
             hasMessages = true;
 
-            // buscar el último mensaje
+            //buscar el último mensaje
             $.ajax({
                 url: '/rsc/getLastMessage.php',
                 method: 'POST',
                 data: { idUsuario: profile.user2_id },
                 success: function(lastMessageInfo) {
-                    if (lastMessageInfo.error) {
-                        console.error(lastMessageInfo.error);
-                        return;
-                    }
 
-                    // Obtener el nombre del otro usuario (profile.other_user_name) antes de mostrar el mensaje
-                    const otherUserName = profile.other_user_name;
+                    const lastMessage = $("<p class='lastMessage'></p>").text(lastMessageInfo.slice(1, -1));
+                    // contenedor que almecena los datos relacionados
+                    const sectionContainer = $("<section></section>").append(name, lastMessage);
 
-                    // Verificar quién envió el último mensaje (será profile.user1_id o profile.user2_id)
-                    const senderName = (lastMessageInfo.sender_id == profile.user2_id) ? otherUserName : "Tú";
-
-                    // Crear el mensaje con el nombre y contenido del mensaje
-                    const lastMessage = $("<p class='lastMessage'></p>").text(senderName + ": " + lastMessageInfo.content);
-
-                    // Crear un contenedor con el nombre y el mensaje
-                    const sectionContainer = $("<section></section>").append(lastMessage);
-
-                    // Añadir el nuevo perfil al contenedor
                     $('#messagedProfiles').append(newMatchedProfile);
-                    $('#profile' + profile.idConversation).append(image, sectionContainer);
+                    $('#profile' + profile.idConversation).append(image,sectionContainer);
+
                 },
                 error: function(xhr, status, error) {
                     console.error('Hubo un error al obtener el último mensaje: ' + error);
                 }
-            });
+            }); 
+
         }
+
     };
 
     if(!hasMatches){
@@ -97,4 +96,5 @@ function createProfilesDependsOfConversationStarted(data, isEmpty) {
                                                .addClass('centerTextMessage');
         $('#messagedProfiles').append(noMessagesInfo);
     }
+    
 }
