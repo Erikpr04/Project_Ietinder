@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--white-color);
+    background-color: #fff;
 
 }
 
@@ -386,6 +386,7 @@ body#profile form {
     min-width: 375px; 
     width: 100%;
     height: 100%; 
+    padding: 15px 30px 30px 30px;
     background-color: var(--white-color);
     overflow: hidden; 
     position: relative; 
@@ -475,25 +476,11 @@ body#profile #buttonSave {
     cursor: pointer;
     border-radius: 0.5rem;
     font-size: 1rem;
+    width: 100%;
 }
 
-body#profile #buttonSave::after {
-    content: "";
-    position: absolute;
-    background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
-    opacity: 0;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border-radius: .5rem;
-    z-index: -1;
-}
-
-body#profile #buttonSave:hover::after, body#profile #buttonSave:hover {
-    opacity: 1;
-    border-color: transparent;  
-    color: var(--white-color);
+body#profile #buttonSave:hover {
+    background-color: #cfcfcf;
 }
 
 /* MARK: messages*/
@@ -607,13 +594,26 @@ body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage
     width: 80px;
     height: 80px;
     object-fit: cover;
+    border-radius: 100%;
     margin-right: 10px;
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage p {
     margin: 0;
     flex-grow: 1;
-    text-align: left;
+    text-align:left;
+}
+
+.profile-name {
+    font-weight: bold;
+}
+
+.lastMessage {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    display: inline-block;
 }
 
 /* MARK: footer */
@@ -939,4 +939,56 @@ footer p a:hover {
     height: 100%;
     overflow: hidden;
 
+}
+
+/* ERROR TAGS*/
+/* Estilo básico para el mensaje de error */
+.error-tag {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%); 
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    opacity: 0;
+    width: max-content;
+    max-width: 400px;
+    transition: top 0.5s ease, opacity 0.5s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.error-tag i {
+    margin-right: .5rem;
+}
+
+/* Animación para mostrar el error */
+.error-tag.show {
+    top: 1.5rem;
+    opacity: 1;
+}
+
+.error-tag.hide {
+    top: -1.5rem; /* Se mueve hacia arriba */
+    opacity: 0; /* Se vuelve transparente */
+}
+
+/* Colores para cada tipo de error */
+.warning {
+    background-color: var(--light-yellow-color);
+}
+
+.error {
+    background-color: var(--light-red-color);
+}
+
+.info {
+    background-color: var(--light-blue-color);
+}
+
+.unknown {
+    background-color: #b2b2b2;
 }
