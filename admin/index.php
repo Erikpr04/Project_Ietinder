@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargar Perfiles</title>
+    <title>Admin Panel</title>
 </head>
 <body>
     <h1>Insertar Perfiles desde JSON a la Base de Datos</h1>
@@ -17,7 +17,7 @@
 
 
 <?php
-include_once "rsc/db_config.php";
+include_once "../rsc/db_config.php";
 
 $host = getenv('DB_HOST');
 $dbname = getenv('DB_NAME') ;
@@ -39,6 +39,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
     if (file_exists($file)) {
         $jsonData = file_get_contents($file);
         $profiles = json_decode($jsonData, true);
+        $stmtUser = $pdo->prepare("DELETE FROM User;")->execute();
+
+        //CAMBIAR
+        $stmtUser = $pdo->prepare("ALTER TABLE User AUTO_INCREMENT = 1;")->execute();
+        $stmtUser = $pdo->prepare("ALTER TABLE Interaction AUTO_INCREMENT = 1;")->execute();
+        $stmtUser = $pdo->prepare("ALTER TABLE Media AUTO_INCREMENT = 1;")->execute();
+        $stmtUser = $pdo->prepare("ALTER TABLE Message AUTO_INCREMENT = 1;")->execute();
+        $stmtUser = $pdo->prepare("ALTER TABLE Conversation AUTO_INCREMENT = 1;")->execute();
+        $stmtUser = $pdo->prepare("ALTER TABLE User_logs AUTO_INCREMENT = 1;")->execute();
+
+
+
 
         if (json_last_error() === JSON_ERROR_NONE) {
             $insertUserQuery = "
@@ -105,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["jsonFile"])) {
             echo "<p>Errores: $errors</p>";
 
             // Mostrar todos los usuarios insertados
-            $selectQuery = "SELECT * FROM user";
+            $selectQuery = "SELECT * FROM User";
             $stmt = $pdo->query($selectQuery);
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
