@@ -505,11 +505,11 @@ body#messages .main-header a {
     text-decoration: none;
     font-family: "GothamRnd", serif;
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1rem;
     border-radius: 2rem;
 }
 body#messages .main-header a i {
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 body#messages main {
@@ -549,10 +549,11 @@ body#messages main div.centerTextMessage{
 /* profiles sin conversaciones */
 body#messages main #containerMatches #matchedProfiles {
     display: flex;
-    gap: 20px;
+    gap: .5rem;
     overflow-x: auto;
     min-height: 150px;
-    align-items: flex-start;
+    align-items: center;
+    padding-left: .5rem;
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage {
@@ -560,18 +561,23 @@ body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 120px;
+    max-width: 80px;
+    transition: all 0.1s ease;
+}
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage:hover {
+    cursor: pointer;
+    transform: scale(1.03);
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage img {
-    width: 100px;
-    height: 120px;
+    width: 80px;
+    height: 100px;
     object-fit: cover;
     object-position: center;
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p {
-    margin: 10px 0 0 0;
+    margin-top: .25rem;
     text-align: center;
     width: 100%;
 }
@@ -596,6 +602,7 @@ body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage
     object-fit: cover;
     border-radius: 100%;
     margin-right: 10px;
+    flex-shrink: 0;
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage p {
@@ -606,6 +613,10 @@ body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage
 
 .profile-name {
     font-weight: bold;
+}
+
+.cardProfileMessage img {
+    border-radius: .5rem ;
 }
 
 .lastMessage {
@@ -650,13 +661,13 @@ footer p a:hover {
 }
 
 .main-header h2{
-    padding: .25rem 1rem;
+    padding: .15rem .75rem;
     color: var(--black-color);
-    font-size: 3.5rem;
+    font-size: 2.75rem;
 }
 
 .main-header h2 span{
-    font-size: 3.5rem;
+    font-size: 2.75rem;
 }
 
 
@@ -803,7 +814,7 @@ footer p a:hover {
 }
 
 
-/* Matches */
+/* MARK: Matches */
 
 
 /* Estilos para el overlay desenfocado */
@@ -941,7 +952,7 @@ footer p a:hover {
 
 }
 
-/* ERROR TAGS*/
+/* MARK: ERROR TAGS*/
 /* Estilo básico para el mensaje de error */
 .error-tag {
     position: absolute;
@@ -991,4 +1002,115 @@ footer p a:hover {
 
 .unknown {
     background-color: #b2b2b2;
+}
+
+/* MARK:CHAT*/
+
+body#chat {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100dvh;
+    background-color: #f9f9f9;
+    width: 460px;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.message {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    max-width: 80%;
+    padding: 10px;
+    margin: .5rem 0;
+    border-radius: 1rem;
+    font-size: 1rem;
+    line-height: 1.3rem;
+}
+
+.message p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.profile-image-chat {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 100%;
+    flex-shrink: 0;
+}
+
+.my-message  img {
+    display: none;
+}
+
+.my-message {
+    align-self: flex-end;
+    border-top-right-radius: 0;
+    background-color: #d1f5d3;
+    text-align: left;
+}
+
+.their-message {
+    border-bottom-left-radius: 0;
+    align-self: flex-start;
+    background-color: #ffffff;
+    text-align: left;
+}
+
+#messageForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: .25rem;
+    padding: 0 1rem 1rem 1rem; 
+}
+
+#messageForm #message {
+    background-color: #fff;
+    padding: .25rem .5rem;
+    border-radius: 10rem;
+    border: 2px solid #a5a5a5;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 2rem;
+    font-size: 1rem;
+    width: 100%;
+    appearance: none;
+    outline: none;
+}
+
+#messageForm #send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--orange-color);
+    height: 2rem;
+    width:  2rem;
+    border-radius: 100%;
+    border: none;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+#messageForm #send:hover {
+    background-color:  #e95d37;
+}
+
+#messageForm #send i {
+    color: #fff;
+    font-size: 1rem;
 }

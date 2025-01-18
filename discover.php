@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css?t=<?php echo time();?>"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./js/utils.js"></script>
+    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
 
     <script src="./js/discover.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,6 +23,7 @@
 <div class="main-container">
     <?php
         require_once './rsc/log.php';
+        require_once './rsc/db_config.php';
 
         if (isset($_COOKIE['user_id'])) {
             createLog(action: "Usuario entrado a discover con id: " . $_COOKIE['user_id']);
@@ -57,10 +59,6 @@
     <?php include('footer.php'); ?>
 
 </div>
-
-<script>
-    createErrorTag("info", "Te has logueado correctamente")
-</script>
-
+    <?php echo "<script>createErrorTag('info', 'Te has logueado correctamente')</script>" ?>
 </body>
 </html>
