@@ -118,6 +118,11 @@
                     // Verificar la contraseña
                     if (hash('sha256', $password) === $hashed_password) {
                         // Guardar cookie si se marca "recordar sesión"
+                        $sql = "INSERT INTO User_logs (user_id) VALUES (?)";
+                        $stmt = $connection->prepare($sql);
+                        $stmt->bind_param("s", $user_id);
+                        $stmt->execute();
+                        
                         if ($remember) {
                             setcookie("user_id", $user_id, time() + (30 * 24 * 60 * 60), "/"); // 30 días
                             echo "<script>sendLog('User $user_id logged in, redirecting him to discover.php from login.php.').then(() => { window.location.href = 'discover.php'; });</script>";
