@@ -91,6 +91,22 @@
     font-style: normal;
 }
 
+/* Estilo para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 5px; /* Hace la barra de desplazamiento más delgada */
+}
+
+/* Estilo para el fondo de la barra */
+::-webkit-scrollbar-thumb {
+    background-color: #b8b8b8; /* Color de la barra */
+    border-radius: 10px;
+}
+
+/* Estilo para el hover de la barra de desplazamiento */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* Color al pasar el ratón */
+}
+
 /* General reset */
 
 * {
@@ -585,34 +601,45 @@ body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p
 
 /* profiles con conversaciones */
 body#messages main #containerMessages #messagedProfiles{
-    min-height: 334px;
+    height: 555px;
+    overflow-y: auto;
+    padding: .5rem;
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 100px;
-    margin-bottom: 10px;
+    margin-bottom: .25rem;
+    border-radius: .5rem;
+    padding: .5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    transition: all 0.1s ease;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage img {
-    width: 80px;
-    height: 80px;
+    width: 55px;
+    height: 55px;
     object-fit: cover;
     border-radius: 100%;
     margin-right: 10px;
     flex-shrink: 0;
 }
 
+.profileName {
+    font-weight: 600;
+}
+
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage p {
     margin: 0;
     flex-grow: 1;
     text-align:left;
-}
-
-.profile-name {
-    font-weight: bold;
 }
 
 .cardProfileMessage img {
@@ -1020,7 +1047,7 @@ body#chat {
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: flex-end;
+    width: 460px;
     overflow-y: auto;
     padding: 10px;
     border-radius: 5px;
@@ -1028,12 +1055,10 @@ body#chat {
 }
 
 .message {
-    display: flex;
-    gap: .5rem;
-    align-items: center;
     max-width: 80%;
     padding: 10px;
-    margin: .5rem 0;
+    margin: .25rem 0;
+    position: relative;
     border-radius: 1rem;
     font-size: 1rem;
     line-height: 1.3rem;
@@ -1046,11 +1071,14 @@ body#chat {
 }
 
 .profile-image-chat {
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 30px;
     height: 30px;
     object-fit: cover;
     border-radius: 100%;
-    flex-shrink: 0;
 }
 
 .my-message  img {
@@ -1060,15 +1088,16 @@ body#chat {
 .my-message {
     align-self: flex-end;
     border-top-right-radius: 0;
-    background-color: #d1f5d3;
+    background-color: #ffe0d8;
     text-align: left;
 }
 
 .their-message {
     border-bottom-left-radius: 0;
     align-self: flex-start;
-    background-color: #ffffff;
+    background-color: #ffe6d3;;
     text-align: left;
+    padding-left: 45px;
 }
 
 #messageForm {
@@ -1113,4 +1142,11 @@ body#chat {
 #messageForm #send i {
     color: #fff;
     font-size: 1rem;
+}
+
+.date-separator {
+    text-align: center;
+    margin-block: 2rem .75rem;
+    font-size: 0.9em;
+    color: #888;
 }

@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             $('#messagedProfiles').append(noMessagesInfo);
         }
 
-        $('.cardProfileMessage').on('click', function () {
+        $('#matchedProfiles, #messagedProfiles').on('click', '.cardProfileMessage', function () {
             const idConversation = $(this).data('conversation-id');
             if (idConversation) {
                 window.location.href = `chat.php?conversation_id=${idConversation}`;

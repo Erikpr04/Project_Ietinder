@@ -29,7 +29,7 @@
 
     <div id="chatContainer" class="chat-container">
     </div>
-    <form action="" id="messageForm" method="post">
+    <form action="" id="messageForm" method="post" autocomplete="off">
             <input type="text" name="" id="message" placeholder="Escribe un mensaje"></input>
             <button type="submit" id="send"><i class="fa-solid fa-paper-plane-top"></i></button>
     </form>

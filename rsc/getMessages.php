@@ -8,6 +8,7 @@ if (!isset($_GET['conversation_id'])) {
 }
 
 $conversation_id = intval($_GET['conversation_id']);
+$last_message_id = isset($_GET['last_message_id']) ? intval($_GET['last_message_id']) : 0;
 $user_id = isset($_COOKIE['user_id']) ? intval($_COOKIE['user_id']) : null;
 
 if (!$user_id) {
@@ -30,9 +31,11 @@ try {
         END AS sender_photo
     FROM Message m
     WHERE m.conversation_id = :conversation_id
+      AND m.id > :last_message_id
     ORDER BY m.timestamp ASC;
     ");
     $query->bindParam(':conversation_id', $conversation_id, PDO::PARAM_INT);
+    $query->bindParam(':last_message_id', $last_message_id, PDO::PARAM_INT);
     $query->bindParam(':current_user_id', $user_id, PDO::PARAM_INT);
     $query->execute();
 
