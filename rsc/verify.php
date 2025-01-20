@@ -34,7 +34,10 @@ if (isset($_GET['token'])) {
                 $stmtUpdate = $pdo->prepare("UPDATE User SET account_status = 'active', verification_token = NULL WHERE verification_token = :token");
                 $stmtUpdate->bindParam(':token', $token);
                 $stmtUpdate->execute();
-                echo "Cuenta activada exitosamente.";
+
+                // Redirigir a login.php
+                header("Location: login.php");
+                exit();
             }
         } else {
             echo "Token inválido.";
@@ -45,4 +48,5 @@ if (isset($_GET['token'])) {
 } else {
     echo "Token no proporcionado.";
 }
+
 ?>

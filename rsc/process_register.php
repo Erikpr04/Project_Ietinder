@@ -101,15 +101,27 @@ try {
             // Contenido del correo con el botón
             $mail->isHTML(true);
             $mail->Subject = 'Validar registro';
-            $mail->Body    = '
-                <p>Hola ' . htmlspecialchars($data['name']) . ',</p>
-                <p>Gracias por registrarte en SwipeIt. Para completar el registro y activar tu cuenta, haz clic en el siguiente botón:</p>
-               
-            ';
+            $mail->Body = '
+            <html>
+            <head>
+            </head>
+            <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background: linear-gradient(-45deg, #e74c3c, #f39c12, #e67e22, #f39c12, #f1c40f); background-size: 400% 400%; color: #333;">
+                <div style="text-align: center; padding: 30px;">
+                    <h2 style="font-family: Arial, sans-serif; font-size: 4rem; color: white;">S<span style="color: #f39c12;">w</span>ipeIt</h2>
+                    <p style="font-size: 1.2rem; color: white;">¡El <span style="color: #f39c12;">amor</span> está a un swipe!</p>
+                    
+                    <p style="color: white;">Hola ' . htmlspecialchars($data['name']) . ',</p>
+                    <p style="color: white;">Gracias por registrarte en SwipeIt. Para completar el registro y activar tu cuenta, haz clic en el siguiente botón:</p>
+                    <p><a href="' . $validationLink . '" style="background-color: #4CAF50; color: white; padding: 14px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 1.2rem; border-radius: 5px;">Validar mi cuenta</a></p>
+                    <p style="color: white;">Si no has realizado este registro, puedes ignorar este correo.</p>
+                </div>
+            </body>
+            </html>';
+            
 
             //<p><a href="' . $validationLink . '" style="background-color: #4CAF50; color: white; padding: 14px 20px; text-align: center; text-decoration: none; display: inline-block;">Validar mi cuenta</a></p>
             //<p>Si no has realizado este registro, puedes ignorar este correo.</p>
-
+            //<p><a href="' . $validationLink . '">Validar mi cuenta</a></p>
             // Enviar correo
             $mail->send();
             echo json_encode(["success" => true, "message" => "Registro exitoso. Se ha enviado un correo de validación."]);
