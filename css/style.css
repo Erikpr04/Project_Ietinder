@@ -1043,14 +1043,13 @@ body#chat {
     width: 460px;
 }
 
-.chat-container {
+#chatContainer, #tab-chatContainer, #tab-profileContainer {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 460px;
+    width: 100%;
     overflow-y: auto;
     padding: 10px;
-    border-radius: 5px;
     background-color: #f9f9f9;
 }
 
@@ -1149,4 +1148,96 @@ body#chat {
     margin-block: 2rem .75rem;
     font-size: 0.9em;
     color: #888;
+}
+
+.chat-header-container {
+    display: flex;
+    width: 100%;
+    padding: .5rem;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.chat-header-container button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-header-container button i {
+    font-size: 1.25rem;
+}
+
+.chat-header .user-photo {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 100%;
+    flex-grow: 1;
+    margin-inline: .5rem;
+}
+
+
+/* MARK: TABS */
+
+#profileContainer .profile-image {
+    width: 100%;
+    height: 660px;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+    border-bottom: #888 1px solid;
+}
+
+.tab button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: .25rem;
+    transition: 0.3s;
+    border-right: 1px solid #888;
+    border-left: 1px solid #888;
+    border-top: 1px solid #888;
+    width: 100px;
+    border-top-left-radius:  .25rem;
+    border-top-right-radius:  .25rem;
+}
+
+.tab button:hover {
+    background-color: #cccccc;
+}
+
+.user-profile {
+    position: relative;
+}
+
+.user-details {
+    gap: 1rem;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -85%);
+    position: absolute;
+    display: flex;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: .25rem;
+    padding: .25rem;
+}
+
+.user-details .user-name, .user-details .user-age {
+    font-weight: 500;
+    font-size: 1.5rem;
+
 }

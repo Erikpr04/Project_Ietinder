@@ -26,14 +26,65 @@
     <div class="main-header">
         <h2>S<span>w</span>ipeIt</h2>
     </div>
-
-    <div id="chatContainer" class="chat-container">
+<div class="chat-header-container">
+    <button><i class="fa-solid fa-arrow-left"></i></button>
+    <div id="userInfo" class="chat-header">
+        <!-- Aquí se cargarán el nombre y la imagen del usuario -->
     </div>
-    <form action="" id="messageForm" method="post" autocomplete="off">
+</div>
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'tab-chatContainer')">Conversation</button>
+        <button class="tablinks" onclick="openCity(event, 'tab-profileContainer')">Profile</button>
+    </div>
+
+    <div id="tab-chatContainer" class="tabcontent">
+        <div id="chatContainer" class="chat-container">
+
+        </div>
+        <form action="" id="messageForm" method="post" autocomplete="off">
             <input type="text" name="" id="message" placeholder="Escribe un mensaje"></input>
             <button type="submit" id="send"><i class="fa-solid fa-paper-plane-top"></i></button>
     </form>
+    </div>
+
+    <div id="tab-profileContainer" class="tabcontent">
+        <div id="profileContainer">
+
+        </div>
+    </div>
+
+
+
     <?php include('footer.php'); ?>
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    const defaultTab = document.querySelector('.tablinks'); // Primer tab
+    if (defaultTab) {
+        defaultTab.click(); // Simula un clic para activar el tab predeterminado
+    }
+});
+
+function openCity(evt, tab) {
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none"; // Oculta todo
+    }
+
+    var tablinks = document.getElementsByClassName("tablinks");
+    for (var i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Muestra el tab correspondiente y añade la clase activa
+    document.getElementById(tab).style.display = "flex";
+    evt.currentTarget.className += " active";
+}
+
+    </script>
 
 </body>
 </html>

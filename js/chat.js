@@ -12,6 +12,82 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    function loadUserProfile() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const conversationId = urlParams.get('conversation_id');
+    
+        if (!conversationId) {
+            console.error("Error: Falta el ID de la conversación.");
+            return;
+        }
+    
+        $.ajax({
+            url: `rsc/getUserProfile.php?conversation_id=${conversationId}`,
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    const { name, photo, age } = response.data;
+    
+                    // Mostrar información en el contenedor de perfil
+                    const profileContainer = document.getElementById('profileContainer');
+                    profileContainer.innerHTML = `
+                        <div class="user-profile">
+                            <img src="${photo || 'default.jpg'}" alt="${name}" class="profile-image">
+                            <div class="user-details">
+                                <p class="user-name">${name}</p>
+                                <p class="user-age">${age}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    console.error('Error al cargar el perfil del usuario:', response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', { status, error, response: xhr.responseText });
+            }
+        });
+    }
+
+
+    function getNameAndImageOfUser() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const conversationId = urlParams.get('conversation_id');
+    
+        if (!conversationId) {
+            console.error("Error: Falta el ID de la conversación.");
+            return;
+        }
+    
+        $.ajax({
+            url: `rsc/getUserInfo.php?conversation_id=${conversationId}`,
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    const { name, photo, age} = response.data;
+    
+                    // Mostrar nombre e imagen en la interfaz
+                    const userInfoContainer = document.getElementById('userInfo');
+                    userInfoContainer.innerHTML = `
+                        <img src="${photo || 'default.jpg'}" alt="${name}" class="user-photo">
+                        <span class="user-name">${name}</span>
+                    `;
+                } else {
+                    console.error('Error al obtener información del usuario:', response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', { status, error, response: xhr.responseText });
+            }
+        });
+    }
+    
+    getNameAndImageOfUser();
+    
+    
+
     // Función para cargar mensajes nuevos
     function loadNewMessages() {
         if (isSendingMessage) {
@@ -141,6 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
             isSendingMessage = false; // Asegurarse de que se permita cargar mensajes si hubo un error
         }
     });
+
+    loadUserProfile();
 });
 
 function getCookie(name) {
