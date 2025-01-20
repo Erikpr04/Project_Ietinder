@@ -23,12 +23,15 @@ if (isset($_GET['token'])) {
             $interval = $created_at->diff($now);
 
             // Si la diferencia es mayor que 48 horas, borrar al usuario
+            //if ($interval->i >= 2 || $interval->h > 0 || $interval->days > 0) {
+
             if ($interval->days > 2 || ($interval->days == 2 && $interval->h > 0)) {
                 // Borrar el usuario si han pasado más de 48 horas
                 $stmtDelete = $pdo->prepare("DELETE FROM User WHERE verification_token = :token");
                 $stmtDelete->bindParam(':token', $token);
                 $stmtDelete->execute();
                 echo "El plazo para validar la cuenta ha expirado. El usuario ha sido eliminado.";
+                echo "Intentalo otra vez!";
             } else {
                 // Si está dentro del plazo, activar la cuenta
                 $stmtUpdate = $pdo->prepare("UPDATE User SET account_status = 'active', verification_token = NULL WHERE verification_token = :token");
@@ -36,7 +39,7 @@ if (isset($_GET['token'])) {
                 $stmtUpdate->execute();
 
                 // Redirigir a login.php
-                header("Location: login.php");
+                header("Location: /login.php");
                 exit();
             }
         } else {

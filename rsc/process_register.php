@@ -95,7 +95,7 @@ try {
             $mail->setFrom('swipeit@iesesteveterradas.cat', 'SwipeIt');
             $mail->addAddress($data['email']); // Destinatario
 
-            // Crear enlace con el token. CAMBIAR POR EL SERVIDOR
+            // Crear enlace con el token. CAMBIAR POR EL SERVIDOR///////////////////////////////////////////////
             $validationLink = "http://localhost:8080/rsc/verify.php?token=$verificationToken";
 
             // Contenido del correo con el botón
@@ -105,26 +105,23 @@ try {
             <html>
             <head>
             </head>
-            <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background: linear-gradient(-45deg, #e74c3c, #f39c12, #e67e22, #f39c12, #f1c40f); background-size: 400% 400%; color: #333;">
-                <div style="text-align: center; padding: 30px;">
-                    <h2 style="font-family: Arial, sans-serif; font-size: 4rem; color: white;">S<span style="color: #f39c12;">w</span>ipeIt</h2>
-                    <p style="font-size: 1.2rem; color: white;">¡El <span style="color: #f39c12;">amor</span> está a un swipe!</p>
-                    
-                    <p style="color: white;">Hola ' . htmlspecialchars($data['name']) . ',</p>
-                    <p style="color: white;">Gracias por registrarte en SwipeIt. Para completar el registro y activar tu cuenta, haz clic en el siguiente botón:</p>
-                    <p><a href="' . $validationLink . '" style="background-color: #4CAF50; color: white; padding: 14px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 1.2rem; border-radius: 5px;">Validar mi cuenta</a></p>
-                    <p style="color: white;">Si no has realizado este registro, puedes ignorar este correo.</p>
-                </div>
-            </body>
-            </html>';
-            
+                <body style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: Arial, sans-serif; margin: 0; padding: 0; background-size: 400% 400%; color: #333;">
 
-            //<p><a href="' . $validationLink . '" style="background-color: #4CAF50; color: white; padding: 14px 20px; text-align: center; text-decoration: none; display: inline-block;">Validar mi cuenta</a></p>
-            //<p>Si no has realizado este registro, puedes ignorar este correo.</p>
-            //<p><a href="' . $validationLink . '">Validar mi cuenta</a></p>
+                <div style="text-align: center; width: 100%; max-width: 460px; padding: 20px; background-color:rgb(255, 169, 56); border-radius: 10px; box-sizing: border-box;">
+                    <h2 style="font-family: Arial, sans-serif; font-size: 4rem; color: black;">S<span style="color:rgb(255, 0, 0);">w</span>ipeIt</h2>
+                    <p style="font-size: 1.2rem; color: black;">¡El <span style="color:rgb(255, 0, 0);">amor</span> está a un swipe!</p>
+                    
+                    <p style="color: black;">Hola ' . htmlspecialchars($data['name']) . ',</p>
+                    <p style="color: black;">Gracias por registrarte en SwipeIt. Para completar el registro y activar tu cuenta, haz clic en el siguiente botón:</p>
+                    <p><a href="' . $validationLink . '" style="background-color: #4CAF50; color: black; padding: 14px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 1.2rem; border-radius: 5px;">Validar mi cuenta</a></p>
+                    <p style="color: black;">Si no has realizado este registro, puedes ignorar este correo.</p>
+                </div>
+                </body>
+            </html>';
+           
             // Enviar correo
             $mail->send();
-            echo json_encode(["success" => true, "message" => "Registro exitoso. Se ha enviado un correo de validación."]);
+            echo json_encode(["success" => true, "message" => "Se ha enviado un correo de validación que debe ser validado antes de 48H."]);
         } catch (Exception $e) {
             echo json_encode(["success" => true, "message" => "Registro exitoso, pero error al enviar correo: " . $mail->ErrorInfo]);
         }

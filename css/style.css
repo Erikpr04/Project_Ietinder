@@ -547,7 +547,7 @@ body#register .register-input {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    flex-grow: 0.02;/*controlar espacio entre inputs*/
+    flex-grow: 0.07;/*controlar espacio entre inputs*/
 }
 
 body#register .google-maps input{
@@ -586,10 +586,7 @@ body#register .google-maps button {
     
 }
 
-/*body#register .register-input input {
-    text-align: center;
-    
-}*/
+
 
 
 /* MARK: messages*/
