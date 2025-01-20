@@ -170,11 +170,19 @@ h3 span, .app-description span {
             var(--color--brand-gradient-end));
 }
 
-.app-description, .app-description span {
+.app-description, .app-description span{
     font-family: "Sour Gummy", serif;
     font-size: 1.1rem;
     font-weight: 500;
     margin-bottom: 3rem;
+    letter-spacing: .1rem;
+}
+
+.app-description-register span {
+    font-family: "Sour Gummy", serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
     letter-spacing: .1rem;
 }
 
@@ -343,7 +351,8 @@ body#login input[type="checkbox"]:checked + label::before {
 }
 
 /* MARK: Profile */
-body#profile {
+body#profile, body#register {
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -372,7 +381,7 @@ body#profile main {
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-body#profile #map {
+body#profile #map, body#register #map {
     height: 200px; /* Altura del mapa */
     border-radius: .25rem;
 }
@@ -389,19 +398,22 @@ body#profile form {
     padding: 15px 30px 30px 30px;
     background-color: var(--white-color);
     overflow: hidden; 
-    position: relative; 
+    
 }
 
 h3,
 h3 span {
     font-family: "HeavyHeap", sans-serif;
     font-size: 3rem;
+    
 }
 
-.profile-personalData {
+.profile-personalData, .register-personalData {
     display: flex;
+    flex-direction: column;
+    
     width: 100%;
-    gap: .5rem;
+    gap: .3rem;
 }
 
 body#profile .profile-input {
@@ -412,12 +424,13 @@ body#profile .profile-input {
 }
 
 body#profile #mail {
-    background-color: #d6d6d6;
+    background-color: #cccfff;
 }
 
-body#profile .google-maps {
+body#profile .google-maps, body#register .google-maps {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
     width: 100%;
 }
 
@@ -436,19 +449,35 @@ body#profile .profile-input input, body#profile .profile-input select {
     outline: none;
 }
 
-body#profile .profile-input label {
+body#register .register-input input, body#register .register-input select {
+    background-color: #fff;
+    
+    border-radius: .25rem;
+    border: 2px solid black;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 1.5rem;
+    font-size: 1rem;
+    width: 50%;
+    appearance: none;
+    outline: none;
+    text-align: center;
+}
+
+
+
+body#profile .profile-input label, body#register .register-input label {
     text-align: left;
     padding-left: .25rem;
 }
 
-body#profile label {
+body#profile label, body#register label {
     font-family: "Sour Gummy", serif;
     font-size: 1.1rem;
     font-weight: 500;
     letter-spacing: .1rem;
 }
 
-body#profile input:focus, body#profile select:focus {
+body#profile input:focus, body#profile select:focus, body#register input:focus, body#register select:focus {
     outline: transparent;
     border: 2px solid transparent;
     background-origin: border-box;
@@ -457,17 +486,17 @@ body#profile input:focus, body#profile select:focus {
                 linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end)) border-box;
 }
 
-body#profile input:focus + label, body#profile select:focus + label {
+body#profile input:focus + label, body#profile select:focus + label, body#register input:focus + label, body#register select:focus + label {
     background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
     background-clip: text;
     color: transparent;
 }
 
-body#profile a {
+body#profile a, body#register a {
     text-align: left;
 }
 
-body#profile #buttonSave {
+body#profile #buttonSave, body#register #buttonSave {
     position: relative;
     background: transparent;
     border: 2px solid var(--black-color);
@@ -475,13 +504,90 @@ body#profile #buttonSave {
     padding-block: 0.5rem;
     cursor: pointer;
     border-radius: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.75rem;
     width: 100%;
 }
 
-body#profile #buttonSave:hover {
+body#profile #buttonSave:hover, body#register #buttonSave:hover, body#register .google-maps button:hover {
     background-color: #cfcfcf;
 }
+
+/* MARK: register */
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    min-width: 375px; 
+    width: 460px; 
+    height: 100vh; 
+    background-color: var(--tangerine-color);
+    overflow: hidden; 
+    position: relative; 
+    
+}
+
+body#register form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start; 
+    min-width: 375px; 
+    width: 100%;
+    height: 100%; 
+    padding: 0px 15px 15px 15px;
+    background-color: var(--tangerine-color);
+    overflow: hidden; 
+    position: relative; 
+
+}
+
+body#register .register-input {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-grow: 0.07;/*controlar espacio entre inputs*/
+}
+
+body#register .google-maps input{
+    background-color: #fff;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    border: 2px solid black;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 1.5rem;
+    font-size: 1rem;
+    width: 50%;
+    appearance: none;
+    outline: none;
+}
+
+body#register .google-maps button {
+    background: transparent;
+    border: 2px solid var(--black-color);
+    color: var(--black-color);
+    font-weight: 500;
+    
+    cursor: pointer;
+    
+    border-radius: .25rem;
+    border: 2px solid black;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 1.5rem;
+    font-size: 1rem;
+    width: 30%;
+    margin-left: 5px;
+    text-indent: 5px; 
+    appearance: none;
+    outline: none;
+
+
+    
+}
+
+
+
 
 /* MARK: messages*/
 body#messages .main-header {
