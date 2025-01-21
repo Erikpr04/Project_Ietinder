@@ -37,14 +37,14 @@
 
 
 
-           // if (isset($_COOKIE['user_id'])) {
-            //    createLog(action: "Usuario entrado a profile.php con id: " . $_COOKIE['user_id']);
-           // }
-           // else {
-             //   createLog(action: "Usuario no tiene cookie, redirigiendo de profile.php a login.php");
+            if (isset($_COOKIE['user_id'])) {
+                createLog(action: "Usuario entrado a profile.php con id: " . $_COOKIE['user_id']);
+            }
+            else {
+                createLog(action: "Usuario no tiene cookie, redirigiendo de profile.php a login.php");
     
-               // header('Location: ./login.php');
-           // }
+                header('Location: ./login.php');
+            }
 
             // recoger cookie
             if (isset($_COOKIE['user_id'])) {

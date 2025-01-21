@@ -66,7 +66,7 @@
             <!-- Forgot password and create account links -->
             <div class="forget-createAccount">
                 <a href="#">¿Has olvidado la contraseña?</a>
-                <a href="register.php">Crea una cuenta nueva</a>
+                <a href="#">Crea una cuenta nueva</a>
             </div>
         </form>
         <?php
