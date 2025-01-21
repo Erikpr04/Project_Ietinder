@@ -1105,7 +1105,7 @@ body#chat {
     justify-content: center;
     width: 100%;
     gap: .25rem;
-    padding: 0 1rem 1rem 1rem; 
+    padding: .5rem; 
 }
 
 #messageForm #message {
@@ -1187,7 +1187,7 @@ body#chat {
 
 #profileContainer .profile-image {
     width: 100%;
-    height: 660px;
+    height: 100%;
     object-fit: cover;
     border-radius: 1rem;
 }
@@ -1221,6 +1221,7 @@ body#chat {
 
 .user-profile {
     position: relative;
+    height: 100%;
 }
 
 .user-details {
@@ -1240,4 +1241,8 @@ body#chat {
     font-weight: 500;
     font-size: 1.5rem;
 
+}
+
+.profile-container {
+    height: 100%;
 }
