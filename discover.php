@@ -19,7 +19,7 @@
 
 <!-- HTML STRUCTURE -->
 
-<div class="main-container">
+<main class="main-container">
     <?php
         require_once './rsc/log.php';
 
@@ -31,7 +31,30 @@
             header('Location: ./login.php');
         }
     ?>
-    <div class="main-header"><h2>S<span>w</span>ipeIt</h2></div>
+    <header class="main-header"><h2>S<span>w</span>ipeIt</h2>
+        <div class="options-selector">
+        <button class="menu-button">⋮</button>
+    </header>
+    <div class="menu-content" id="menu-content">
+        <div class="slider-container">
+            <label for="slider1">Distancia</label>
+            <p id="slider1-value"></p>
+            <span id="slider1-min"></span>
+            <input type="range" id="slider1" min="0" max="200" value="50">
+            <span id="slider1-max"></span>
+        </div>
+        <div class="slider-container">
+            <label for="slider2">Edad</label>
+            <p id="slider2-value"></p>
+            <section class="range-slider">
+                <span class="rangeValues"></span>
+                <input value="5" min="18" max="100" step="1" type="range">
+                <input value="50" min="18" max="100" step="1" type="range">
+            </section>
+
+        </div>
+        <button class="filter-button" type="submit">Filtrar</button>
+        </div>
     <div id="main-content">
         <div class="match-overlay" id="matchOverlay">
             <div class="match-notification">
@@ -56,7 +79,7 @@
     
     <?php include('footer.php'); ?>
 
-</div>
+</main>
 
 <script>
     createErrorTag("info", "Te has logueado correctamente")
