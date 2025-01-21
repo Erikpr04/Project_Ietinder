@@ -1164,6 +1164,10 @@ body#chat {
 }
 
 .chat-header-container a {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
     background-color: transparent;
     border: none;
     cursor: pointer;
