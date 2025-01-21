@@ -27,7 +27,10 @@
         <h2>S<span>w</span>ipeIt</h2>
     </div>
 <div class="chat-header-container">
-    <button><i class="fa-solid fa-arrow-left"></i></button>
+    <a href="/messages.php">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
     <div id="userInfo" class="chat-header">
         <!-- Aquí se cargarán el nombre y la imagen del usuario -->
     </div>

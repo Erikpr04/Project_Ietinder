@@ -1163,13 +1163,13 @@ body#chat {
     font-weight: 500;
 }
 
-.chat-header-container button {
+.chat-header-container a {
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
-.chat-header-container button i {
+.chat-header-container a i {
     font-size: 1.25rem;
 }
 
