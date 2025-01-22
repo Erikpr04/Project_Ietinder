@@ -91,6 +91,22 @@
     font-style: normal;
 }
 
+/* Estilo para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 5px; /* Hace la barra de desplazamiento más delgada */
+}
+
+/* Estilo para el fondo de la barra */
+::-webkit-scrollbar-thumb {
+    background-color: #b8b8b8; /* Color de la barra */
+    border-radius: 10px;
+}
+
+/* Estilo para el hover de la barra de desplazamiento */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* Color al pasar el ratón */
+}
+
 /* General reset */
 
 * {
@@ -592,11 +608,11 @@ body#messages .main-header a {
     text-decoration: none;
     font-family: "GothamRnd", serif;
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1rem;
     border-radius: 2rem;
 }
 body#messages .main-header a i {
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 body#messages main {
@@ -636,10 +652,11 @@ body#messages main div.centerTextMessage{
 /* profiles sin conversaciones */
 body#messages main #containerMatches #matchedProfiles {
     display: flex;
-    gap: 20px;
+    gap: .5rem;
     overflow-x: auto;
     min-height: 150px;
-    align-items: flex-start;
+    align-items: center;
+    padding-left: .5rem;
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage {
@@ -647,18 +664,23 @@ body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 120px;
+    max-width: 80px;
+    transition: all 0.1s ease;
+}
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage:hover {
+    cursor: pointer;
+    transform: scale(1.03);
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage img {
-    width: 100px;
-    height: 120px;
+    width: 80px;
+    height: 100px;
     object-fit: cover;
     object-position: center;
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p {
-    margin: 10px 0 0 0;
+    margin-top: .25rem;
     text-align: center;
     width: 100%;
 }
@@ -666,23 +688,39 @@ body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p
 
 /* profiles con conversaciones */
 body#messages main #containerMessages #messagedProfiles{
-    min-height: 334px;
+    height: 555px;
+    overflow-y: auto;
+    padding: .5rem;
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 100px;
-    margin-bottom: 10px;
+    margin-bottom: .25rem;
+    border-radius: .5rem;
+    padding: .5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    transition: all 0.1s ease;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage img {
-    width: 80px;
-    height: 80px;
+    width: 55px;
+    height: 55px;
     object-fit: cover;
     border-radius: 100%;
     margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.profileName {
+    font-weight: 600;
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage p {
@@ -691,8 +729,8 @@ body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage
     text-align:left;
 }
 
-.profile-name {
-    font-weight: bold;
+.cardProfileMessage img {
+    border-radius: .5rem ;
 }
 
 .lastMessage {
@@ -744,13 +782,13 @@ footer p a:hover {
 }
 
 .main-header h2{
-    padding: .25rem 1rem;
+    padding: .15rem .75rem;
     color: var(--black-color);
-    font-size: 3.5rem;
+    font-size: 2.75rem;
 }
 
 .main-header h2 span{
-    font-size: 3.5rem;
+    font-size: 2.75rem;
 }
 
 /*Dropdown Menu Filter search */
@@ -825,7 +863,55 @@ footer p a:hover {
     width: 100%;
     text-align: center;
 }
+section.range-slider {
+    position: relative;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+}
 
+section.range-slider input {
+    pointer-events: none;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    top: 20px;
+    width: 95%;
+    outline: none;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+section.range-slider input::-webkit-slider-thumb {
+    pointer-events: all;
+    position: relative;
+    z-index: 1;
+    outline: 0;
+}
+
+section.range-slider input::-moz-range-thumb {
+    pointer-events: all;
+    position: relative;
+    z-index: 10;
+    -moz-appearance: none;
+    width: 9px;
+}
+
+section.range-slider input::-moz-range-track {
+    position: relative;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 1);
+    border: 0;
+}
+section.range-slider input:last-of-type::-moz-range-track {
+    -moz-appearance: none;
+    background: none transparent;
+    border: 0;
+}
+  section.range-slider input[type=range]::-moz-focus-outer {
+  border: 0;
+}
 
 
 
@@ -971,7 +1057,7 @@ footer p a:hover {
 }
 
 
-/* Matches */
+/* MARK: Matches */
 
 
 /* Estilos para el overlay desenfocado */
@@ -1109,7 +1195,7 @@ footer p a:hover {
 
 }
 
-/* ERROR TAGS*/
+/* MARK: ERROR TAGS*/
 /* Estilo básico para el mensaje de error */
 .error-tag {
     position: absolute;
@@ -1161,9 +1247,233 @@ footer p a:hover {
     background-color: #b2b2b2;
 }
 
+/* MARK:CHAT*/
+
+body#chat {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100dvh;
+    background-color: #f9f9f9;
+    width: 460px;
+}
+
+#chatContainer, #tab-chatContainer, #tab-profileContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px;
+    margin: .25rem 0;
+    position: relative;
+    border-radius: 1rem;
+    font-size: 1rem;
+    line-height: 1.3rem;
+}
+
+.message p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.profile-image-chat {
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.my-message  img {
+    display: none;
+}
+
+.my-message {
+    align-self: flex-end;
+    border-top-right-radius: 0;
+    background-color: #ffe0d8;
+    text-align: left;
+}
+
+.their-message {
+    border-bottom-left-radius: 0;
+    align-self: flex-start;
+    background-color: #ffe6d3;;
+    text-align: left;
+    padding-left: 45px;
+}
+
+#messageForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: .25rem;
+    padding: .5rem; 
+}
+
+#messageForm #message {
+    background-color: #fff;
+    padding: .25rem .5rem;
+    border-radius: 10rem;
+    border: 2px solid #a5a5a5;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 2rem;
+    font-size: 1rem;
+    width: 100%;
+    appearance: none;
+    outline: none;
+}
+
+#messageForm #send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--orange-color);
+    height: 2rem;
+    width:  2rem;
+    border-radius: 100%;
+    border: none;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+#messageForm #send:hover {
+    background-color:  #e95d37;
+}
+
+#messageForm #send i {
+    color: #fff;
+    font-size: 1rem;
+}
+
+.date-separator {
+    text-align: center;
+    margin-block: 2rem .75rem;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.chat-header-container {
+    display: flex;
+    width: 100%;
+    padding: .5rem;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.chat-header-container a {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-header-container a i {
+    font-size: 1.25rem;
+}
+
+.chat-header .user-photo {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 100%;
+    flex-grow: 1;
+    margin-inline: .5rem;
+}
 
 
+/* MARK: TABS */
 
+#profileContainer .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+    border-bottom: #888 1px solid;
+}
+
+.tab button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: .25rem;
+    transition: 0.3s;
+    border-right: 1px solid #888;
+    border-left: 1px solid #888;
+    border-top: 1px solid #888;
+    width: 100px;
+    border-top-left-radius:  .25rem;
+    border-top-right-radius:  .25rem;
+}
+
+.tab button:hover {
+    background-color: #cccccc;
+}
+
+.user-profile {
+    position: relative;
+    height: 100%;
+}
+
+.user-details {
+    gap: 1rem;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -85%);
+    position: absolute;
+    display: flex;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: .25rem;
+    padding: .25rem;
+}
+
+.user-details .user-name, .user-details .user-age {
+    font-weight: 500;
+    font-size: 1.5rem;
+
+}
+
+#profileContainer {
+    height: 100%;
+}
+
+body {
+    height: 100dvh;
+    width: 460px;
+}
+
+
+/* MARK: ADMIN PANEL*/
 /*admin. index.php*/
 
 body#admin-index {
@@ -1210,7 +1520,7 @@ body#admin-index {
     flex-direction: column;
     width: 100%; /* Asegura que ocupe todo el ancho */
     min-width: 60vw;
-    box-sizing: border-box; /* Evita que padding afecte el tamaño total */
+    box-sizing: border-box; /* Evita que padding afecte el tamaÃ±o total */
     
     font-size: 1.5rem; 
     height: 60vh;
@@ -1269,13 +1579,5 @@ body#admin-index {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     margin-top: 20px;
-} 
-
-#profileContainer {
-    height: 100%;
 }
 
-body {
-    height: 100dvh !important;
-    width: 460px !important;
-}
