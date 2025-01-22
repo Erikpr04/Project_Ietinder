@@ -102,7 +102,7 @@ try {
         // Enviar correo con mail()
         if (mail($data['email'], $subject, $message, $headers)) {
             echo json_encode(["success" => true, "message" => "Se ha enviado un correo de validación que debe ser validado antes de 48H."]);
-            header("Location: /login.php");
+            
         } else {
             echo json_encode(["success" => false, "message" => "Registro exitoso, pero error al enviar correo."]);
         }
