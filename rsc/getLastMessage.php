@@ -25,15 +25,17 @@ $password = getenv('DB_PASSWORD');
         exit;
     }
 
-    $query = $pdo->prepare("
-    SELECT m.content, u.name
+    $query = $pdo->prepare("SELECT m.content, m.timestamp
     FROM Message m
-    JOIN User u ON m.sender_id = u.id
-    WHERE m.sender_id = :idSender
+    JOIN Conversation c ON m.conversation_id = c.id
+    WHERE (c.user1_id = :idUsuario OR c.user2_id = :idUsuario)
+    AND c.id = :idConversation
     ORDER BY m.timestamp DESC
     LIMIT 1
-");
-$query->bindParam(":idSender", $idUsuario);
+    ");
+
+    $query->bindParam(":idUsuario", $idUsuario);
+    $query->bindParam(":idConversation", $_POST['idConversation']);
 
 
     try {

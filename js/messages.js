@@ -68,21 +68,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 $.ajax({
                     url: '/rsc/getLastMessage.php',
                     method: 'POST',
-                    data: { idUsuario: profile.user2_id },
+                    data: { 
+                        idUsuario: profile.user2_id,
+                        idConversation: profile.idConversation // Envía el ID de la conversación
+                    },
                     success: function(lastMessageInfo) {
-
                         const lastMessage = $("<p></p>").text(lastMessageInfo.slice(1, -1));
-                        // contenedor que almecena los datos relacionados
                         const sectionContainer = $("<section></section>").append(name, lastMessage);
-
+                
                         $('#messagedProfiles').append(newMatchedProfile);
-                        $('#profile' + profile.idConversation).append(image,sectionContainer);
-
+                        $('#profile' + profile.idConversation).append(image, sectionContainer);
                     },
                     error: function(xhr, status, error) {
                         console.error('Hubo un error al obtener el último mensaje: ' + error);
                     }
-                }); 
+                });
+                
 
             }
 

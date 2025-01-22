@@ -66,3 +66,30 @@ function saveData(){
     });
 
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const menuButton = document.querySelector('.menu-button');
+    const menu = document.getElementById('menu-content');
+
+    function toggleMenu() {
+        menu.classList.toggle('active');
+        menuButton.classList.toggle('rotated');
+    }
+
+    if (menuButton) {
+        menuButton.addEventListener('click', (event) => {
+            toggleMenu();
+        });
+    } else {
+        console.error("El botón del menú no se encontró.");
+    }
+
+    document.getElementById("logout-button").addEventListener("click", function() {
+        // Eliminar la cookie user_id
+        document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        
+        // Redirigir a index.php
+        window.location.href = "./index.php";
+    });
+    
+});
