@@ -49,9 +49,8 @@
             <label for="slider2">Edad</label>
             <p id="slider2-value"></p>
             <section class="range-slider">
-                <span class="rangeValues"></span>
-                <input value="5" min="18" max="100" step="1" type="range">
-                <input value="50" min="18" max="100" step="1" type="range">
+                <input value="18" min="18" max="100" step="1" type="number">
+                <input value="50" min="18" max="100" step="1" type="number">
             </section>
 
         </div>

@@ -4,25 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+    <link type="text/css" rel="stylesheet" href="../css/style.css?t=<?php echo time();?>"/>
 </head>
-<body>
-    <h1>Insertar Perfiles desde JSON a la Base de Datos</h1>
+        <?php
+            require_once '../rsc/log.php';
+            require_once '../rsc/db_config.php';
+
+            if (isset($_COOKIE['user_id'])) {
+            
+                // Obtener las variables de entorno necesarias con valores por defecto
+                $host = getenv('DB_HOST');
+                $dbname = getenv('DB_NAME');
+                $username = getenv('DB_USERNAME');
+                $pass = getenv('DB_PASSWORD');
+            
+                $connection = new mysqli($host, $username, $pass, $dbname);
+            
+                if ($connection->connect_error) {
+                    die("Conexión fallida: " . $connection->connect_error);
+                }
+            
+                // Consulta para verificar el rol del usuario
+                $sql = "SELECT role_user FROM User WHERE id = ?";
+                $stmt = $connection->prepare($sql);
+                $stmt->bind_param("s", $_COOKIE['user_id']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+            
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    if ($row['role_user'] === 'admin') {
+                        // Usuario con rol de admin, se permite el acceso
+                        createLog(action: "Usuario tiene permisos, mostrando admin panel");
+                    } else {
+                        createLog(action: "Usuario no tiene permisos, redirigiendo a 403 desde index admin panel");
+                        header('Location: ../error/403.php');
+                        exit();
+                    }
+                } else {
+                    createLog(action: "Usuario no encontrado, redirigiendo a login desde index admin panel");
+                    header('Location: ./index.php');
+                    exit();
+                }
+            
+                $stmt->close();
+                $connection->close();
+            } else {
+                createLog(action: "Usuario no tiene permisos, redirigiendo a login desde index admin panel");
+                header('Location: ./login.php');
+                exit();
+            }
+            
+
+
+        ?>
+
+<body id="admin-index">
+
+
+    <div class="admin-container">
+        
+        <div class="main-header-index-admin"><h2>S<span>w</span>ipeIt</h2></div>
+
+        <div class="admin-menu">
+            <h1>Panel de Administración</h1>
+    <!--Seeder-->
+
+    <!--<h1>Insertar Perfiles desde JSON a la Base de Datos</h1>
     <form method="POST" enctype="multipart/form-data">
         <label for="jsonFile">Selecciona un archivo JSON:</label>
         <input type="file" name="jsonFile" id="jsonFile" accept=".json" required>
         <button type="submit">Cargar Perfiles</button>
-    </form>
+    </form>!-->
+
 </body>
 </html>
 
 
 <?php
-include_once "../rsc/db_config.php";
-
-$host = getenv('DB_HOST');
-$dbname = getenv('DB_NAME') ;
-$username = getenv('DB_USERNAME');
-$password = getenv('DB_PASSWORD') ;
+//FUNCIONES SEEDER
 
 // Conexión a la base de datos
 try {
