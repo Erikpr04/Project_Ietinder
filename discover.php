@@ -40,20 +40,21 @@
     <div class="menu-content" id="menu-content">
         <div class="slider-container">
             <label for="slider1">Distancia</label>
-            <p id="slider1-value"></p>
-            <span id="slider1-min"></span>
-            <input type="range" id="slider1" min="0" max="200" value="50">
-            <span id="slider1-max"></span>
-        </div>
-        <div class="slider-container">
-            <label for="slider2">Edad</label>
-            <p id="slider2-value"></p>
-            <section class="range-slider">
-                <input value="18" min="18" max="100" step="1" type="number">
-                <input value="50" min="18" max="100" step="1" type="number">
-            </section>
+            <p id="slider1-value">50 km</p>
+            <span id="slider1-min">0</span>
 
+            <input type="range" id="slider1" min="0" max="200" value="50">
+            <span id="slider1-max">200</span>
         </div>
+
+        <div class="slider-container">
+            <label for="slider2">Rango de Edad</label>
+            <section class="range-slider">
+                <input id="minAge" name="minAgeValue" value="18" min="18" max="100" step="1" type="number">
+                <input id="maxAge" name="maxAgeValue" value="50" min="18" max="100" step="1" type="number">
+            </section>
+        </div>
+
         <button class="filter-button" type="submit">Filtrar</button>
         </div>
     <div id="main-content">
