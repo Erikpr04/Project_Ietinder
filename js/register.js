@@ -69,12 +69,11 @@ function updateCoordinates(lat, lng) {
 
 
 function saveData() {
-    // Crear un objeto FormData para incluir todos los datos del formulario
     const formData = new FormData(document.getElementById('registrationForm'));
 
     console.log("Datos a enviar:", formData);
 
-    // 🔹 Validaciones antes de enviar los datos
+    // Validaciones
     if (!formData.get("password") || !formData.get("password2")) {
         createErrorTag("error", "Las contraseñas no pueden estar vacías.");
         return;
@@ -86,6 +85,7 @@ function saveData() {
     }
 
     for (const [key, value] of formData.entries()) {
+        console.log(`Comprobando campo: ${key} => ${value}`);
         if (!value) {
             createErrorTag("error", "Por favor, completa todos los campos.");
             return;
@@ -97,31 +97,43 @@ function saveData() {
         return;
     }
 
-    // Enviar los datos al servidor
+    // Verificar si se seleccionó un archivo
+    const photoFile = document.querySelector('input[type="file"]').files[0];
+    if (!photoFile) {
+        createErrorTag("error", "Por favor, selecciona una foto.");
+        return;
+    }
+
+    // Verificar si el archivo está presente
+    console.log("Archivo seleccionado:", photoFile);
+
     $.ajax({
-        url: "/rsc/process_register.php",
+        url: "../rsc/process_register.php",
         method: "POST",
         data: formData,
-        processData: false, // Evitar que jQuery procese los datos
-        contentType: false, // Evitar que jQuery configure el encabezado Content-Type
         dataType: "json",
+        processData: false,  
+        contentType: false,  
+        cache: false,        
         success: function(response) {
             console.log("Respuesta del servidor:", response);
             if (response.success) {
                 createErrorTag("warning", "Registro exitoso: Tienes 48 horas para activar tu cuenta.");
                 setTimeout(function() {
-                    window.location.href = "login.php"; // Redirigir a la página de login
-                }, 3000); // 3000 ms = 3 segundos
+                    window.location.href = "login.php";
+                }, 3000);
             } else {
                 createErrorTag("error", response.message);
             }
         },
         error: function(xhr, status, error) {
             console.error("Error al registrar:", xhr.responseText);
+            console.error("Detalles del error:", error);
             createErrorTag("error", "Hubo un error al enviar los datos. Inténtalo de nuevo.");
         }
     });
 }
+
 
 
 
