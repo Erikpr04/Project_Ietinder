@@ -108,7 +108,7 @@ function saveData() {
     console.log("Archivo seleccionado:", photoFile);
 
     $.ajax({
-        url: "../rsc/process_register.php",
+        url: "/rsc/process_register.php",
         method: "POST",
         data: formData,
         dataType: "json",
