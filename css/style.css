@@ -815,7 +815,7 @@ footer p a:hover {
 .menu-content {
     display: none;
     position: absolute;
-    top: 9%;
+    top: 55px;
     right: 0;
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -917,6 +917,7 @@ section.range-slider input:last-of-type::-moz-range-track {
 
 
 .main-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
