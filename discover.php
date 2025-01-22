@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css?t=<?php echo time();?>"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./js/utils.js"></script>
+    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
 
     <script src="./js/discover.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">

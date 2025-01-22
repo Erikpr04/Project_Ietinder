@@ -92,6 +92,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $photo = $query->fetch(PDO::FETCH_ASSOC);
 
                     if ($photo) {
+                        // Conexión con el usuario root para eliminación
+                        $root_pdo = new PDO("mysql:host=localhost:3333;dbname=SwipeITDB;charset=utf8mb4", "root", "contrasenya");
+                        $root_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
                         // Eliminamos primero el archivo físico
                         $full_path = __DIR__ . "/" . $photo['media_path'];
                         if (file_exists($full_path)) {
@@ -99,15 +103,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         }
 
                         // Despues eliminamos de la bbdd
-                        $query = $pdo->prepare(query: "DELETE FROM Media WHERE id = :media_id AND user_id = :user_id");
+                        $query = $root_pdo->prepare("DELETE FROM Media WHERE id = :media_id AND user_id = :user_id");
                         $query->execute([
                             ":media_id" => $media_id,
                             ":user_id" => $user_id
                         ]);
                         
                         $messages[] = "Imagen eliminada correctamente.";
-                        //Al eliminar recargamos la pagina
-                        header("Location: " . $_SERVER['PHP_SELF']);
+                        
+                        // Al eliminar recargamos la página
+                        header("Location: " . $_SERVER['PHP_SELF']); 
                         exit;
                     }
                 }
@@ -138,10 +143,20 @@ $pdo = null;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time(); ?>"/>
+    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
+    <script src="./jquery-3.7.1.min.js"></script>
+    <script src="./js/utils.js"></script>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">   
+
 
     <title>SwipeIt! - Edit Photos</title>
 </head>
 <body id="photos">
+    
     <main class="main-container">
         <div class="main-header"><h2>S<span>w</span>ipeIt</h2></div>
 
