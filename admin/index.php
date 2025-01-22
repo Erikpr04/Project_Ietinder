@@ -50,8 +50,8 @@
                 $stmt->close();
                 $connection->close();
             } else {
-                createLog(action: "Usuario no tiene permisos, redirigiendo a login desde index admin panel");
-                header('Location: ./login.php');
+                createLog(action: "Usuario no tiene permisos, redirigiendo a 401 desde index admin panel");
+                header('Location: ../error/401.php');
                 exit();
             }
             

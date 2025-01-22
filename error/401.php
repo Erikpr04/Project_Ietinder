@@ -21,9 +21,7 @@
     <div class="main-container" style="background-color: transparent;">
         <div class="error-container">
             <h3>ERROR</h3>
-            <h1>403 Forbidden</h1>
-
-            
+            <h1>401 Unauthorized</h1>
             <a href="../index.php">Volver</a>
             
         </div>
