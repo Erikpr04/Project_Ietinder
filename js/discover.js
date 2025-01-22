@@ -17,11 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const slider1MinValue = document.getElementById('slider1-min');
     const slider1MaxValue = document.getElementById('slider1-max');
     
-    // Obtén los sliders de rango correctamente
-    
-    const slider2 = document.querySelectorAll('.range-slider input[type="number"]');
-    let slider2_1 = parseInt(slider2[0]?.value);
-    let slider2_2 = parseInt(slider2[1]?.value );
+
+
 
     if (menu) {
         // Mostrar los valores iniciales de slider1
@@ -36,34 +33,37 @@ document.addEventListener('DOMContentLoaded', () => {
             searchFilters[0] = slider1.value;
         });
 
-        function updateSlider2Values() {
-            slider2_1 = parseFloat(slider2[0]?.value );
-            slider2_2 = parseFloat(slider2[1]?.value );
+        // Slider de edad (rango)
+        const minAgeInput = document.getElementById('minAge');
+        const maxAgeInput = document.getElementById('maxAge');
+        const slider2ValueLabel = document.getElementById('slider2-value');
 
-            // Asegurar que los valores estén en el orden correcto
-            if (slider2_1 > slider2_2) {
-                [slider2_1, slider2_2] = [slider2_2, slider2_1];
-                slider2[0].value = slider2_1;
-                slider2[1].value = slider2_2;
+        // Inicializar valores
+        minAgeInput.value = searchFilters[1];
+        maxAgeInput.value = searchFilters[2];
+
+        function updateAgeValues () {
+            let minAge = parseInt(minAgeInput.value, 10);
+            let maxAge = parseInt(maxAgeInput.value, 10);
+
+            // Asegurar que el mínimo no supere el máximo
+            if (minAge > maxAge) {
+                [minAge, maxAge] = [maxAge, minAge];
+                minAgeInput.value = minAge;
+                maxAgeInput.value = maxAge;
             }
 
-            searchFilters[1] = slider2_1; // Edad mínima
-            searchFilters[2] = slider2_2; // Edad máxima
+            // Actualizar valores en el array
+            searchFilters[1] = minAge; // Edad mínima
+            searchFilters[2] = maxAge; // Edad máxima
 
-            // Mostrar los valores actualizados
-            const displayElement = document.querySelector('.rangeValues'); 
-            if (displayElement) {
-                displayElement.textContent = `${slider2_1} - ${slider2_2}`;
-            }
-        }
+            // Actualizar visualización
+            slider2ValueLabel.textContent = `${minAge} - ${maxAge}`;
+        };
 
-        slider2.forEach(input => {
-            input.addEventListener('input', updateSlider2Values);
-            input.addEventListener('change', updateSlider2Values);
-        });
-
-        // Mostrar los valores iniciales de slider2
-        updateSlider2Values();
+        // Eventos para los inputs de rango
+        minAgeInput.addEventListener('input', updateAgeValues);
+        maxAgeInput.addEventListener('input', updateAgeValues);
 
         // Funciones del menú
         function toggleMenu() {

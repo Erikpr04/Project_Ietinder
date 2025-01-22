@@ -356,6 +356,91 @@ body#login input[type="checkbox"] + label::before {
 body#login input[type="checkbox"]:checked + label::before {
     background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
 }
+/* MARK: register */
+#register{
+    display: flex;
+    overflow: auto;
+    height: 100%;
+
+}
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 375px;
+    width: 460px;
+    background-color: var(--tangerine-color);
+}
+
+
+body#register form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start; 
+    min-width: 375px; 
+    width: 100%;
+    height: 100%; 
+    padding: 0px 15px 15px 15px;
+    background-color: var(--tangerine-color);
+    overflow: hidden; 
+    position: relative; 
+
+}
+
+body#register .register-input {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-grow: 0.07;/*controlar espacio entre inputs*/
+}
+
+body#register .google-maps input{
+    background-color: #fff;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    border: 2px solid black;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 1.5rem;
+    font-size: 1rem;
+    width: 50%;
+    appearance: none;
+    outline: none;
+}
+
+body#register .google-maps button {
+    background: transparent;
+    border: 2px solid var(--black-color);
+    color: var(--black-color);
+    font-weight: 500;
+    
+    cursor: pointer;
+    
+    border-radius: .25rem;
+    border: 2px solid black;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 1.5rem;
+    font-size: 1rem;
+    width: 30%;
+    margin-left: 5px;
+    text-indent: 5px; 
+    appearance: none;
+    outline: none;
+
+
+    
+}
+body#register #map {
+    height: 200px; /* Altura del mapa */
+    border-radius: .25rem;
+    margin-bottom: 15px;
+}
+
+.input-cordenadas {
+    margin-left: 5px;
+}
 
 /* MARK: Profile */
 body#profile {
@@ -375,22 +460,29 @@ body#profile {
     animation: gradient 15s ease infinite;
 }
 
-body#profile main {
-    width: 100%;
-    border-radius: 1rem;
-    padding: 3rem 2rem;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(1rem);
-    margin: auto;
-    text-align: center;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+body#profile, body#register {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    width: 460px;
+
+    background: linear-gradient(-45deg,
+    var(--red-color),
+    var(--gold-color),
+    var(--tangerine-color),
+    var(--orange-color),
+    var(--yellow-color));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
 }
 
 body#profile #map {
     height: 200px; /* Altura del mapa */
     border-radius: .25rem;
 }
+
 
 body#profile form {
     display: flex;
@@ -413,7 +505,7 @@ h3 span {
     font-size: 3rem;
 }
 
-.profile-personalData {
+.profile-personalData,.register-personalData {
     display: flex;
     width: 100%;
     gap: .5rem;
@@ -438,7 +530,7 @@ body#profile .google-maps {
 
 
 /* Input styling */
-body#profile .profile-input input, body#profile .profile-input select {
+body#register .register-input input, body#register .register-input select {
     background-color: #fff;
     padding: .25rem .5rem;
     border-radius: .25rem;
@@ -451,20 +543,19 @@ body#profile .profile-input input, body#profile .profile-input select {
     outline: none;
 }
 
-body#profile .profile-input label {
+body#profile .profile-input label, body#register .register-input label {
     text-align: left;
     padding-left: .25rem;
 }
 
-body#profile label {
+body#profile label, body#register label {
     font-family: "Sour Gummy", serif;
     font-size: 1.1rem;
     font-weight: 500;
     letter-spacing: .1rem;
 }
 
-body#profile input:focus, body#profile select:focus {
-    outline: transparent;
+body#profile input:focus, body#profile select:focus, body#register input:focus, body#register select:focus {    outline: transparent;
     border: 2px solid transparent;
     background-origin: border-box;
     background-clip: content-box, border-box;
@@ -472,17 +563,16 @@ body#profile input:focus, body#profile select:focus {
                 linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end)) border-box;
 }
 
-body#profile input:focus + label, body#profile select:focus + label {
-    background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
+body#profile input:focus + label, body#profile select:focus + label, body#register input:focus + label, body#register select:focus + label {    background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
     background-clip: text;
     color: transparent;
 }
 
-body#profile a {
+body#profile a, body#register a {
     text-align: left;
 }
 
-body#profile #buttonSave {
+body#profile #buttonSave, body#register #buttonSave {
     position: relative;
     background: transparent;
     border: 2px solid var(--black-color);
@@ -494,8 +584,8 @@ body#profile #buttonSave {
     width: 100%;
 }
 
-body#profile #buttonSave:hover {
-    background-color: #cfcfcf;
+body#profile #buttonSave:hover, body#register #buttonSave:hover, body#register .google-maps button:hover {
+        background-color: #cfcfcf;
 }
 
 
@@ -814,14 +904,15 @@ footer p a:hover {
 .menu-content {
     display: none;
     position: absolute;
-    top: 55px;
-    right: 0;
+    top: 9%;
+    right: 35%;
+
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;
     border-radius: 5px;
     width: 210px;
-    z-index: 15;
+    z-index: 20;
 }
 .menu-content.active {
     display: block;
@@ -863,19 +954,16 @@ footer p a:hover {
     text-align: center;
 }
 section.range-slider {
-    position: relative;
     width: 100%;
     height: 35px;
-    text-align: center;
+    display: flex;
 }
 
 section.range-slider input {
-    pointer-events: none;
-    position: absolute;
-    overflow: hidden;
     left: 0;
     top: 20px;
-    width: 95%;
+    width: 50%;
+
     outline: none;
     height: 18px;
     margin: 0;
