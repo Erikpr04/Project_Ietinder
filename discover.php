@@ -63,7 +63,7 @@
                 <h2>¡Es un Match!</h2>
                 <div>
                     <button id="continueButton">Seguir Descubriendo</button>
-                    <button id="messagesButton">Ir a Mensajes</button>
+                    <button id="messagesButton">Ir a la Conversación</button>
                 </div>
             </div>
         </div>
