@@ -94,6 +94,6 @@
     </div>
 
     <script type="text/javascript" src="./js/register.js?t=<?php echo time();?>"></script>
-    <script type="text/javascript" src="./js/google_maps.js?t=<?php echo time();?>"></script>
+    
 </body>
 </html>
