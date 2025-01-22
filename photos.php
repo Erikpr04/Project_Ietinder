@@ -99,9 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $photo = $query->fetch(PDO::FETCH_ASSOC);
 
                     if ($photo) {
-                        // Conexión con el usuario root para eliminación
                         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-                        $root_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                         // Eliminamos primero el archivo físico
                         $full_path = __DIR__ . "/" . $photo['media_path'];
