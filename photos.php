@@ -159,50 +159,56 @@ $pdo = null;
     
     <main class="main-container">
         <div class="main-header"><h2>S<span>w</span>ipeIt</h2></div>
+            <div class="main-photos-content">
 
+        
+                <h3>Add Your Photos</h3>
+                <div class="photo-grid">
+                <!-- Iteramos sobre las imagenes obtenidas -->
 
-
-        <h3>Add Your Photos</h3>
-        <div class="photo-grid">
-         <!-- Iteramos sobre las imagenes obtenidas -->
-
-            <?php foreach ($photos as $index => $photo): ?>
-                <?php if ($index === 0): ?>
-                    <div class="photo-placeholder main-photo">
-                        <div class="main-photo-tag">Foto Principal</div>
-                        <?php if (count($photos) > 1): ?>
+                <?php foreach ($photos as $index => $photo): ?>
+                    <?php if ($index === 0): ?>
+                        <div class="photo-placeholder main-photo">
+                            <div class="main-photo-tag">Foto Principal</div>
+                            <?php if (count($photos) > 1): ?>
+                                <form method="post">
+                                    <input type="hidden" name="delete_photo_id" value="<?php echo htmlspecialchars($photo['id']); ?>">
+                                    <button type="submit" class="delete-button">×</button>
+                                </form>
+                            <?php endif; ?>
+                            <img src="<?php echo htmlspecialchars($photo['media_path']); ?>" alt="Foto Principal">
+                        </div>
+                    <?php else: ?>
+                        <div class="photo-placeholder">
                             <form method="post">
                                 <input type="hidden" name="delete_photo_id" value="<?php echo htmlspecialchars($photo['id']); ?>">
                                 <button type="submit" class="delete-button">×</button>
                             </form>
-                        <?php endif; ?>
-                        <img src="<?php echo htmlspecialchars($photo['media_path']); ?>" alt="Foto Principal">
-                    </div>
-                <?php else: ?>
+                            <img src="<?php echo htmlspecialchars($photo['media_path']); ?>" alt="Photo">
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <!-- Si hay menos de 6 imagenes, se genera otro input-->
+
+                <?php if (count($photos) < 6): ?>
+                    <?php for ($i = count($photos); $i < 6; $i++): ?>
                     <div class="photo-placeholder">
-                        <form method="post">
-                            <input type="hidden" name="delete_photo_id" value="<?php echo htmlspecialchars($photo['id']); ?>">
-                            <button type="submit" class="delete-button">×</button>
+                        <form method="post" enctype="multipart/form-data">
+                            <label>
+                                <input type="file" name="photo" accept="image/jpeg,image/png,image/jpg" 
+                                    style="display: none;" onchange="this.form.submit()">
+                                <div class="placeholder-content">+</div>
+                            </label>
                         </form>
-                        <img src="<?php echo htmlspecialchars($photo['media_path']); ?>" alt="Photo">
                     </div>
+                <?php endfor; ?>
                 <?php endif; ?>
-            <?php endforeach; ?>
-
-            <!-- Si hay menos de 6 imagenes, se genera otro input-->
-
-            <?php if (count($photos) < 6): ?>
-                <div class="photo-placeholder">
-                    <form method="post" enctype="multipart/form-data">
-                        <label>
-                            <input type="file" name="photo" accept="image/jpeg,image/png,image/jpg" 
-                                   style="display: none;" onchange="this.form.submit()">
-                            <div class="placeholder-content">+</div>
-                        </label>
-                    </form>
-                </div>
-            <?php endif; ?>
+            </div>
         </div>
+        <?php include('footer.php'); ?>
+
     </main>
+
 </body>
 </html>
