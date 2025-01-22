@@ -20,6 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $data = $_POST;
 
 $requiredFields = ['name', 'lastName', 'alias', 'birthDate', 'gender', 'sexOrientation', 'email', 'latitude', 'longitude', 'password', 'password2','photo'];
+if (!isset($_FILES['photo']) || $_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
+    echo json_encode(["success" => false, "message" => "No se ha recibido ninguna foto o ha ocurrido un error en la carga."]);
+    exit();
+}
+
 foreach ($requiredFields as $field) {
     if (!isset($data[$field]) || empty(trim($data[$field]))) {
         echo json_encode(["success" => false, "message" => "Todos los campos son obligatorios."]);
