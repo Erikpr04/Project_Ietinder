@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Asignar eventos a botones
-    document.getElementById('setLocationButton').addEventListener('click', searchCoordinates);
     document.getElementById('buttonSave').addEventListener('click', function(event) {
         event.preventDefault();
         saveData();
