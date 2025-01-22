@@ -75,7 +75,7 @@ try {
 
     if ($stmt->execute()) {
         // Crear enlace con el token
-        $validationLink = "http://localhost:8080/rsc/verify.php?token=$verificationToken";
+        $validationLink = "https://tinder3.ieti.site/rsc/verify.php?token=$verificationToken";
 
         // Contenido del correo
         $subject = 'Validar registro';
