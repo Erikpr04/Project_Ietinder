@@ -1,5 +1,12 @@
 <?php
-require_once './rsc/db_config.php';
+require_once 'rsc/db_config.php';
+
+
+$host = getenv('DB_HOST');
+$dbname = getenv('DB_NAME') ;
+$username = getenv('DB_USERNAME');
+$password = getenv('DB_PASSWORD') ;
+
 
 session_start();
 
@@ -93,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($photo) {
                         // Conexión con el usuario root para eliminación
-                        $root_pdo = new PDO("mysql:host=localhost:3333;dbname=SwipeITDB;charset=utf8mb4", "root", "contrasenya");
+                        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
                         $root_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                         // Eliminamos primero el archivo físico
