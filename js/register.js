@@ -119,7 +119,8 @@ function saveData() {
         success: function(response) {
             console.log("Respuesta del servidor:", response);
             if (response.success) {
-                alert("Registro exitoso: " + response.message);
+                //alert("Registro exitoso: " + response.message);
+                createErrorTag("warning", "Registro exitoso: " + response.message);
                 window.location.href = "login.php"; // Redirigir a otra página si es necesario
             } else {
                 createErrorTag("error", response.message);
