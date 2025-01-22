@@ -60,7 +60,7 @@
     <div id="main-content">
         <div class="match-overlay" id="matchOverlay">
             <div class="match-notification">
-                <h2>¡Es un Match!</h>
+                <h2>¡Es un Match!</h2>
                 <div>
                     <button id="continueButton">Seguir Descubriendo</button>
                     <button id="messagesButton">Ir a Mensajes</button>
