@@ -70,14 +70,16 @@
             <div class="google-maps">
                 <div class="register-input">
                     <label for="cityInput">Localización:</label>
-                    <input type="text" id="cityInput" placeholder="Ingresa la ciudad" />
-                    <button type="button" id="setLocationButton">Ubicación</button> 
+                    <!--<input type="text" id="cityInput" placeholder="Ingresa la ciudad" />
+                    <button type="button" id="setLocationButton">Ubicación</button> -->
+                    <input class="input-cordenadas" id="latitude" name="latitude" value="41.3874">
+                    <input class="input-cordenadas" id="longitude" name="longitude" value="2.1686">
                 </div>
                 <div id="map"></div> 
             </div>
 
-            <input type="hidden" id="latitude" name="latitude" value="41.3874">
-            <input type="hidden" id="longitude" name="longitude" value="2.1686">
+           <!-- <input type="hidden" id="latitude" name="latitude" value="41.3874">
+            <input type="hidden" id="longitude" name="longitude" value="2.1686">-->
 
             <div class="register-input">
                 <label for="password">Password:</label>

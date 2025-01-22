@@ -381,9 +381,15 @@ body#profile main {
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-body#profile #map, body#register #map {
+body#profile #map {
     height: 200px; /* Altura del mapa */
     border-radius: .25rem;
+}
+
+body#register #map {
+    height: 200px; /* Altura del mapa */
+    border-radius: .25rem;
+    margin-bottom: 15px;
 }
 
 body#profile form {
@@ -584,6 +590,10 @@ body#register .google-maps button {
 
 
     
+}
+
+.input-cordenadas {
+    margin-left: 5px;
 }
 
 
