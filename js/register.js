@@ -70,56 +70,45 @@ function updateCoordinates(lat, lng) {
 
 
 function saveData() {
-    // Obtener los valores de los campos directamente del formulario
-    const data = {
-        name: $("#name").val(),
-        lastName: $("#lastName").val(),
-        alias: $("#alias").val(),
-        birthDate: $("#birthDate").val(),
-        gender: $("#sexe").val(),
-        sexOrientation: $("#orientation").val(),
-        email: $("#mail").val(),
-        latitude: $("#latitude").val(),
-        longitude: $("#longitude").val(),
-        password: $("#password").val(),
-        password2: $("#password2").val()
-    };
+    // Crear un objeto FormData para incluir todos los datos del formulario
+    const formData = new FormData(document.getElementById('registrationForm'));
 
-    console.log("Datos a enviar:", data);
+    console.log("Datos a enviar:", formData);
 
     // 🔹 Validaciones antes de enviar los datos
-    if (!data.password || !data.password2) {
+    if (!formData.get("password") || !formData.get("password2")) {
         createErrorTag("error", "Las contraseñas no pueden estar vacías.");
         return;
     }
 
-    if (data.password !== data.password2) {
+    if (formData.get("password") !== formData.get("password2")) {
         createErrorTag("error", "Las contraseñas no coinciden.");
         return;
     }
 
-    for (const key in data) {
-        if (!data[key]) {
+    for (const [key, value] of formData.entries()) {
+        if (!value) {
             createErrorTag("error", "Por favor, completa todos los campos.");
             return;
         }
     }
 
-    if (!data.email.endsWith("@iesesteveterradas.cat")) {
+    if (!formData.get("email").endsWith("@iesesteveterradas.cat")) {
         createErrorTag("error", "El correo electrónico debe tener el dominio @iesesteveterradas.cat.");
         return;
     }
 
-    
+    // Enviar los datos al servidor
     $.ajax({
         url: "/rsc/process_register.php",
         method: "POST",
-        data: $("#registrationForm").serialize(), 
+        data: formData,
+        processData: false, // Evitar que jQuery procese los datos
+        contentType: false, // Evitar que jQuery configure el encabezado Content-Type
         dataType: "json",
         success: function(response) {
             console.log("Respuesta del servidor:", response);
             if (response.success) {
-                //alert("Registro exitoso: " + response.message);
                 createErrorTag("warning", "Registro exitoso: Tienes 48 horas para activar tu cuenta.");
                 setTimeout(function() {
                     window.location.href = "login.php"; // Redirigir a la página de login
@@ -134,6 +123,7 @@ function saveData() {
         }
     });
 }
+
 
 
 

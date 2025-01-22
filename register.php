@@ -94,7 +94,7 @@
             <div class="photo-placeholder">
                 <label>
                     <input type="file" name="photo" accept="image/jpeg,image/png,image/jpg" 
-                        style="display: none;" onchange="this.form.submit()">
+                        style="display: none;">
                     <div class="placeholder-content">+</div>
                 </label>
             </div>
