@@ -1459,3 +1459,8 @@ body#chat {
 #profileContainer {
     height: 100%;
 }
+
+body {
+    height: 100dvh !important;
+    width: 460px !important;
+}
