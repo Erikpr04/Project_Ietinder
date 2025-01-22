@@ -144,7 +144,7 @@ $pdo = null;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time(); ?>"/>
     <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
-    <script src="./jquery-3.7.1.min.js"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/utils.js"></script>
 
     
