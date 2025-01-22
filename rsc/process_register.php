@@ -69,7 +69,7 @@ try {
     $stmt->bindParam(':email', $data['email']);
     $stmt->bindParam(':latitude', $data['latitude']);
     $stmt->bindParam(':longitude', $data['longitude']);
-    $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+    $hashedPassword = hash("sha256", $data['password']);
     $stmt->bindParam(':password', $hashedPassword);
     $stmt->bindParam(':verificationToken', $verificationToken);
 
