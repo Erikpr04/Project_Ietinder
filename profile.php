@@ -151,7 +151,7 @@
                 </script>
             </div>
 
-            <a href="#">Cambiar fotos</a>
+            <a href="photos.php">Cambiar fotos</a>
 
             <button type="submit" id="buttonSave">Guardar Cambios</button>
 

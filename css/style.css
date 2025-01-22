@@ -483,10 +483,18 @@ body#profile #buttonSave:hover {
 }
 
 
+.main-photos-content{
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
 
 .main-photo {
     position: relative;
-    grid-column: span 3;
     margin-bottom: 10px;
 }
 .main-photo img {
@@ -831,7 +839,6 @@ footer p a:hover {
     height: 100vh; 
     background-color: var(--white-color);
     overflow: hidden; 
-    position: relative; 
 }
 
 #main-content {
