@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const slider1MaxValue = document.getElementById('slider1-max');
     
     // Obtén los sliders de rango correctamente
-    const slider2 = document.querySelectorAll('.range-slider input[type="range"]');
+    
+    const slider2 = document.querySelectorAll('.range-slider input[type="number"]');
     let slider2_1 = parseInt(slider2[0]?.value);
     let slider2_2 = parseInt(slider2[1]?.value );
 
@@ -42,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Asegurar que los valores estén en el orden correcto
             if (slider2_1 > slider2_2) {
                 [slider2_1, slider2_2] = [slider2_2, slider2_1];
+                slider2[0].value = slider2_1;
+                slider2[1].value = slider2_2;
             }
 
             searchFilters[1] = slider2_1; // Edad mínima
@@ -54,8 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        slider2.forEach(slider => {
-            slider.addEventListener('input', updateSlider2Values);
+        slider2.forEach(input => {
+            input.addEventListener('input', updateSlider2Values);
+            input.addEventListener('change', updateSlider2Values);
         });
 
         // Mostrar los valores iniciales de slider2
