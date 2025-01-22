@@ -1,6 +1,13 @@
 <?php
 require_once './rsc/db_config.php';
 
+
+$host = getenv('DB_HOST');
+$dbname = getenv('DB_NAME') ;
+$username = getenv('DB_USERNAME');
+$password = getenv('DB_PASSWORD') ;
+
+
 session_start();
 
 // Verificar cookie del usuario
@@ -92,9 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $photo = $query->fetch(PDO::FETCH_ASSOC);
 
                     if ($photo) {
-                        // Conexión con el usuario root para eliminación
-                        $root_pdo = new PDO("mysql:host=localhost:3333;dbname=SwipeITDB;charset=utf8mb4", "root", "contrasenya");
-                        $root_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                         // Eliminamos primero el archivo físico
                         $full_path = __DIR__ . "/" . $photo['media_path'];
@@ -103,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         }
 
                         // Despues eliminamos de la bbdd
-                        $query = $root_pdo->prepare("DELETE FROM Media WHERE id = :media_id AND user_id = :user_id");
+                        $query = $pdo->prepare("DELETE FROM Media WHERE id = :media_id AND user_id = :user_id");
                         $query->execute([
                             ":media_id" => $media_id,
                             ":user_id" => $user_id
