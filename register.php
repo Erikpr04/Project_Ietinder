@@ -21,8 +21,8 @@
         <h2>S<span>w</span>ipeIt</h2>
         <p class="app-description-register">¡El <span>amor</span> está a un swipe!</p>
 
-        <form id="registrationForm">
-            <h3>Introduce tus datos</h3>
+        <form id="registrationForm" method="POST" enctype="multipart/form-data">
+        <h3>Introduce tus datos</h3>
 
             <div class="register-input">
                 <label for="name">Nombre:</label>
