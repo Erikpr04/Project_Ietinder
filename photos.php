@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         }
 
                         // Despues eliminamos de la bbdd
-                        $query = $root_pdo->prepare("DELETE FROM Media WHERE id = :media_id AND user_id = :user_id");
+                        $query = $pdo->prepare("DELETE FROM Media WHERE id = :media_id AND user_id = :user_id");
                         $query->execute([
                             ":media_id" => $media_id,
                             ":user_id" => $user_id
