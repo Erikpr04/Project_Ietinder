@@ -1,5 +1,5 @@
 <?php
-require_once 'rsc/db_config.php';
+require_once './rsc/db_config.php';
 
 
 $host = getenv('DB_HOST');
