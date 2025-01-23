@@ -8,12 +8,13 @@ El proyecto SwipeIt no sería posible sin el talento y dedicación de nuestro eq
 
 - **Erik Pinto**  
 - **Victor Valero**  
-- **Marta Arévalo**  
+- **Marta Arévalo**
+- **Pau Gracia**
 
 ---
 
 ## 📈 **Estado del Proyecto**
 
-- **Versión Actual**: 1.0.1  
+- **Versión Actual**: 1.0.2  
 - **Última Actualización**: Enero 2025  
 - **Estado**: Activo en desarrollo  
