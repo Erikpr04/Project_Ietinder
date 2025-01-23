@@ -19,7 +19,7 @@
 <body id="register">
     <div class="register-container">
         <h2>S<span>w</span>ipeIt</h2>
-        <p class="app-description-register">¡El <span>amor</span> está a un swipe!</p>
+        <p class="app-description" style="margin-bottom: 0;">¡El <span>amor</span> está a un swipe!</p>
 
         <form id="registrationForm" method="POST" enctype="multipart/form-data">
         <h3>Introduce tus datos</h3>
