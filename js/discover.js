@@ -1,11 +1,94 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    //Variables principales
     let currentIndex = 0;
     let cards = [];
     let isLoading = false;
+    const searchFilters = [30, 18, 50]; // [Distancia máxima (km), Edad mínima, Edad máxima]
 
     const container = document.getElementById('main-content-container');
     const dislikeButton = document.getElementById('dislike-button');
     const likeButton = document.getElementById('like-button');
+    const menuButton = document.querySelector('.menu-button');
+    const menu = document.getElementById('menu-content');
+    const filterButton = document.querySelector('.filter-button');
+    const slider1 = document.getElementById('slider1');
+    const slider1ValueLabel = document.getElementById('slider1-value');
+    const slider1MinValue = document.getElementById('slider1-min');
+    const slider1MaxValue = document.getElementById('slider1-max');
+    
+
+
+
+    if (menu) {
+        // Mostrar los valores iniciales de slider1
+        slider1.value = searchFilters[0];
+        slider1ValueLabel.textContent = `${slider1.value} km`;
+        slider1MinValue.textContent = `${slider1.min}`;
+        slider1MaxValue.textContent = `${slider1.max}`;
+
+        // Actualizar el valor del slider1 al moverlo
+        slider1.addEventListener('input', () => {
+            slider1ValueLabel.textContent = `${slider1.value} km`;
+            searchFilters[0] = slider1.value;
+        });
+
+        // Slider de edad (rango)
+        const minAgeInput = document.getElementById('minAge');
+        const maxAgeInput = document.getElementById('maxAge');
+        const slider2ValueLabel = document.getElementById('slider2-value');
+
+        // Inicializar valores
+        minAgeInput.value = searchFilters[1];
+        maxAgeInput.value = searchFilters[2];
+
+        function updateAgeValues () {
+            let minAge = parseInt(minAgeInput.value, 10);
+            let maxAge = parseInt(maxAgeInput.value, 10);
+
+            // Asegurar que el mínimo no supere el máximo
+            if (minAge > maxAge) {
+                [minAge, maxAge] = [maxAge, minAge];
+                minAgeInput.value = minAge;
+                maxAgeInput.value = maxAge;
+            }
+
+            // Actualizar valores en el array
+            searchFilters[1] = minAge; // Edad mínima
+            searchFilters[2] = maxAge; // Edad máxima
+
+            // Actualizar visualización
+            slider2ValueLabel.textContent = `${minAge} - ${maxAge}`;
+        };
+
+        // Eventos para los inputs de rango
+        minAgeInput.addEventListener('input', updateAgeValues);
+        maxAgeInput.addEventListener('input', updateAgeValues);
+
+        // Funciones del menú
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            menuButton.classList.toggle('rotated');
+        }
+
+        function applyFilter() {
+            deleteCardsArray();
+            loadProfiles();
+        }
+
+        // Eventos del menú
+        menuButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleMenu();
+        });
+
+        filterButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            applyFilter();
+        });
+    } else {
+        console.error('Uno o más elementos no se han encontrado en el DOM. Verifica que todos los elementos están correctamente asignados.');
+    }
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -17,13 +100,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadProfiles() {
         if (isLoading) return;
         isLoading = true;
+        console.log("Search Filters: ",searchFilters[1]);
+        console.log("Search Filters: ",searchFilters[2]);
+
     
         $.ajax({
             url: 'rsc/getDiscoverData.php',
             method: 'GET',
             dataType: 'json',
+            data: jQuery.param({ maxDistance: searchFilters[0], maxAge : searchFilters[1],minAge: searchFilters[2]}) ,
             success: function(data) {
                 if (data.success) {
+                    console.log("Showing buttons...");                  
                     const newProfilesContainer = document.createElement('div');
                     newProfilesContainer.className = 'new-profile-content';
                     newProfilesContainer.innerHTML = data.html;
@@ -33,14 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     $(newProfilesContainer).find('.carousel').each(function() {
                         initializeCarousel(this);
                     });
-    
+
                     updateCardsArray();
-    
-                    if (currentIndex === 0 && cards.length > 0) {
+                    currentIndex = 0;
+
+                    if (currentIndex === 0) {
                         showCard(0);
                     }
     
-                    console.log('Profiles loaded:', data.debug);
                 } else {
                     console.error('Error loading profiles:', data.error);
                 }
@@ -66,6 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     function updateCardsArray() {
+        $(dislikeButton).show();
+        $(likeButton).show();  
         cards = Array.from(container.querySelectorAll('.profile-card'));
         cards.forEach((card, index) => {
             card.style.display = 'none';
@@ -75,8 +165,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function deleteCardsArray(){
+        $('.new-profile-content').remove();
+            cards.forEach(card => {
+                card.remove();
+            });
+            cards = [];
+        
+    }
+
     function showCard(index) {
-        if (index >= cards.length) {
+        if (index >= cards.length || cards == []) {
+            $(dislikeButton).hide();
+            $(likeButton).hide();
+            console.log("No more profiles to show")
             showNoProfilesMessage();
             return;
         }
@@ -107,14 +209,17 @@ document.addEventListener('DOMContentLoaded', () => {
              processLikeInteraction(card);
         }
 
-        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        setTimeout(() => {
+            card.remove();
+            currentIndex++;
+            showCard(currentIndex);
+        }, 300);
 
-        currentIndex++;
-        showCard(currentIndex);
+
     }
 
     function processLikeInteraction(card) {
-        console.log("se va a procesar like");
         const user1_id = getCookie('user_id');
         const user2_id = card.getAttribute('data-user-id');
 
@@ -162,8 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showNoProfilesMessage() {
-        dislikeButton.style.display = 'none';
-        likeButton.style.display = 'none';
+        $(dislikeButton).hide();
+        $(likeButton).hide();
         
         const noProfilesMessage = document.createElement('div');
         noProfilesMessage.className = 'no-profiles-message';

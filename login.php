@@ -48,7 +48,7 @@
                     <div class="input-field" id="password">
                         <input type="password" name="password" maxlength="20" required>
                         <label>Introduce la contraseña</label>
-                        <i class="fa-solid fa-eye"></i>
+                        <i style="display: none;" class="fa-solid fa-eye"></i>
                     </div>
                     <p><i class="fa-solid fa-asterisk"></i>La contraseña es incorrecta</p>
                 </div>
@@ -66,7 +66,7 @@
             <!-- Forgot password and create account links -->
             <div class="forget-createAccount">
                 <a href="#">¿Has olvidado la contraseña?</a>
-                <a href="#">Crea una cuenta nueva</a>
+                <a href="register.php">Crea una cuenta nueva</a>
             </div>
         </form>
         <?php
@@ -118,6 +118,11 @@
                     // Verificar la contraseña
                     if (hash('sha256', $password) === $hashed_password) {
                         // Guardar cookie si se marca "recordar sesión"
+                        $sql = "INSERT INTO User_logs (user_id) VALUES (?)";
+                        $stmt = $connection->prepare($sql);
+                        $stmt->bind_param("s", $user_id);
+                        $stmt->execute();
+                        
                         if ($remember) {
                             setcookie("user_id", $user_id, time() + (30 * 24 * 60 * 60), "/"); // 30 días
                             echo "<script>sendLog('User $user_id logged in, redirecting him to discover.php from login.php.').then(() => { window.location.href = 'discover.php'; });</script>";

@@ -1,7 +1,20 @@
 <?php
+header('Content-Type: application/json');
+
+
+
 // Cargar las variables del archivo .env
 require_once 'db_config.php';
 require_once 'log.php';
+if(isset($_GET["maxDistance"]) && isset($_GET["maxAge"]) && isset($_GET["minAge"]) ){
+    $maxDistance = $_GET["maxDistance"];
+    $maxAgeRange = $_GET["maxAge"];
+    $minAgeRange = $_GET["minAge"];
+
+
+}else{
+    createLog("Couldnt get maxdistance and maxAgeRange Values ");
+}
 
 
 // Obtener las variables de entorno necesarias con valores por defecto
@@ -18,17 +31,13 @@ if (!$dbname || !$username || !$password) {
 
 
 
-
-header('Content-Type: application/json');
-
-
 if (!isset($_COOKIE['user_id']) ) {
     echo json_encode(['error' => 'Usuario no autenticado']);
     exit;
 }
 
 
-function getDiscoverData() {
+function getDiscoverData($maxdis,$maxage,$minage) {
     try {
         // Debug: Verificar cookie
         if (!isset($_COOKIE['user_id'])) {
@@ -58,7 +67,7 @@ function getDiscoverData() {
         $age = $ageInterval->y;  
         
 
-        $profiles = getDBprofiles($lon, $lat, $userSex, $sexOrientation, $userId);
+        $profiles = getDBprofiles($lon, $lat, $userSex, $sexOrientation, $userId,$maxdis,$age,$minage,$maxage);
 
 message: 
         $sortedProfiles = sortProfiles($profiles, $age);
@@ -87,7 +96,7 @@ message:
 }
 
 // Debug: Capturar la respuesta antes de enviarla
-$response = getDiscoverData();
+$response = getDiscoverData($_GET["maxDistance"],$maxAgeRange,$minAgeRange);
 echo json_encode($response);
 
 
@@ -147,7 +156,7 @@ function getUserData($userId) {
     }
 }
 
-function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
+function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId,$maxdis,$userAge,$maxage,$minage) {
     global $host, $dbname, $username, $password;
 
     try {
@@ -158,12 +167,47 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
     }
 
     $sql = "
-    SELECT DISTINCT u.id, u.name, u.last_name, u.alias, u.latitude, u.longitude, u.sex, u.sexual_orientation, 
-        u.birth_date, u.email, u.password, m.media_path
+    SELECT DISTINCT 
+        u.id, 
+        u.name, 
+        u.last_name, 
+        u.alias, 
+        u.latitude, 
+        u.longitude, 
+        u.sex, 
+        u.sexual_orientation, 
+        u.birth_date, 
+        u.email, 
+        u.password, 
+        m.media_path, 
+        ST_Distance_Sphere(POINT(:lon, :lat), POINT(u.longitude, u.latitude)) AS distance
     FROM User u
     LEFT JOIN Media m ON u.id = m.user_id
-    WHERE m.media_path IS NOT NULL AND u.id != :myId
-    ";
+    LEFT JOIN Interaction i1 ON u.id = i1.user2_id 
+        AND i1.user1_id = :myId 
+        AND i1.type = 'like'
+    LEFT JOIN Interaction i2 ON u.id = i2.user1_id 
+        AND i2.user2_id = :myId 
+        AND i2.type = 'like' 
+        AND i2.matched = 1
+    WHERE 
+        u.id != :myId
+        AND i1.id IS NULL 
+        AND (i2.id IS NULL OR i2.matched = 0)
+        AND ST_Distance_Sphere(POINT(:lon, :lat), POINT(u.longitude, u.latitude)) <= :maxDistance * 1000
+        AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN :minAgeDiff AND :maxAgeDiff
+";
+
+
+
+
+
+
+
+
+
+
+
 
     if ($userSex == 'hombre') {
         if ($sex_orientation == 'heterosexual') {
@@ -171,7 +215,7 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
         } elseif ($sex_orientation == 'homosexual') {
             $sql .= " AND u.sex = 'hombre' AND u.sexual_orientation IN ('homosexual', 'bisexual')";
         } elseif ($sex_orientation == 'bisexual') {
-            $sql .= " AND (u.sex = 'hombre' OR u.sex = 'mujer') AND u.sexual_orientation IN ('bisexual')";
+            $sql .= " AND (u.sex = 'hombre' OR u.sex = 'mujer')";
         }
     } elseif ($userSex == 'mujer') {
         if ($sex_orientation == 'heterosexual') {
@@ -185,8 +229,19 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId) {
 
 
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([':myId' => $myId]);
+    $stmt->execute([
+        ':myId' => $myId,
+        ':lon' => $lon,
+        ':lat' => $lat,
+        ':userAge' => $userAge,
+        ':maxDistance' => $maxdis,
+        ':maxAgeDiff' => $maxage,
+        ':minAgeDiff' => $minage
+    ]);
 
+    
+
+    
     $profiles = [];
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         // Añadir imágenes en el array 'pictures'
@@ -300,8 +355,6 @@ function renderProfiles($profiles) {
 
 function getProfileImages($userId) {
     global $host,$dbname,$username,$password;
-
-    
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

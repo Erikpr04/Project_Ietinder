@@ -19,6 +19,8 @@ function sendLog(action) {
 }
 
 function createErrorTag(errorType, text) {
+    $('.error-tag').remove();  // Eliminar etiquetas de error previas
+
     // Crear el contenedor del error
     const errorTag = $('<div></div>').addClass('error-tag');
     

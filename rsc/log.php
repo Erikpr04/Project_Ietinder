@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 function createLog($action) {
-    $date = date("d-m-Y"); 
-    $timedate= date("d-m-Y H:i:s", strtotime(date("d-m-Y H:i:s") . ' +1 hour'));
+    $date = date("Y-m-d"); 
+    $timedate= date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . ' +1 hour'));
 
     $message = "[{$timedate}] {$action}\n"; 
     $logDir = dirname(__DIR__) . "/logs";
