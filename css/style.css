@@ -91,6 +91,22 @@
     font-style: normal;
 }
 
+/* Estilo para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 5px; /* Hace la barra de desplazamiento más delgada */
+}
+
+/* Estilo para el fondo de la barra */
+::-webkit-scrollbar-thumb {
+    background-color: #b8b8b8; /* Color de la barra */
+    border-radius: 10px;
+}
+
+/* Estilo para el hover de la barra de desplazamiento */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* Color al pasar el ratón */
+}
+
 /* General reset */
 
 * {
@@ -275,7 +291,6 @@ body#login button:hover::after, body#login button:hover {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    /* Spacing between fields */
 }
 
 .wrong-data {
@@ -297,7 +312,7 @@ body#login button:hover::after, body#login button:hover {
     font-size: 0.8rem;
     margin-top: 0.25rem;
     text-align: start;
-    /* position: absolute; */
+
 }
 
 .data-container p i {
@@ -342,8 +357,104 @@ body#login input[type="checkbox"]:checked + label::before {
     background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
 }
 
+/* MARK: register */
+#register{
+    display: flex;
+    overflow: auto;
+    height: 100%;
+
+}
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    top: 0;
+    height: 100%;
+    width: 460px;
+    background-color: var(--tangerine-color);
+}
+
+
+body#register form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start; 
+    min-width: 375px; 
+    width: 100%;
+    padding: 0px 15px 15px 15px;
+    background-color: var(--tangerine-color);
+    position: relative; 
+
+}
+
+body#register .register-input {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-grow: 0.07;/*controlar espacio entre inputs*/
+}
+
+body#register .google-maps input{
+    background-color: #fff;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    border: 2px solid black;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 1.5rem;
+    font-size: 1rem;
+    width: 50%;
+    appearance: none;
+    outline: none;
+}
+
+body#register .google-maps button {
+    background: transparent;
+    border: 2px solid var(--black-color);
+    color: var(--black-color);
+    font-weight: 500;
+    
+    cursor: pointer;
+    
+    border-radius: .25rem;
+    border: 2px solid black;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 1.5rem;
+    font-size: 1rem;
+    width: 30%;
+    margin-left: 5px;
+    text-indent: 5px; 
+    appearance: none;
+    outline: none;
+
+
+    
+}
+body#register #map {
+    height: 200px; /* Altura del mapa */
+    border-radius: .25rem;
+    margin-bottom: 15px;
+}
+
+.input-cordenadas {
+    margin-left: 5px;
+}
+
+body#register input, body#register select {
+    max-width: 280px !important;
+}
+
+
+body#register .photo-placeholder {
+    height: 50px;
+}
+
+
+
 /* MARK: Profile */
-body#profile {
+body#profile, body#register {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -398,7 +509,7 @@ h3 span {
     font-size: 3rem;
 }
 
-.profile-personalData {
+.profile-personalData, .register-personalData {
     display: flex;
     width: 100%;
     gap: .5rem;
@@ -423,7 +534,8 @@ body#profile .google-maps {
 
 
 /* Input styling */
-body#profile .profile-input input, body#profile .profile-input select {
+body#profile .profile-input input, body#profile .profile-input select,
+body#register .register-input input, body#register .register-input select {
     background-color: #fff;
     padding: .25rem .5rem;
     border-radius: .25rem;
@@ -436,19 +548,19 @@ body#profile .profile-input input, body#profile .profile-input select {
     outline: none;
 }
 
-body#profile .profile-input label {
+body#profile .profile-input label, body#register .register-input label {
     text-align: left;
     padding-left: .25rem;
 }
 
-body#profile label {
+body#profile label, body#register label {
     font-family: "Sour Gummy", serif;
     font-size: 1.1rem;
     font-weight: 500;
     letter-spacing: .1rem;
 }
 
-body#profile input:focus, body#profile select:focus {
+body#profile input:focus, body#profile select:focus, body#register input:focus, body#register select:focus {
     outline: transparent;
     border: 2px solid transparent;
     background-origin: border-box;
@@ -457,17 +569,17 @@ body#profile input:focus, body#profile select:focus {
                 linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end)) border-box;
 }
 
-body#profile input:focus + label, body#profile select:focus + label {
+body#profile input:focus + label, body#profile select:focus + label, body#register input:focus + label, body#register select:focus + label { 
     background: linear-gradient(45deg, var(--color--brand-primary-a11y), var(--color--brand-gradient-end));
     background-clip: text;
     color: transparent;
 }
 
-body#profile a {
+body#profile a, body#register a {
     text-align: left;
 }
 
-body#profile #buttonSave {
+body#profile #buttonSave, body#register #buttonSave {
     position: relative;
     background: transparent;
     border: 2px solid var(--black-color);
@@ -479,9 +591,96 @@ body#profile #buttonSave {
     width: 100%;
 }
 
-body#profile #buttonSave:hover {
+body#profile #buttonSave:hover, body#register #buttonSave:hover, body#register .google-maps button:hover {
     background-color: #cfcfcf;
 }
+
+
+.main-photos-content{
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.main-photo {
+    position: relative;
+    margin-bottom: 10px;
+}
+.main-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.main-photo-tag {
+    position: absolute;
+    bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    z-index: 2;
+}
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.photo-placeholder {
+    position: relative;
+    aspect-ratio: 1;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100px;
+}
+.photo-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #ff4444;
+    transition: all 0.2s ease;
+}
+.delete-button:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+.placeholder-content {
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    color: #666;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.placeholder-content:hover {
+    background-color: #e0e0e0;
+}
+
 
 /* MARK: messages*/
 body#messages .main-header {
@@ -505,11 +704,11 @@ body#messages .main-header a {
     text-decoration: none;
     font-family: "GothamRnd", serif;
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1rem;
     border-radius: 2rem;
 }
 body#messages .main-header a i {
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 body#messages main {
@@ -549,10 +748,11 @@ body#messages main div.centerTextMessage{
 /* profiles sin conversaciones */
 body#messages main #containerMatches #matchedProfiles {
     display: flex;
-    gap: 20px;
+    gap: .5rem;
     overflow-x: auto;
     min-height: 150px;
-    align-items: flex-start;
+    align-items: center;
+    padding-left: .5rem;
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage {
@@ -560,18 +760,23 @@ body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 120px;
+    max-width: 80px;
+    transition: all 0.1s ease;
+}
+body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage:hover {
+    cursor: pointer;
+    transform: scale(1.03);
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage img {
-    width: 100px;
-    height: 120px;
+    width: 80px;
+    height: 100px;
     object-fit: cover;
     object-position: center;
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p {
-    margin: 10px 0 0 0;
+    margin-top: .25rem;
     text-align: center;
     width: 100%;
 }
@@ -579,23 +784,39 @@ body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p
 
 /* profiles con conversaciones */
 body#messages main #containerMessages #messagedProfiles{
-    min-height: 334px;
+    height: 555px;
+    overflow-y: auto;
+    padding: .5rem;
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 100px;
-    margin-bottom: 10px;
+    margin-bottom: .25rem;
+    border-radius: .5rem;
+    padding: .5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    transition: all 0.1s ease;
+}
+
+body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage img {
-    width: 80px;
-    height: 80px;
+    width: 55px;
+    height: 55px;
     object-fit: cover;
     border-radius: 100%;
     margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.profileName {
+    font-weight: 600;
 }
 
 body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage p {
@@ -604,8 +825,8 @@ body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage
     text-align:left;
 }
 
-.profile-name {
-    font-weight: bold;
+.cardProfileMessage img {
+    border-radius: .5rem ;
 }
 
 .lastMessage {
@@ -647,30 +868,109 @@ footer p a:hover {
     position: sticky; 
     top: 0; 
     z-index: 10; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.options-selector{
+    padding: 5px;
 }
 
 .main-header h2{
-    padding: .25rem 1rem;
+    padding: .15rem .75rem;
     color: var(--black-color);
-    font-size: 3.5rem;
+    font-size: 2.75rem;
 }
 
 .main-header h2 span{
-    font-size: 3.5rem;
+    font-size: 2.75rem;
+}
+
+/*Dropdown Menu Filter search */
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+.menu-button {
+    padding: 10px;
+    font-size: xx-large;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Transición suave para todos los cambios */
+
+}
+
+.menu-button.rotated{
+    transform: rotate(90deg); 
 }
 
 
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 9%;
+    right: 0%;
+
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    width: 210px;
+    z-index: 20;
+}
+.menu-content.active {
+    display: block;
+}
+.slider-container {
+    margin-bottom: 15px;
+}
+.slider-container label {
+    display: flex;
+    flex-wrap: wraps;
+}
+.menu-content button {
+    display: block;
+    width: 100%;
+    background-image: linear-gradient(45deg, var(--gold-color), var(--tangerine-color));  
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: white 1px;
+    border-radius: 10px; 
+    transition: all 0.3s ease; 
+}
+
+.menu-content button:hover {
+    background-image: linear-gradient(45deg, var(--tangerine-color), var(--gold-color)); 
+    border-color: #ffffff; 
+    transform: scale(1.02); 
+}
+
+.filter_button {
+    cursor: grabbing;
+
+}
+
+
+/*sliders*/
+#slider1-value , #slider2-value{
+    width: 100%;
+    text-align: center;
+}
+
 .main-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; 
-    min-width: 375px; 
-    width: 460px; 
+    width: 460px;
     height: 100vh; 
     background-color: var(--white-color);
     overflow: hidden; 
-    position: relative; 
 }
 
 #main-content {
@@ -709,7 +1009,7 @@ footer p a:hover {
     font-size: 1.5rem; 
     position: absolute; 
     bottom: 1rem;
-    z-index: 60; 
+    z-index: 101; 
 }
 
 /* Estilo base para los botones */
@@ -803,7 +1103,7 @@ footer p a:hover {
 }
 
 
-/* Matches */
+/* MARK: Matches */
 
 
 /* Estilos para el overlay desenfocado */
@@ -941,7 +1241,7 @@ footer p a:hover {
 
 }
 
-/* ERROR TAGS*/
+/* MARK: ERROR TAGS*/
 /* Estilo básico para el mensaje de error */
 .error-tag {
     position: absolute;
@@ -972,8 +1272,8 @@ footer p a:hover {
 }
 
 .error-tag.hide {
-    top: -1.5rem; /* Se mueve hacia arriba */
-    opacity: 0; /* Se vuelve transparente */
+    top: -1.5rem; 
+    opacity: 0; 
 }
 
 /* Colores para cada tipo de error */
@@ -992,3 +1292,338 @@ footer p a:hover {
 .unknown {
     background-color: #b2b2b2;
 }
+
+/* MARK:CHAT*/
+
+body#chat {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100dvh;
+    background-color: #f9f9f9;
+    width: 460px;
+}
+
+#chatContainer, #tab-chatContainer, #tab-profileContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px;
+    margin: .25rem 0;
+    position: relative;
+    border-radius: 1rem;
+    font-size: 1rem;
+    line-height: 1.3rem;
+}
+
+.message p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.profile-image-chat {
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.my-message  img {
+    display: none;
+}
+
+.my-message {
+    align-self: flex-end;
+    border-top-right-radius: 0;
+    background-color: #ffe0d8;
+    text-align: left;
+}
+
+.their-message {
+    border-bottom-left-radius: 0;
+    align-self: flex-start;
+    background-color: #ffe6d3;;
+    text-align: left;
+    padding-left: 45px;
+}
+
+#messageForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: .25rem;
+    padding: .5rem; 
+}
+
+#messageForm #message {
+    background-color: #fff;
+    padding: .25rem .5rem;
+    border-radius: 10rem;
+    border: 2px solid #a5a5a5;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    height: 2rem;
+    font-size: 1rem;
+    width: 100%;
+    appearance: none;
+    outline: none;
+}
+
+#messageForm #send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--orange-color);
+    height: 2rem;
+    width:  2rem;
+    border-radius: 100%;
+    border: none;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+#messageForm #send:hover {
+    background-color:  #e95d37;
+}
+
+#messageForm #send i {
+    color: #fff;
+    font-size: 1rem;
+}
+
+.date-separator {
+    text-align: center;
+    margin-block: 2rem .75rem;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.chat-header-container {
+    display: flex;
+    width: 100%;
+    padding: .5rem;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.chat-header-container a {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-header-container a i {
+    font-size: 1.25rem;
+}
+
+.chat-header .user-photo {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 100%;
+    flex-grow: 1;
+    margin-inline: .5rem;
+}
+
+
+/* MARK: TABS */
+
+#profileContainer .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+    border-bottom: #888 1px solid;
+}
+
+.tab button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: .25rem;
+    transition: 0.3s;
+    border-right: 1px solid #888;
+    border-left: 1px solid #888;
+    border-top: 1px solid #888;
+    width: 100px;
+    border-top-left-radius:  .25rem;
+    border-top-right-radius:  .25rem;
+}
+
+.tab button:hover {
+    background-color: #cccccc;
+}
+
+.user-profile {
+    position: relative;
+    height: 100%;
+}
+
+.user-details {
+    gap: 1rem;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -85%);
+    position: absolute;
+    display: flex;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: .25rem;
+    padding: .25rem;
+}
+
+.user-details .user-name, .user-details .user-age {
+    font-weight: 500;
+    font-size: 1.5rem;
+
+}
+
+#profileContainer {
+    height: 100%;
+}
+
+body {
+    height: 100dvh;
+    width: 460px;
+}
+
+
+/* MARK: ADMIN PANEL*/
+/*admin. index.php*/
+
+body#admin-index {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100dvh;
+    width: 100%;
+
+    background: linear-gradient(-45deg,
+    var(--red-color),
+    var(--gold-color),
+    var(--tangerine-color),
+    var(--orange-color),
+    var(--yellow-color));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+.main-header-index-admin {
+    width: 100%; 
+    text-align: center;
+    background: transparent;  
+    position: sticky; 
+    top: 0; 
+    z-index: 10; 
+}
+
+.main-header-index-admin h2{
+    padding: .25rem 1rem;
+    color: var(--black-color);
+    font-size: 10rem;
+}
+
+.main-header-index-admin h2 span{
+    font-size: 10rem;
+}
+
+.admin-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    min-width: 60vw;
+    box-sizing: border-box; /* Evita que padding afecte el tamaÃ±o total */
+    
+    font-size: 1.5rem; 
+    height: 60vh;
+    
+    background-color: rgba(200, 200, 200, 0.2); /* Gris clarito translucido */
+    margin-top: 50px; 
+    
+    padding: 10px; /* Agrega un poco de espacio interior */
+    border-radius: 10px; /* Agrega un borde redondeado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+}
+
+/*error 403*/
+.error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    height: 100dvh;
+    width: 100%;
+
+}
+
+.error-container a {
+    text-decoration: none;
+    color: var(--black-color);
+    background: linear-gradient(-45deg,
+    var(--red-color),
+    var(--gold-color),
+    var(--tangerine-color),
+    var(--orange-color),
+    var(--yellow-color));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    padding: .25rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+
+.error-container a:hover {
+    text-decoration: none;
+    color: var(--white-color);
+    background: linear-gradient(-45deg,
+    var(--red-color),
+    var(--gold-color),
+    var(--tangerine-color),
+    var(--orange-color),
+    var(--yellow-color));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    padding: .25rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
