@@ -90,6 +90,7 @@
                 <label for="password2">Verifica la contraseña:</label>
                 <input type="password" id="password2" name="password2" required />
             </div>
+            <label for="photo">Añade tu foto principal!</label>
 
             <div class="photo-placeholder">
                 <label>
