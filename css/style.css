@@ -488,6 +488,13 @@ body#profile #map {
     border-radius: .25rem;
 }
 
+#matchOverlay{
+    display: flex;
+    visibility: hidden;
+}
+
+
+
 body#profile form {
     display: flex;
     flex-direction: column;
@@ -913,7 +920,6 @@ footer p a:hover {
     position: absolute;
     top: 9%;
     right: 0%;
-
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;
@@ -932,6 +938,7 @@ footer p a:hover {
     flex-wrap: wraps;
 }
 .menu-content button {
+    margin-bottom: 10px;
     display: block;
     width: 100%;
     background-image: linear-gradient(45deg, var(--gold-color), var(--tangerine-color));  
@@ -1131,6 +1138,7 @@ footer p a:hover {
 
 /* Estilos para la notificación */
 .match-notification {
+    gap: 10px;
     display: flex;
     flex-direction: column;
     background-color: #28a745;
@@ -1142,9 +1150,21 @@ footer p a:hover {
     width: 350px;
 
 }
+.delete-notification{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #e7b41b;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 350px;
+}
 
 /* Botones */
-.match-notification button {
+.match-notification,.delete-notification button {
     margin: 10px 0px 0 0;
     padding: 3px 5px;
     border: none;
@@ -1154,8 +1174,19 @@ footer p a:hover {
     cursor: pointer;
     font-size: 1rem;
 }
+.delete-notification button{
+    margin: 10px 0px 0 0;
+    padding: 3px 5px;
+    border: none;
+    border-radius: .25rem;
+    background-color: #ffffff;
+    color: #ff0000;
+    cursor: pointer;
+    font-size: 1rem;
 
-.match-notification button:hover {
+}
+
+.match-notification,.delete-notification button:hover {
     background-color: #f0f0f0;
 }
 

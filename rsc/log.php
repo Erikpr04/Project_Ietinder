@@ -1,16 +1,5 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
-    if (!empty($action)) {
-        createLog($action);
-        echo json_encode(['success' => true, 'message' => 'Log created successfully']);
-        exit;
-    } 
-    echo json_encode(['success' => false, 'message' => 'No action provided']);
-    exit;
-}
-
 
 function createLog($action) {
     $date = date("Y-m-d"); 
