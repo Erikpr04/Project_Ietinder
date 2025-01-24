@@ -120,7 +120,7 @@ function saveData() {
             if (response.success) {
                 createErrorTag("warning", "Registro exitoso: Tienes 48 horas para activar tu cuenta.");
                 setTimeout(function() {
-                    window.location.href = "login.php";
+                    window.location.href = "/login.php";
                 }, 3000);
             } else {
                 createErrorTag("error", response.message);
