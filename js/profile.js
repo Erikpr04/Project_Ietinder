@@ -1,5 +1,4 @@
 $(function(){
-
     //variables globales para el mapa
     let marker;
     
@@ -91,5 +90,61 @@ document.addEventListener("DOMContentLoaded", () => {
         // Redirigir a index.php
         window.location.href = "./index.php";
     });
+
+    const deleteObject = document.getElementById("deleteInput");
+    document.getElementById("deleteButton").addEventListener("click", function() {
+        console.log(deleteObject.value);
+        if (deleteObject.value=="BORRAR"){
+        $.ajax({
+            url: 'rsc/delete-account.php',
+            method: 'POST',
+            success: function (data) {
+
+                console.log(data);
+
+
+                // Eliminar la cookie user_id
+                document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                
+                // Redirigir a index.php
+                window.location.href = "./index.php";
+                
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX request failed:', {
+                    status: status,
+                    error: error,
+                    response: xhr.responseText
+                });
+                try {
+                    const errorData = JSON.parse(xhr.responseText);
+                    console.error('Server error:', errorData.error);
+                } catch (e) {
+                    console.error('Could not parse error response:', xhr.responseText);
+                }
+            }
+        });
+    }
+
+    });
+
+    const notification = document.getElementById("matchOverlay");
+    
+    
+    document.getElementById("logout-button").addEventListener("click", function() {
+        notification.style.visibility="visible";
+    });
+    document.getElementById("delete-account-button").addEventListener("click", function() {
+        notification.style.visibility="visible";
+
+    });
+
+    document.getElementById("backButton").addEventListener("click", function() {
+        notification.style.visibility="hidden";
+
+    });
+
+
+
     
 });

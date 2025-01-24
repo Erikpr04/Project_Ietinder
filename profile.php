@@ -25,6 +25,19 @@
 <body id="profile">
 
     <div class="main-container">
+    <div class="match-overlay" id="matchOverlay">
+            <div class="delete-notification">
+                <h2>Seguro que quieres borrar tu cuenta?</h2>
+                <h4>Lo perderas Todo!</h4>
+                <div class="profile-input">
+                    <button id="backButton">Atrás</button>
+
+                    <button id="deleteButton">Borrar cuenta</button>
+                    <input type="text" id="deleteInput" placeholder="'BORRAR'" />
+
+                </div>
+            </div>
+        </div>
         <header class="main-header">
             <h2>S<span>w</span>ipeIt</h2>
             <div class="options-selector"></div>
@@ -33,6 +46,7 @@
         <div class="menu-content" id="menu-content">
 
             <button class="filter-button" id="logout-button" type="button">Cerrar Sesión</button>
+            <button class="filter-button" id="delete-account-button" type="button">Borrar cuenta</button>
 
         </div>
         <!-- cookie: user_id:"n" -->
