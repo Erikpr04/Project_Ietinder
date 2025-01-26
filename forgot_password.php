@@ -7,7 +7,9 @@
     <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time();?>"/>
     <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
     <script src="./js/jquery-3.7.1.min.js"></script>
-    <script src="./js/forgot_password.js"></script>
+   
+
+  
     <script src="./js/utils.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,10 +26,12 @@
             <h2>S<span>w</span>ipeIt</h2>
             <p class="app-description">¡El <span>amor</span> está a un swipe!</p>
 
+           
+
             <div class="input-container">
                 <div class="forgot-instrucciones">
                     <p class="forgot-instrucciones-title">¿Has olvidado la contraseña?</p>
-                    <p class="forgot-instrucciones-text">Rellena este formulario para recuperar tu contraseña y recivirás un mail con instrucciones.</p>
+                    <p class="forgot-instrucciones-text">Rellena este formulario para recuperar tu contraseña y recivirás un mail de restablecimiento.</p>
                 </div>
 
                 <div class="data-container email-container">
@@ -37,39 +41,38 @@
                     </div>
                     <p><i class="fa-solid fa-asterisk"></i>Este correo no está registrado</p>
                 </div>
-
-                <div class="data-container password-container">
-                    <div class="input-field" id="nombre">
-                        <input type="text" name="nombre" maxlength="20" required>
-                        <label>Introduce tu nombre</label>
-                        <i style="display: none;" class="fa-solid fa-eye"></i>
-                    </div>
-                    <p><i class="fa-solid fa-asterisk"></i>Este nombre no es correcto</p>
-                </div>
                 
                 <div class="data-container password-container">
-                    <div class="input-field" id="Apellidos">
-                        <input type="text" name="apellidos" maxlength="20" required>
-                        <label>Introduce tus apellidos</label>
+                    <div class="input-field" id="password-recuperar">
+                        <input type="password" name="password" maxlength="20" required>
+                        <label>Introduce la contraseña</label>
                         <i style="display: none;" class="fa-solid fa-eye"></i>
                     </div>
-                    <p><i class="fa-solid fa-asterisk"></i>Este apellido no es correcto</p>
+                    
                 </div>
-            </div>
 
-            <div class="remember-container">
-                <input type="checkbox" name="remember" id="remember" checked>
-                <label for="remember">Mantener sesión iniciada</label>
-            </div>
+                <div class="data-container password-container">
+                    <div class="input-field" id="password2-recuperar">
+                        <input type="password" name="password2" maxlength="20" required>
+                        <label>Vuelva a introducir la contraseña</label>
+                        <i style="display: none;" class="fa-solid fa-eye"></i>
+                    </div>
+                    
+                </div>
+
+
 
             <!-- Submit button -->
             <button type="submit" id="submit-button">Recuperar contraseña</button>
         </form> <!-- Aquí se cierra el formulario -->
 
     </div>
+   
+
 
     <!-- Cargando el archivo JS para la funcionalidad -->
     <script type="text/javascript" src="./js/forgot_password.js?t=<?php echo time();?>"></script>
+
     
 </body>
 

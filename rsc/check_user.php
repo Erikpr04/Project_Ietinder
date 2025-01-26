@@ -16,8 +16,6 @@ $dbname = getenv('DB_NAME');
 $username = getenv('DB_USERNAME');
 $password = getenv('DB_PASSWORD');
 
-
-
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -34,37 +32,34 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Recibir los datos enviados por AJAX
 $email = trim($_POST['email'] ?? '');
-$name = trim($_POST['name'] ?? '');
-$lastName = trim($_POST['last_name'] ?? '');
-
-if (empty($email) || empty($name)) {
-    echo json_encode(["valid" => false, "message" => "Faltan datos obligatorios"]);
+if (empty($email)) {
+    echo json_encode(["valid" => false, "message" => "El correo es obligatorio"]);
     exit();
 }
 
 // Verificar si el usuario existe en la base de datos
-$stmt = $pdo->prepare("SELECT id FROM User WHERE email = :email AND name = :name AND last_name = :lastName");
+$stmt = $pdo->prepare("SELECT id, name FROM User WHERE email = :email");
 $stmt->bindParam(':email', $email);
-$stmt->bindParam(':name', $name);
-$stmt->bindParam(':lastName', $lastName);
 $stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($stmt->rowCount() === 0) {
-    echo json_encode(["valid" => false, "message" => "Los datos introducidos no son correctos"]);
+if (!$user) {
+    echo json_encode(["valid" => false, "message" => "El correo no está registrado"]);
     exit();
 }
 
-// Generar un token único para la recuperación de contraseña
+$name = $user['name'];
 $resetToken = bin2hex(random_bytes(16));
-$updateStmt = $pdo->prepare("UPDATE User SET verification_token = :token WHERE email = :email");
+
+// Actualizar el usuario con el nuevo token y estado pendiente
+$updateStmt = $pdo->prepare("UPDATE User SET verification_token = :token, account_status = 'pending' WHERE email = :email");
 $updateStmt->bindParam(':token', $resetToken);
 $updateStmt->bindParam(':email', $email);
 $updateStmt->execute();
 
-// Configurar y enviar el correo
+// Configurar y enviar el correo solo una vez
 $mail = new PHPMailer(true);
 try {
-    // Configuración del servidor SMTP
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';  
     $mail->SMTPAuth = true;
@@ -76,36 +71,27 @@ try {
     $mail->setFrom('swipeit@iesesteveterradas.cat', 'SwipeIt');
     $mail->addAddress($email);
 
-    //enlace para apache
-    //$resetLink = "https://tinder3.ieti.site/forgot_password.php?token=$resetToken";
-
-    // Crear enlace con el token. CAMBIAR POR EL SERVIDOR///////////////////////////////////////////////
-    $resetLink = "http://localhost:8080/rsc/verify.php?token=$verificationToken";
+    // Enlace de recuperación
+    $resetLink = "http://localhost:8080/rsc/reset_password.php?token=$resetToken";
 
     $mail->isHTML(true);
     $mail->Subject = 'Recuperación de contraseña';
-    $mail->Body = 
-    '
-     <html>
-     <head>
-     </head>
-         <body style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: Arial, sans-serif; margin: 0; padding: 0; background-size: 400% 400%; color: #333;">
-
-         <div style="text-align: center; width: 100%; max-width: 460px; padding: 20px; background-color:rgb(255, 169, 56); border-radius: 10px; box-sizing: border-box;">
-             <h2 style="font-family: Arial, sans-serif; font-size: 4rem; color: black;">S<span style="color:rgb(255, 0, 0);">w</span>ipeIt</h2>
-             <p style="font-size: 1.2rem; color: black;">¡El <span style="color:rgb(255, 0, 0);">amor</span> está a un swipe!</p>
-             
-             <p style="color: black;">Hola ' . $name . ',</p>
-             <p style="color: black;">Gracias por confiar en SwipeIt. Para completar el cambio de contraseña, haz clic en el siguiente botón:</p>
-             <p><a href='. $resetLink . ' style="background-color:rgb(83, 76, 175); color: black; padding: 14px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 1.2rem; border-radius: 5px;">Recuperar contraseña</a></p>
-             <p style="color: black;">Si no has realizado este registro, puedes ignorar este correo.</p>
-         </div>
-         </body>
-     </html>';
+    $mail->Body = "
+    <html>
+    <body>
+        <div style='max-width: 460px; text-align: center; padding: 20px; background-color:rgb(255, 169, 56); border-radius: 10px;'>
+            <h2 style='color: black;'>S<span style='color:red;'>w</span>ipeIt</h2>
+            <p style='color: black;'>¡El <span style='color:red;'>amor</span> está a un swipe!</p>
+            <p style='color: black;'>Hola $name,</p>
+            <p style='color: black;'>Para cambiar tu contraseña, haz clic en el siguiente enlace:</p>
+            <p><a href='$resetLink' style='background-color:rgb(83, 76, 175); color: white; padding: 14px 20px; text-decoration: none; border-radius: 5px;'>Recuperar contraseña</a></p>
+            <p style='color: black;'>Si no solicitaste este cambio, ignora este mensaje.</p>
+        </div>
+    </body>
+    </html>";
 
     $mail->send();
     echo json_encode(["valid" => true, "message" => "El mail de recuperación ha sido enviado"]);
-
 } catch (Exception $e) {
     echo json_encode(["valid" => false, "message" => "Error al enviar el correo: " . $mail->ErrorInfo]);
 }

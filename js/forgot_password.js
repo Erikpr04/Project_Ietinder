@@ -1,84 +1,78 @@
-$('#submit-button').on('click', function (event) {
-    event.preventDefault();
-    $('#submit-button').on('click', function (event) {
-        event.preventDefault();
-        let email = $('#email input').val().trim(); 
-        let name = $('#nombre input').val().trim();  // Cambié '#name' por '#nombre'
-        let lastName = $('#Apellidos input').val().trim(); // Cambié '#last_name' por '#Apellidos'
-
-        // Validar los campos
-        if (email !== '' && name !== '') {
-            $.ajax({
-                url: '/rsc/check_user.php',
-                type: 'POST',
-                data: { email: email, name: name, last_name: lastName },
-                dataType: 'json',
-                success: function (response) {
-                    console.log(response); // Verificar la respuesta del servidor
-                    if (response.valid) {
-                        createErrorTag('info', 'El mail de recuperación ha sido enviado.');
-                    } else {
-                        createErrorTag('error', 'Los datos introducidos no son correctos.');
-                    }
-                },
-                error: function () {
-                    createErrorTag('error', 'Error de conexión con el servidor.');
-                }
-            });
-        }
-    });
-});
-
-
-
 $(document).ready(function () {
-    // Obtener el token de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
+    $('#submit-button').on('click', function (event) {
+        event.preventDefault(); // Evitar el envío tradicional del formulario
 
-    if (token) {
-        // Hacer petición AJAX para verificar el token
+        // Deshabilitar el botón para evitar múltiples envíos
+        $(this).prop('disabled', true).text('Enviando...');
+
+        let email = $('#email input').val().trim();
+        let password = $('#password-recuperar input').val().trim();
+        console.log(password);
+        let confirmPassword = $('#password2-recuperar input').val().trim();
+        console.log(confirmPassword);
+        let instruccionesPass = $('.forgot-instrucciones-pass');
+
+        // Expresión regular para validar el email
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // Expresión regular para validar la contraseña (mínimo 8 caracteres, una mayúscula, una minúscula y un número)
+        let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+        // Limpiar mensajes anteriores
+        $('.error-tag').remove();
+        instruccionesPass.hide();
+
+        // Validación del email
+        if (email === '' || !emailRegex.test(email)) {
+            createErrorTag('error', 'Por favor, introduce un correo válido.');
+            $(this).prop('disabled', false).text('Recuperar contraseña');
+            return;
+        }
+
+        // Validación de la contraseña
+        if (!passwordRegex.test(password)) {
+            createErrorTag('warning', 'La contraseña debe tener al menos 8 caracteres y contener al menos un número, una minúscula y una mayúscula');
+            instruccionesPass.show(); // Mostrar instrucciones si la contraseña no es válida
+            $(this).prop('disabled', false).text('Recuperar contraseña');
+            return;
+        }
+
+        // Verificar que las contraseñas coincidan
+        if (password !== confirmPassword) {
+            createErrorTag('error', 'Las contraseñas no coinciden.');
+            $(this).prop('disabled', false).text('Recuperar contraseña');
+            return;
+        }
+
+        // Si pasa todas las validaciones, proceder con AJAX
         $.ajax({
-            url: "/rsc/validate_token.php",
-            type: "GET",
-            data: { token: token },
-            dataType: "json",
+            url: '/rsc/check_user.php', // Ruta de tu script PHP que maneja la lógica
+            type: 'POST',
+            data: { email: email, password: password },
+            dataType: 'json',
             success: function (response) {
                 if (response.valid) {
-                    // Si el token es válido, cambiar el formulario
-                    $(".forgot-instrucciones-title").text("Restablecer contraseña");
-                    $(".forgot-instrucciones-text").text("Introduce tu nueva contraseña.");
+                    createErrorTag('info', 'Correo enviado con éxito.');
                     
-                    $(".input-container").html(`
-                        <div class="data-container password-container">
-                            <div class="input-field" id="password">
-                                <input type="password" name="password" maxlength="100" required>
-                                <label>Introduce tu nueva contraseña</label>
-                            </div>
-                        </div>
-
-                        <div class="data-container password-container">
-                            <div class="input-field" id="confirm-password">
-                                <input type="password" name="confirm_password" maxlength="100" required>
-                                <label>Confirma tu nueva contraseña</label>
-                            </div>
-                        </div>
-                    `);
-
-                    // Cambiar el botón de submit
-                    $("button[type='submit']").text("Cambiar contraseña");
-
-                    // Cambiar el formulario para enviarlo a reset_password.php
-                    $("form").attr("action", "reset_password.php");
-                    $("form").append(`<input type="hidden" name="token" value="${token}">`);
+                    // Redirigir después de 3 segundos (3000ms)
+                    setTimeout(function () {
+                        window.location.href = 'login.php';
+                    }, 3000);
+                    
                 } else {
-                    alert("Token inválido o expirado.");
+                    if (response.message === 'Usuario no encontrado') {
+                        createErrorTag('info', 'El correo ingresado no está registrado.');
+                    } else {
+                        createErrorTag('error', response.message || 'Error al enviar el correo.');
+                    }
                 }
             },
             error: function () {
-                alert("Error al verificar el token.");
+                createErrorTag('error', 'Error al enviar la solicitud.');
+            },
+            complete: function () {
+                // Rehabilitar el botón tras el proceso
+                $('#submit-button').prop('disabled', false).text('Recuperar contraseña');
             }
         });
-    }
+    });
 });
-
