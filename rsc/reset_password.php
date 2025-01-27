@@ -39,7 +39,8 @@ try {
             $error = "La contraseña debe tener al menos 8 caracteres y contener al menos un número, una minúscula y una mayúscula.";
         } else {
             // Hashear la nueva contraseña
-            $hashedPassword = hash("sha256", $data['password']);
+            $hashedPassword = hash("sha256", $password);
+
 
             // Actualizar la contraseña en la base de datos y eliminar el token
             $updateStmt = $pdo->prepare("UPDATE User SET password = :password, verification_token = NULL WHERE id = :id");
@@ -95,14 +96,7 @@ try {
 
                 <?php if (!empty($error)) : ?>
                     <p style="color: red; text-align: center;"><?php echo $error; ?></p>
-                    <?php elseif (!empty($successMessage)) : ?>
-                    <p style="color: blue; text-align: center;"><?php echo $successMessage; ?></p>
-                    <script>
-                        // Redirigir después de 2 segundos
-                        setTimeout(function() {
-                            window.location.href = "/login.php";
-                        }, 2000);
-                    </script>
+                    
                 <?php endif; ?>
 
                 <div class="data-container password-container">

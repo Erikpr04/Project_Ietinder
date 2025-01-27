@@ -80,7 +80,8 @@ try {
 
     $mail->isHTML(true);
     $mail->Subject = 'Recupera tu password';
-    $mail->Body = "
+    $mail->Body = 
+    "
     <html>
     <body>
         <div style='max-width: 460px; text-align: center; padding: 20px; background-color:rgb(255, 169, 56); border-radius: 10px;'>
@@ -88,7 +89,7 @@ try {
             <p style='color: black;'>¡El <span style='color:red;'>amor</span> está a un swipe!</p>
             <p style='color: black;'>Hola $name,</p>
             <p style='color: black;'>Para cambiar tu contraseña, haz clic en el siguiente enlace:</p>
-            <p><a href='$resetLink' style='background-color: #4CAF50; color: white; padding: 14px 20px; text-decoration: none; border-radius: 5px;'>Recuperar contraseña</a></p>
+            <p><a href='$resetLink'  style='background-color: #4CAF50; color: white; padding: 14px 20px; text-decoration: none; border-radius: 5px;'>Recuperar contraseña</a></p>
             <p style='color: black;'>Si no solicitaste este cambio, ignora este mensaje.</p>
         </div>
     </body>
