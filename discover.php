@@ -42,7 +42,6 @@
             <label for="slider1">Distancia</label>
             <p id="slider1-value">50 km</p>
             <span id="slider1-min">0</span>
-
             <input type="range" id="slider1" min="0" max="200" value="50">
             <span id="slider1-max">200</span>
         </div>

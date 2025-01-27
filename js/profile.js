@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    const notification = document.getElementById("matchOverlay");
+    const notification = document.getElementById("deleteOverlay");
     
     
     document.getElementById("logout-button").addEventListener("click", function() {
