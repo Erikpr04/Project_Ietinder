@@ -54,10 +54,10 @@ $(document).ready(function () {
                 if (response.valid) {
                     createErrorTag('info', 'Correo enviado con éxito.');
                     
-                    // Redirigir después de 3 segundos (3000ms)
+                    // Redirigir después de 2 segundos (2000ms)
                     setTimeout(function () {
                         window.location.href = 'login.php';
-                    }, 3000);
+                    }, 2000);
                     console.log({ email: email, password: password });
                     
                 } else {

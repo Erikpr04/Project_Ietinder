@@ -177,10 +177,10 @@ try {
             $mail->addAddress($data['email']); // Destinatario
 
             // Crear enlace con el token. CAMBIAR POR EL SERVIDOR///////////////////////////////////////////////
-            $validationLink = "http://localhost:8080/rsc/verify.php?token=$verificationToken";
+            //$validationLink = "http://localhost:8080/rsc/verify.php?token=$verificationToken";
 
             // Crear enlace con el token//para servidor
-            //$validationLink = "https://tinder3.ieti.site/rsc/verify.php?token=$verificationToken";
+            $validationLink = "https://tinder3.ieti.site/rsc/verify.php?token=$verificationToken";
 
         // Crear enlace con el token
 
