@@ -31,7 +31,7 @@
             <div class="input-container">
                 <div class="forgot-instrucciones">
                     <p class="forgot-instrucciones-title">¿Has olvidado la contraseña?</p>
-                    <p class="forgot-instrucciones-text">Rellena este formulario para recuperar tu contraseña y recivirás un mail de restablecimiento.</p>
+                    <p class="forgot-instrucciones-text">Rellena este formulario para recuperar tu contraseña y recibirás un mail de restablecimiento.</p>
                 </div>
 
                 <div class="data-container email-container">
@@ -45,7 +45,7 @@
                 <div class="data-container password-container">
                     <div class="input-field" id="password-recuperar">
                         <input type="password" name="password" maxlength="20" required>
-                        <label>Introduce la contraseña</label>
+                        <label>Introduce la nueva contraseña</label>
                         <i style="display: none;" class="fa-solid fa-eye"></i>
                     </div>
                     
