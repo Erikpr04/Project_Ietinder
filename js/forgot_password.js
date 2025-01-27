@@ -33,7 +33,7 @@ $(document).ready(function () {
                       setTimeout(function () {
                         window.location.href = 'login.php';
                     }, 2000);
-                    console.log({ email: email, password: password });
+                    console.log({ email: email});
                 } else {
                     createErrorTag('error', 'El correo ingresado no está registrado.');
                 }
