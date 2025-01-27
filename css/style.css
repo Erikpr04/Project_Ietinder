@@ -1671,3 +1671,21 @@ body#admin-index {
     margin-top: 20px;
 }
 
+.heart-button {
+    position: absolute;
+    top: 50%;
+    right: -25px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.my-message .heart-button {
+    display: none;
+}
+
+.fa-heart {
+    font-size: 1.2rem;
+    color: var(--red-color);
+}
