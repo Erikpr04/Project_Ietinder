@@ -32,9 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Recibir los datos enviados por AJAX
 $email = trim($_POST['email'] ?? '');
+$password = trim($_POST['password'] ?? ''); // Agregado para recibir la contraseña
 
-if (empty($email)) {
-    echo json_encode(["valid" => false, "message" => "El correo es obligatorio"]);
+if (empty($email) || empty($password)) {
+    echo json_encode(["valid" => false, "message" => "El correo y la contraseña son obligatorios"]);
     exit();
 }
 
@@ -52,31 +53,38 @@ if (!$user) {
 $name = $user['name'];
 $resetToken = bin2hex(random_bytes(16));
 
-// Guardar el token en la base de datos
-$updateStmt = $pdo->prepare("UPDATE User SET verification_token = :token WHERE email = :email");
+// Hashear la nueva contraseña con SHA-256
+$hashedPassword = hash("sha256", $password);
+
+// Actualizar el usuario con el nuevo token y estado pendiente
+$updateStmt = $pdo->prepare("UPDATE User SET password = :password, verification_token = :token, account_status = 'pending' WHERE email = :email");
 $updateStmt->bindParam(':token', $resetToken);
 $updateStmt->bindParam(':email', $email);
+$updateStmt->bindParam(':password', $hashedPassword);
 $updateStmt->execute();
 
-// Configurar y enviar el correo
+// Configurar y enviar el correo solo una vez
 $mail = new PHPMailer(true);
 try {
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
+    $mail->Host = 'smtp.gmail.com';  
     $mail->SMTPAuth = true;
-    $mail->Username = 'paugracia7@gmail.com';
-    $mail->Password = 'djsl zloc uymy xpry';
+    $mail->Username = 'paugracia7@gmail.com';  
+    $mail->Password = 'djsl zloc uymy xpry'; 
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port = 465;
 
     $mail->setFrom('swipeit@iesesteveterradas.cat', 'SwipeIt');
     $mail->addAddress($email);
 
-    // Crear enlace con el token. CAMBIAR POR EL SERVIDOR///////////////////////////////////////////////
-    $resetLink = "http://localhost:8080/rsc/reset_password.php?token=$resetToken";
+   
 
-    // Crear enlace con el token//para servidor
-    //$resetLink = "https://tinder3.ieti.site/rsc/reset_password.php?token=$resetToken";
+
+     // Crear enlace con el token. CAMBIAR POR EL SERVIDOR///////////////////////////////////////////////
+             $resetLink = "http://localhost:8080/rsc/reset_password.php?token=$resetToken";
+
+            // Crear enlace con el token//para servidor
+            //$resetLink = "https://tinder3.ieti.site/rsc/reset_password.php?token=$resetToken";
 
     $mail->isHTML(true);
     $mail->Subject = 'Recupera tu password';
@@ -88,7 +96,7 @@ try {
             <p style='color: black;'>¡El <span style='color:red;'>amor</span> está a un swipe!</p>
             <p style='color: black;'>Hola $name,</p>
             <p style='color: black;'>Para cambiar tu contraseña, haz clic en el siguiente enlace:</p>
-            <p><a href='$resetLink' style='background-color: #4CAF50; color: white; padding: 14px 20px; text-decoration: none; border-radius: 5px;'>Recuperar contraseña</a></p>
+            <p><a href='$resetLink'  style='background-color: #4CAF50; color: white; padding: 14px 20px; text-decoration: none; border-radius: 5px;'>Recuperar contraseña</a></p>
             <p style='color: black;'>Si no solicitaste este cambio, ignora este mensaje.</p>
         </div>
     </body>
