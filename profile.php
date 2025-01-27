@@ -25,7 +25,7 @@
 <body id="profile">
 
     <div class="main-container">
-    <div class="match-overlay" id="matchOverlay">
+    <div class="delete-overlay" id="deleteOverlay">
             <div class="delete-notification">
                 <h2>Seguro que quieres borrar tu cuenta?</h2>
                 <h4>Lo perderas Todo!</h4>
