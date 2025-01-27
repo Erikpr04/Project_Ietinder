@@ -73,10 +73,10 @@ try {
     $mail->addAddress($email);
 
     // Crear enlace con el token. CAMBIAR POR EL SERVIDOR///////////////////////////////////////////////
-    $resetLink = "http://localhost:8080/rsc/reset_password.php?token=$resetToken";
+    //$resetLink = "http://localhost:8080/rsc/reset_password.php?token=$resetToken";
 
     // Crear enlace con el token//para servidor
-    //$resetLink = "https://tinder3.ieti.site/rsc/reset_password.php?token=$resetToken";
+    $resetLink = "https://tinder3.ieti.site/rsc/reset_password.php?token=$resetToken";
 
     $mail->isHTML(true);
     $mail->Subject = 'Recupera tu password';
