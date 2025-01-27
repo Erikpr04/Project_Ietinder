@@ -51,6 +51,9 @@ try {
             // Verificar si la actualización fue exitosa
             if ($updateStmt->rowCount() > 0) {
                 $successMessage = "Contraseña actualizada con éxito.";  // Mensaje de éxito
+
+                // Redirigir al inicio de sesión
+                //header("Location: /login.php");
                
             } else {
                 $error = "Error al actualizar la contraseña.";
@@ -79,6 +82,14 @@ try {
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <title>SwipeIt! - Recuperar Contraseña</title>
+    <script>
+        // Esperar 2 segundos antes de redirigir al login
+        function redirectToLogin() {
+            setTimeout(function() {
+                window.location.href = "/login.php";
+            }, 2000);  // 2000ms = 2 segundos
+        }
+    </script>
 </head>
 
 <body id="login">
@@ -96,6 +107,12 @@ try {
 
                 <?php if (!empty($error)) : ?>
                     <p style="color: red; text-align: center;"><?php echo $error; ?></p>
+                    <?php elseif (!empty($successMessage)) : ?>
+                    <p style="color: blue; text-align: center;"><?php echo $successMessage; ?></p>
+                    <script>
+                        // Llamamos a la función para redirigir después de 2 segundos
+                        redirectToLogin();
+                    </script>
                     
                 <?php endif; ?>
 
