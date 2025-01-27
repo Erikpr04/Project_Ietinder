@@ -188,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
      
+
     
 
     // Función para formatear la fecha en estilo "Martes, 14 Enero 2025, 10:39"

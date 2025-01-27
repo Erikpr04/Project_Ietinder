@@ -25,6 +25,7 @@ try {
         m.content,
         m.timestamp,
         m.sender_id,
+        m.is_heart,
         CASE 
             WHEN m.sender_id = :current_user_id THEN NULL
             ELSE (SELECT media_path FROM Media WHERE user_id = m.sender_id LIMIT 1)
