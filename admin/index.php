@@ -1,63 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link type="text/css" rel="stylesheet" href="../css/style.css?t=<?php echo time();?>"/>
-</head>
-        <?php
-            require_once '../rsc/log.php';
-            require_once '../rsc/db_config.php';
+<?php
+ require_once '../rsc/log.php';
+ require_once '../rsc/db_config.php';
 
-            if (isset($_COOKIE['user_id'])) {
-            
-                // Obtener las variables de entorno necesarias con valores por defecto
-                $host = getenv('DB_HOST');
-                $dbname = getenv('DB_NAME');
-                $username = getenv('DB_USERNAME');
-                $pass = getenv('DB_PASSWORD');
-            
-                $connection = new mysqli($host, $username, $pass, $dbname);
-            
-                if ($connection->connect_error) {
-                    die("Conexión fallida: " . $connection->connect_error);
-                }
-            
-                // Consulta para verificar el rol del usuario
-                $sql = "SELECT role_user FROM User WHERE id = ?";
-                $stmt = $connection->prepare($sql);
-                $stmt->bind_param("s", $_COOKIE['user_id']);
-                $stmt->execute();
-                $result = $stmt->get_result();
-            
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    if ($row['role_user'] === 'admin') {
-                        // Usuario con rol de admin, se permite el acceso
-                        createLog(action: "Usuario tiene permisos, mostrando admin panel");
-                    } else {
-                        createLog(action: "Usuario no tiene permisos, redirigiendo a 403 desde index admin panel");
-                        header('Location: ../error/403.php');
-                        exit();
-                    }
-                } else {
-                    createLog(action: "Usuario no encontrado, redirigiendo a login desde index admin panel");
-                    header('Location: ./index.php');
-                    exit();
-                }
-            
-                $stmt->close();
-                $connection->close();
-            } else {
-                createLog(action: "Usuario no tiene permisos, redirigiendo a 401 desde index admin panel");
-                header('Location: ../error/401.php');
-                exit();
-            }
-            
+if (isset($_COOKIE['user_id'])) {
+    $host = getenv('DB_HOST');
+    $dbname = getenv('DB_NAME');
+    $username = getenv('DB_USERNAME');
+    $pass = getenv('DB_PASSWORD');
 
+    $connection = new mysqli($host, $username, $pass, $dbname);
 
-        ?>
+    if ($connection->connect_error) {
+        die("Conexión fallida: " . $connection->connect_error);
+    }
+
+    $sql = "SELECT role_user FROM User WHERE id = ?";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("s", $_COOKIE['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if ($row['role_user'] === 'admin') {
+            createLog(action: "Acceso permitido al panel de administración");
+            // Continúa cargando el panel
+        } else {
+            createLog(action: "Acceso denegado: usuario no admin");
+            header("HTTP/1.1 403 Forbidden");
+            include '../error/403.php';
+            exit();
+        }
+    } else {
+        createLog(action: "Usuario no encontrado, redirigiendo al login");
+        header('Location: ../index.php');
+        exit();
+    }
+
+    $stmt->close();
+    $connection->close();
+} else {
+    createLog(action: "Acceso denegado: usuario no autenticado");
+    header("HTTP/1.1 401 Unauthorized");
+    include '../error/401.php';
+    exit();
+}
+?>
 
 <body id="admin-index">
 
@@ -79,7 +67,6 @@
 
 </body>
 </html>
-
 
 <?php
 //FUNCIONES SEEDER
