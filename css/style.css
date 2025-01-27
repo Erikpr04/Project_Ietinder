@@ -1634,6 +1634,7 @@ body#admin-index {
     transform: translateY(-50%);
     background: transparent;
     border: none;
+    cursor: pointer;
 }
 
 .my-message .heart-button {
