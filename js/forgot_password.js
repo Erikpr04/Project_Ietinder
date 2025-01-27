@@ -42,6 +42,7 @@ $(document).ready(function () {
             $(this).prop('disabled', false).text('Recuperar contraseña');
             return;
         }
+        
 
         // Si pasa todas las validaciones, proceder con AJAX
         $.ajax({
@@ -57,6 +58,7 @@ $(document).ready(function () {
                     setTimeout(function () {
                         window.location.href = 'login.php';
                     }, 3000);
+                    console.log({ email: email, password: password });
                     
                 } else {
                     if (response.message === 'Usuario no encontrado') {

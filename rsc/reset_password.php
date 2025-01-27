@@ -21,12 +21,10 @@ if (isset($_GET['token'])) {
             exit();
         }
 
-        // Hashear la nueva contraseña con SHA-256
-        $hashedPassword = hash("sha256", $password);
 
         // Actualizar contraseña y eliminar token solo si la actualización es exitosa
-        $updateStmt = $pdo->prepare("UPDATE User SET password = :password, account_status = 'active', verification_token = NULL WHERE verification_token = :token");
-        $updateStmt->bindParam(':password', $hashedPassword);
+        $updateStmt = $pdo->prepare("UPDATE User SET account_status = 'active', verification_token = NULL WHERE verification_token = :token");
+       
         $updateStmt->bindParam(':token', $token);
         $updateStmt->execute();
 
