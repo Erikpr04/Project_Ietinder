@@ -48,8 +48,6 @@ if (isset($_COOKIE['user_id'])) {
 ?>
 
 <body id="admin-index">
-
-
     <div class="admin-container">
         
         <div class="main-header-index-admin"><h2>S<span>w</span>ipeIt</h2></div>

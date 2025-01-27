@@ -1671,3 +1671,14 @@ body#admin-index {
     margin-top: 20px;
 }
 
+
+/* MARK: USERS TABLE*/
+
+#users-table{
+    border: 1;
+}
+#users-table tr:hover{
+    background-color: #e0e0e0;
+    cursor: pointer;
+
+}
