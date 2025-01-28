@@ -621,6 +621,7 @@ body#profile #buttonSave:hover, body#register #buttonSave:hover, body#register .
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top; 
     border-radius: 8px;
 }
 .main-photo-tag {
@@ -650,6 +651,8 @@ body#profile #buttonSave:hover, body#register #buttonSave:hover, body#register .
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
+
 }
 .delete-button {
     position: absolute;
@@ -779,7 +782,7 @@ body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage i
     width: 80px;
     height: 100px;
     object-fit: cover;
-    object-position: center;
+    object-position: top;
 }
 
 body#messages main #containerMatches #matchedProfiles > div.cardProfileMessage p {
@@ -817,6 +820,8 @@ body#messages main #containerMessages #messagedProfiles > div.cardProfileMessage
     width: 55px;
     height: 55px;
     object-fit: cover;
+    object-position: top; /* Muestra la parte superior de la imagen */
+
     border-radius: 100%;
     margin-right: 10px;
     flex-shrink: 0;
@@ -1573,8 +1578,9 @@ body#admin-index {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 100dvh;
+    height: 100%;
     width: 100%;
+    padding: 10px;
 
     background: linear-gradient(-45deg,
     var(--red-color),
@@ -1590,7 +1596,6 @@ body#admin-index {
     width: 100%; 
     text-align: center;
     background: transparent;  
-    position: sticky; 
     top: 0; 
     z-index: 10; 
 }
@@ -1674,6 +1679,36 @@ body#admin-index {
 
 /* MARK: USERS TABLE*/
 
+body#user-index {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 120vh;
+    padding: 10px;
+
+    background: linear-gradient(-45deg,
+    var(--red-color),
+    var(--gold-color),
+    var(--tangerine-color),
+    var(--orange-color),
+    var(--yellow-color));
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+.admin-container{
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
 #users-table{
     border: 1;
 }
@@ -1682,3 +1717,70 @@ body#admin-index {
     cursor: pointer;
 
 }
+
+/* Contenedor de la tabla con scroll */
+#users-table {
+    width: 100%;
+    max-height: calc(100vh - 250px);
+    overflow: auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de la tabla */
+#users-table thead tr {
+    position: sticky;
+    top: 0;
+    background: var(--gold-color);
+    color: white;
+}
+
+
+/*Estilos Paginador */
+
+.pagination-button {
+    background-color: var(--orange-color); /* Color principal */
+    color: var(--white-color); /* Texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 10px 15px; /* Espaciado interno */
+    margin: 5px; /* Separación entre botones */
+    font-size: 1rem; /* Tamaño de texto */
+    cursor: pointer; /* Manita al pasar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: all 0.3s ease; /* Transiciones suaves */
+}
+
+.pagination-button:hover {
+    background-color: var(--tangerine-color); /* Cambia color al pasar el mouse */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+}
+
+.pagination-button:active {
+    transform: scale(0.95); /* Efecto de clic */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15); /* Sombra más leve */
+}
+
+.pagination-button.active {
+    background-color: var(--yellow-color);
+    color: var(--black-color);
+    font-weight: bold; 
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: contents; 
+}
+
+.pagination-button.active {
+    background-color: var(--yellow-color); 
+    font-weight: bold;
+}
+
+
+

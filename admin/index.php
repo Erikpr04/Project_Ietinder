@@ -47,13 +47,21 @@ if (isset($_COOKIE['user_id'])) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link type="text/css" rel="stylesheet" href="../css/style.css?t=<?php echo time();?>"/>
+
+</head>
+<body id="admin-index"></body>
+
 <body id="admin-index">
     <div class="admin-container">
-        
         <div class="main-header-index-admin"><h2>S<span>w</span>ipeIt</h2></div>
 
-        <div class="admin-menu">
-            <h1>Panel de Administración</h1>
     <!--Seeder-->
 
     <!--<h1>Insertar Perfiles desde JSON a la Base de Datos</h1>
