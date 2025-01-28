@@ -114,11 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function appendMessages(messages) {
         messages.forEach(message => {
-            const messageTimestamp = new Date(message.timestamp); // Asegúrate de que los mensajes incluyan un campo "timestamp" en formato ISO
+            const messageTimestamp = new Date(message.timestamp);
             const timeDifference = lastMessageTimestamp 
                 ? (messageTimestamp - lastMessageTimestamp) / (1000 * 60) 
                 : null;
-
+    
             // Agregar separador si han pasado más de 5 minutos o si es el primer mensaje
             if (!lastMessageTimestamp || timeDifference > 5) {
                 const separator = document.createElement('div');
@@ -126,32 +126,70 @@ document.addEventListener('DOMContentLoaded', () => {
                 separator.textContent = formatDate(messageTimestamp);
                 chatContainer.appendChild(separator);
             }
-
+    
             // Crear el contenedor del mensaje
             const messageDiv = document.createElement('div');
             messageDiv.className = message.sender_id === parseInt(userId) 
                 ? 'message my-message' 
                 : 'message their-message';
-
+    
+            // Determinar las clases del ícono del corazón
+            const heartClass = message.is_heart 
+                ? 'fa-solid fa-heart hearted' 
+                : 'fa-regular fa-heart';
+    
             messageDiv.innerHTML = ` 
                 ${message.sender_id !== parseInt(userId) ? `<img class="profile-image-chat" src="${message.sender_photo || 'default.jpg'}">` : ''} 
                 <p>${message.content}</p>
+                <button class="heart-button" data-message-id="${message.message_id}">
+                    <i class="${heartClass}"></i>
+                </button>
             `;
-
+    
             chatContainer.appendChild(messageDiv);
 
+            // Añadir el eventListener al botón de corazón
+            const heartButton = messageDiv.querySelector('.heart-button');
+            heartButton.addEventListener('click', function() {
+                const messageId = heartButton.getAttribute('data-message-id');
+    
+                // Hacer la solicitud AJAX para cambiar el estado del corazón
+                $.ajax({
+                    url: `rsc/markHeart.php?message_id=${messageId}`,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            // Actualizar el icono del corazón en la UI
+                            const heartIcon = heartButton.querySelector('i');
+                            heartIcon.classList.toggle('fa-solid', response.new_status === 1);
+                            heartIcon.classList.toggle('fa-regular', response.new_status === 0);
+                            heartIcon.classList.toggle('hearted', response.new_status === 1);
+                        } else {
+                            console.error('Error al marcar el corazón:', response.error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error en la solicitud AJAX:', { status, error, response: xhr.responseText });
+                    }
+                });
+            });
+            
             // Actualizar el timestamp del último mensaje procesado
             lastMessageTimestamp = messageTimestamp;
         });
-
+    
         // Actualiza el ID del último mensaje
         if (messages.length > 0) {
             lastMessageId = messages[messages.length - 1].message_id;
         }
-
+    
         // Desplaza hacia abajo automáticamente
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
+     
+
+    
 
     // Función para formatear la fecha en estilo "Martes, 14 Enero 2025, 10:39"
     function formatDate(date) {
