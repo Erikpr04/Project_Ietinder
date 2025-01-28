@@ -873,6 +873,13 @@ footer p a:hover {
     color: #3d3d3d;
 }
 
+footer a.active {
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+
 .main-header {
     width: 100%; 
     text-align: left; 
