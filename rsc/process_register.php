@@ -66,7 +66,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Verificar si el email ya existe
-    $stmtCheck = $pdo->prepare("SELECT id FROM User WHERE email = :email");
+    $stmtCheck = $pdo->prepare("SELECT id FROM User WHERE email = :email AND account_status = 'active'");
     $stmtCheck->bindParam(':email', $data['email']);
     $stmtCheck->execute();
 
