@@ -1,63 +1,41 @@
 <?php
- require_once '../rsc/log.php';
- require_once '../rsc/db_config.php';
+require_once '../rsc/log.php';
 
-if (isset($_COOKIE['user_id'])) {
-    $host = getenv('DB_HOST');
-    $dbname = getenv('DB_NAME');
-    $username = getenv('DB_USERNAME');
-    $pass = getenv('DB_PASSWORD');
 
-    $connection = new mysqli($host, $username, $pass, $dbname);
 
-    if ($connection->connect_error) {
-        die("Conexión fallida: " . $connection->connect_error);
-    }
+// Seguridad: Evita acceso a archivos fuera de la carpeta de logs
+$baseDir = realpath(__DIR__ . '/../logs');
+$logID = isset($_GET['ID']) ? basename($_GET['ID']) : '';
+$filePath = realpath("$baseDir/$logID.txt");
 
-    $sql = "SELECT role_user FROM User WHERE id = ?";
-    $stmt = $connection->prepare($sql);
-    $stmt->bind_param("s", $_COOKIE['user_id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if ($row['role_user'] === 'admin') {
-            createLog(action: "Acceso permitido al panel de administración");
-            // Continúa cargando el panel
-        } else {
-            createLog(action: "Acceso denegado: usuario no admin");
-            header("HTTP/1.1 403 Forbidden");
-            include '../error/403.php';
-            exit();
-        }
-    } else {
-        createLog(action: "Usuario no encontrado, redirigiendo al login");
-        header('Location: ../index.php');
-        exit();
-    }
-
-    $stmt->close();
-    $connection->close();
-} else {
-    createLog(action: "Acceso denegado: usuario no autenticado");
-    header("HTTP/1.1 401 Unauthorized");
-    include '../error/401.php';
+// Si se ha pasado un ID, mostrar su contenido
+if ($logID && $filePath && file_exists($filePath) && strpos($filePath, $baseDir) === 0) {
+    $content = htmlspecialchars(file_get_contents($filePath));
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="../css/style.css?t=<?php echo time(); ?>"/>
+        <title><?php echo htmlspecialchars($logID); ?></title>
+    </head>
+    <body id="page-logs">
+        <div class="container-logs">
+            <h2>Archivo: <?php echo htmlspecialchars($logID); ?></h2>
+            <pre><?php echo $content; ?></pre>
+            <a href="logs.php">⬅ Volver</a>
+        </div>
+    </body>
+    </html>
+    <?php
     exit();
 }
-?>
 
-
-<?php
-
-$dir = __DIR__ . '/../logs/'; // Directorio donde están los archivos txt
-$files = glob($dir . '*.txt'); // Obtener todos los archivos txt
-
-// Extraer solo los nombres de los archivos y ordenar por fecha (nombre del archivo)
+// Si no hay un archivo específico, mostrar la lista de logs
+$files = glob($baseDir . '/*.txt');
 $files = array_map('basename', $files);
-usort($files, function($a, $b) {
-    return strcmp($b, $a); // Orden descendente (más nuevo primero)
-});
+usort($files, fn($a, $b) => strcmp($b, $a));
 
 // Paginación
 $perPage = 25;
@@ -69,55 +47,47 @@ $filesToShow = array_slice($files, $startIndex, $perPage);
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="../css/style.css?t=<?php echo time();?>"/>
-    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="../css/style.css?t=<?php echo time(); ?>"/>
     <title>Listado de Logs</title>
-   
 </head>
 <body id="admin-logs">
-
-
     <div class="admin-container">
-        
         <div class="main-header-index-admin"><h2>S<span>w</span>ipeIt</h2></div>
-
         <div class="admin-menu-logs">
             <h1>LOGS</h1>
             <table>
-    <thead>
-        <tr>
-            <th>Nombre del Archivo</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($filesToShow as $file): ?>
-        <tr class="clickable-row">
-            <td>
-                <a href="ver_txt.php?file=<?php echo urlencode($file); ?>" target="_blank">
-                    <?php echo htmlspecialchars($file); ?>
-                </a>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-</tbody>
-
-</table>
-
-    
-</div>
-<div class="pagination-logs">
-    <?php if ($page > 1): ?>
-        <a href="?page=<?php echo $page - 1; ?>">Anterior</a>
-    <?php endif; ?>
-    Página <?php echo $page; ?> de <?php echo $totalPages; ?>
-    <?php if ($page < $totalPages): ?>
-        <a href="?page=<?php echo $page + 1; ?>">Siguiente</a>
-    <?php endif; ?>
-</div>
-
+                <thead>
+                    <tr>
+                        <th>Nombre del Archivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($filesToShow as $logFile): ?>
+                        <?php $logID = pathinfo($logFile, PATHINFO_FILENAME); // Elimina la extensión ?>
+                        <tr class="clickable-row">
+                            <td>
+                                <a href="logs.php?ID=<?php echo urlencode($logID); ?>">
+                                    <?php echo htmlspecialchars($logID); ?>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-logs">
+            <?php if ($page > 1): ?>
+                <a href="?page=<?php echo $page - 1; ?>">Anterior</a>
+            <?php endif; ?>
+            Página <?php echo $page; ?> de <?php echo $totalPages; ?>
+            <?php if ($page < $totalPages): ?>
+                <a href="?page=<?php echo $page + 1; ?>">Siguiente</a>
+            <?php endif; ?>
+        </div>
+    </div>
 </body>
 </html>
