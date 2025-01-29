@@ -63,8 +63,8 @@ if (isset($_COOKIE['user_id'])) {
         <div class="main-header-index-admin"><h2>S<span>w</span>ipeIt</h2></div>
         
         <div id="admin-buttons">
-            <a class="pagination-button" href="users.php">User Page</d>
-            <a class="pagination-button" href="logs.php">Logs Page</a>
+            <a class="pagination-button" href="users.php">Pagina Usuarios</d>
+            <a class="pagination-button" href="logs.php">Pagina Logs</a>
         </div>
 
 

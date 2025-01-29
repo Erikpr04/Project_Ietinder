@@ -61,7 +61,8 @@
 
             $stmt->close();
         } else {
-            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            // Obtener la página actual desde el parámetro GET
+            $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
             $offset = ($page - 1) * $results_per_page;
 
             // Consulta para obtener el total de registros
@@ -89,7 +90,7 @@
                 echo '<tbody>';
 
                 while ($row = $result->fetch_assoc()) {
-                    echo '<tr class="user-row" id="' . htmlspecialchars($row['id']) . '">';
+                    echo '<tr class="user-row" data-user-id="' . htmlspecialchars($row['id']) . '">';
                     echo '<td>' . htmlspecialchars($row['name']) . '</td>';
                     echo '<td>' . htmlspecialchars($row['last_name']) . '</td>';
                     echo '<td>' . htmlspecialchars($row['alias']) . '</td>';
@@ -106,7 +107,7 @@
                     if ($i == $page) {
                         echo '<span style="margin: 5px; font-weight: bold;">' . $i . '</span>';
                     } else {
-                        echo '<a class="pagination-button" href="?page=' . $i . '" style="margin: 5px;">' . $i . '</a>';
+                        echo '<a href="?page=' . $i . '" style="margin: 5px;">' . $i . '</a>';
                     }
                 }
                 echo '</div>';
@@ -118,5 +119,21 @@
         $connection->close();
         ?>
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userRows = document.querySelectorAll('.user-row');
+
+            userRows.forEach(row => {
+                row.addEventListener('click', () => {
+                    const userId = row.getAttribute('data-user-id');
+
+                    if (userId) {
+                        window.location.href = `/admin/users.php?id=${userId}`;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

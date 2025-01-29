@@ -1853,7 +1853,7 @@ body#user-index {
     display: flex;
     flex-direction: column;
     height: 78%;
-    width: 70%;
+    width: 100%;
 
 }
 
