@@ -1,4 +1,5 @@
 <?php
+include 'index.php';
 require_once '../rsc/log.php';
 
 
@@ -12,21 +13,20 @@ $filePath = realpath("$baseDir/$logID.txt");
 if ($logID && $filePath && file_exists($filePath) && strpos($filePath, $baseDir) === 0) {
     $content = htmlspecialchars(file_get_contents($filePath));
     ?>
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link type="text/css" rel="stylesheet" href="../css/style.css?t=<?php echo time(); ?>"/>
-        <title><?php echo htmlspecialchars($logID); ?></title>
-    </head>
-    <body id="page-logs">
+     <h4>Archivo: <?php echo htmlspecialchars($logID); ?></h4>
+
+    <div id="page-logs">
+
+
         <div class="container-logs">
-            <h2>Archivo: <?php echo htmlspecialchars($logID); ?></h2>
+        <a href="logs.php">⬅ Volver</a>
+
             <pre><?php echo $content; ?></pre>
-            <a href="logs.php">⬅ Volver</a>
         </div>
-    </body>
+
+    </div>
+
+
     </html>
     <?php
     exit();
@@ -46,17 +46,8 @@ $startIndex = ($page - 1) * $perPage;
 $filesToShow = array_slice($files, $startIndex, $perPage);
 
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="../css/style.css?t=<?php echo time(); ?>"/>
-    <title>Listado de Logs</title>
-</head>
-<body id="admin-logs">
+
     <div class="admin-container">
-        <div class="main-header-index-admin"><h2>S<span>w</span>ipeIt</h2></div>
         <div class="admin-menu-logs">
             <h1>LOGS</h1>
             <table>
@@ -89,5 +80,4 @@ $filesToShow = array_slice($files, $startIndex, $perPage);
             <?php endif; ?>
         </div>
     </div>
-</body>
 </html>
