@@ -636,7 +636,7 @@ body#profile #buttonSave:hover, body#register #buttonSave:hover, body#register .
 }
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 .photo-placeholder {
@@ -652,7 +652,7 @@ body#profile #buttonSave:hover, body#register #buttonSave:hover, body#register .
     height: 100%;
     object-fit: cover;
     object-position: top;
-
+    z-index: 100;
 }
 .delete-button {
     position: absolute;
@@ -677,6 +677,7 @@ body#profile #buttonSave:hover, body#register #buttonSave:hover, body#register .
     transform: scale(1.1);
 }
 .placeholder-content {
+    margin-top: 30%;
     align-items: center;
     height: 100%;
     display: flex;
@@ -872,6 +873,13 @@ footer p a {
 footer p a:hover {
     color: #3d3d3d;
 }
+
+footer a.active {
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
 
 .main-header {
     width: 100%; 
@@ -1602,6 +1610,11 @@ body#admin-index {
     animation: gradient 15s ease infinite;
 }
 
+#admin-buttons{
+    display: flex;
+    gap: 5px;
+}
+
 .main-header-index-admin {
     width: 100%; 
     text-align: center;
@@ -1751,16 +1764,17 @@ body#user-index {
 /*Estilos Paginador */
 
 .pagination-button {
-    background-color: var(--orange-color); /* Color principal */
-    color: var(--white-color); /* Texto blanco */
-    border: none; /* Sin borde */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 10px 15px; /* Espaciado interno */
-    margin: 5px; /* Separación entre botones */
-    font-size: 1rem; /* Tamaño de texto */
-    cursor: pointer; /* Manita al pasar */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    transition: all 0.3s ease; /* Transiciones suaves */
+    text-decoration: none;
+    background-color: var(--orange-color); 
+    color: var(--white-color); 
+    border: none; 
+    border-radius: 8px; 
+    padding: 10px 15px; 
+    margin: 5px; 
+    font-size: 1rem; 
+    cursor: pointer; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease; 
 }
 
 .pagination-button:hover {
