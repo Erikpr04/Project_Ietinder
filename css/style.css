@@ -1562,6 +1562,16 @@ body#chat {
     height: 100%;
 }
 
+.tablinks.active {
+    background-color: var(--tangerine-color);
+    color: var(--white-color);
+    font-weight: 700;
+}
+
+.tablinks.active:hover {
+    background-color: #fb8c379c;;
+}
+
 body {
     height: 100dvh;
     width: 460px;
@@ -1809,9 +1819,11 @@ body#user-index {
     display: block !important;
 }
 
-
+.heart-button i.hearted {
+    color: var(--red-color);
+}
 
 .fa-heart {
     font-size: 1.2rem;
-    color: var(--red-color);
+    color: #fe32326e;
 }
