@@ -1787,16 +1787,29 @@ body#user-index {
 .heart-button {
     position: absolute;
     top: 50%;
-    right: -25px;
     transform: translateY(-50%);
     background: transparent;
     border: none;
     cursor: pointer;
 }
 
+.their-message .heart-button {
+    right: -25px;
+}
+
 .my-message .heart-button {
+    left: -25px;
+}
+
+.my-message .heart-button i {
     display: none;
 }
+
+.my-message .heart-button i.hearted {
+    display: block !important;
+}
+
+
 
 .fa-heart {
     font-size: 1.2rem;
