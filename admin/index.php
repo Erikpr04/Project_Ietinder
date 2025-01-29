@@ -1,5 +1,4 @@
 <?php
-include 'index.php';
  require_once '../rsc/log.php';
  require_once '../rsc/db_config.php';
 

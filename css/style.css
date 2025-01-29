@@ -1593,10 +1593,10 @@ body#admin-index {
     
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     text-align: center;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     padding: 10px;
 
@@ -1610,42 +1610,6 @@ body#admin-index {
     animation: gradient 15s ease infinite;
 }
 
-body#admin-logs html, body {
-    min-height: 100vmin !important;
-    height: 100% !important;
-    
-}
-
-
-body#admin-logs {
-    
-    
-   
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    background: linear-gradient(-45deg,
-        var(--red-color),
-        var(--gold-color),
-        var(--tangerine-color),
-        var(--orange-color),
-        var(--yellow-color));
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-   
-}
-
-
-
-.main-header-index-admin, body#admin-logs .main-header-index-admin{
-    width: 100%; 
-    text-align: center;
-    background: transparent;  
-    
 #admin-buttons{
     display: flex;
     gap: 5px;
@@ -1672,28 +1636,29 @@ body#admin-logs {
 .admin-menu {
     display: flex;
     flex-direction: column;
-    width: 100%; 
+    width: 100%; /* Asegura que ocupe todo el ancho */
     min-width: 60vw;
-    box-sizing: border-box; 
+    box-sizing: border-box; /* Evita que padding afecte el tamaÃ±o total */
+    
     font-size: 1.5rem; 
-    height: 100dvh;
-    background-color: rgba(200, 200, 200, 0.2);
+    height: 60vh;
+    
+    background-color: rgba(200, 200, 200, 0.2); /* Gris clarito translucido */
     margin-top: 50px; 
-    padding: 10px; 
-    border-radius: 10px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    
+    padding: 10px; /* Agrega un poco de espacio interior */
+    border-radius: 10px; /* Agrega un borde redondeado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
 }
 
 .admin-menu-logs {
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     width: 60%; /* Asegura que ocupe todo el ancho */
     min-width: 40vw;
     box-sizing: border-box; 
-    
     font-size: 1.5rem; 
-    
-    
     background-color: rgba(200, 200, 200, 0.2); /* Gris clarito translucido */
     margin-top: 50px; 
     margin-bottom: 20px;
@@ -1702,15 +1667,15 @@ body#admin-logs {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
 }
 
+
 .admin-menu-logs table { width: 100%; border-collapse: collapse; }
 .admin-menu-logs th, td { border: 1px solid black; padding: 8px; text-align: left; }
 .admin-menu-logs th { color: #f2f2f2;
     text-align: center;
  }
 
- 
 
-.clickable-row a {
+ .clickable-row a {
     display: block;
     width: 100%;
     height: 100%;
@@ -1738,54 +1703,53 @@ body#admin-logs {
     background-color: rgba(0, 0, 0, 0.1); 
 }
 
-body#page-logs {
-            
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 20px;
-    text-align: center;
-}
+
     
 
 
-/* Estilo para el body */
-body#page-logs {
-    font-family: 'Arial', sans-serif; 
-    background-color: #f4f4f4;
-    padding: 20px;
-    text-align: center;
-    margin: 0;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    min-height: 100vh; 
-}
+
 
 /* Contenedor del contenido */
-body#page-logs .container-logs {
+ .container-logs {
     font-family: 'Arial', sans-serif; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start; 
+    justify-content: start;
+    align-items: start; 
     min-width: 600px; 
-    width: 100%; 
-    min-width: 1200px; 
+    width: 70%; 
     text-align: left;
     margin: auto;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: fit-content;
+    max-height: 50%;
+    position: fixed;
 }
-body#page-logs .container-logs h2 {
+
+#page-logs{
+    display: flex;
+    justify-content:center;
+    align-items: start;
+    flex-direction: row;
+}
+
+#page-logs .container-logs h2 {
+    display: block;
     font-family: 'Arial', sans-serif; 
     font-size: 30px;
     margin-bottom: 15px;
 }
+.container-logs pre{
+    text-align: left;
+
+}
 
 /* Estilo del contenido del archivo (pre) */
-body#page-logs pre {
+#page-logs pre {
     font-family: 'Arial', sans-serif; 
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -1799,7 +1763,7 @@ body#page-logs pre {
 }
 
 /* Estilo del enlace */
-body#page-logs a {
+#page-logs a {
     display: inline-block;
     margin-top: 15px;
     text-decoration: none;
@@ -1807,10 +1771,9 @@ body#page-logs a {
     font-weight: bold;
 }
 
-body#page-logs a:hover {
+#page-logs a:hover {
     text-decoration: underline;
 }
-
 
 /*error 403*/
 .error-container {
@@ -1867,11 +1830,11 @@ body#user-index {
     
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     text-align: center;
     width: 100%;
-    height: 120vh;
+    height: 100%;
     padding: 10px;
 
     background: linear-gradient(-45deg,
@@ -1885,11 +1848,12 @@ body#user-index {
 }
 
 .admin-container{
-    height: 100vh;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     display: flex;
     flex-direction: column;
+    height: 78%;
+    width: 70%;
 
 }
 
