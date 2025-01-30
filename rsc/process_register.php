@@ -1,9 +1,14 @@
 <?php
+session_start();
 header("Content-Type: application/json");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php';
 require_once 'db_config.php';
-
-
 
 // Obtener credenciales de la BD
 $host = getenv('DB_HOST');
@@ -61,7 +66,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Verificar si el email ya existe
-    $stmtCheck = $pdo->prepare("SELECT id FROM User WHERE email = :email");
+    $stmtCheck = $pdo->prepare("SELECT id FROM User WHERE email = :email AND account_status = 'active'");
     $stmtCheck->bindParam(':email', $data['email']);
     $stmtCheck->execute();
 
@@ -70,10 +75,21 @@ try {
         exit();
     }
 
+        // Verificar si el alias ya existe en la BD
+    $stmtCheckAlias = $pdo->prepare("SELECT id FROM User WHERE alias = :alias");
+    $stmtCheckAlias->bindParam(':alias', $data['alias']);
+    $stmtCheckAlias->execute();
+
+    if ($stmtCheckAlias->rowCount() > 0) {
+        echo json_encode(["success" => false, "message" => "El alias ya está en uso. Prueba con otro."]);
+        exit();
+    }
+
+
     // Generar un token único
     $verificationToken = bin2hex(random_bytes(16));
 
-    // Insertar usuario en la base de datos
+    // Insertar usuario
     $stmt = $pdo->prepare("INSERT INTO User (name, last_name, alias, birth_date, sex, sexual_orientation, email, latitude, longitude, password, account_status, verification_token) 
         VALUES (:name, :lastName, :alias, :birthDate, :gender, :sexOrientation, :email, :latitude, :longitude, :password, 'pending', :verificationToken)");
 
@@ -97,6 +113,7 @@ try {
 
         // Configuración de directorio y nombre de archivo para la imagen
         $target_dir = __DIR__ . "/../media/";
+        //$target_dir = __DIR__ . "/../media2/";//BORRAR ANTES DE SUBIR--SOLO PARA PRUEBAS
         if (!is_dir($target_dir)) {
             mkdir($target_dir, 0755, true);
         }
@@ -139,39 +156,64 @@ try {
                 echo "Error: No se pudo mover el archivo de imagen.";
             }
         }
-    }
+   
 
-    // Crear enlace con el token
-    $validationLink = "https://tinder3.ieti.site/rsc/verify.php?token=$verificationToken";
+   
+        // Enviar correo con el botón de validación
+        $mail = new PHPMailer(true);
 
-    // Contenido del correo
-    $subject = 'Validar registro';
-    $message = '
-    <html>
-    <head>
-    <title>Validación de cuenta</title>
-    </head>
-    <body style="text-align: center; font-family: Arial, sans-serif;">
-        <h2 style="color: black;">S<span style="color: red;">w</span>ipeIt</h2>
-        <p style="color: black;">¡El <span style="color: red;">amor</span> está a un swipe!</p>
-        <p style="color: black;">Hola ' . htmlspecialchars($data['name']) . ',</p>
-        <p style="color: black;">Gracias por registrarte en SwipeIt. Para completar el registro y activar tu cuenta, haz clic en el siguiente botón:</p>
-        <p><a href="' . $validationLink . '" style="background-color: #4CAF50; color: white; padding: 14px 20px; text-decoration: none; display: inline-block; font-size: 1.2rem; border-radius: 5px;">Validar mi cuenta</a></p>
-        <p style="color: black;">Si no has realizado este registro, puedes ignorar este correo.</p>
-    </body>
-    </html>';
+        try {
+            // Configuración del servidor SMTP
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';  
+            $mail->SMTPAuth = true;
+            $mail->Username = 'paugracia7@gmail.com';  
+            $mail->Password = 'djsl zloc uymy xpry'; 
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465;
 
-    // Cabeceras para enviar correo en formato HTML
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= "From: SwipeIt <swipeit@iesesteveterradas.cat>" . "\r\n";
+            // Configurar remitente y destinatario
+            $mail->setFrom('swipeit@iesesteveterradas.cat', 'SwipeIt');
+            $mail->addAddress($data['email']); // Destinatario
 
-    // Enviar correo con mail()
-    if (mail($data['email'], $subject, $message, $headers)) {
-        echo json_encode(["success" => true, "message" => "Se ha enviado un correo de validación que debe ser validado antes de 48H."]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Registro exitoso, pero error al enviar correo."]);
-    }
+            // Crear enlace con el token. CAMBIAR POR EL SERVIDOR///////////////////////////////////////////////
+            //$validationLink = "http://localhost:8080/rsc/verify.php?token=$verificationToken";
+
+            // Crear enlace con el token//para servidor
+            $validationLink = "https://tinder3.ieti.site/rsc/verify.php?token=$verificationToken";
+
+        // Crear enlace con el token
+
+     // Contenido del correo con el botón
+     $mail->isHTML(true);
+     $mail->Subject = 'Validar registro';
+     $mail->Body = '
+     <html>
+     <head>
+     </head>
+         <body style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: Arial, sans-serif; margin: 0; padding: 0; background-size: 400% 400%; color: #333;">
+
+         <div style="text-align: center; width: 100%; max-width: 460px; padding: 20px; background-color:rgb(255, 169, 56); border-radius: 10px; box-sizing: border-box;">
+             <h2 style="font-family: Arial, sans-serif; font-size: 4rem; color: black;">S<span style="color:rgb(255, 0, 0);">w</span>ipeIt</h2>
+             <p style="font-size: 1.2rem; color: black;">¡El <span style="color:rgb(255, 0, 0);">amor</span> está a un swipe!</p>
+             
+             <p style="color: black;">Hola ' . htmlspecialchars($data['name']) . ',</p>
+             <p style="color: black;">Gracias por registrarte en SwipeIt. Para completar el registro y activar tu cuenta, haz clic en el siguiente botón:</p>
+             <p><a href="' . $validationLink . '" style="background-color: #4CAF50; color: black; padding: 14px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 1.2rem; border-radius: 5px;">Validar mi cuenta</a></p>
+             <p style="color: black;">Si no has realizado este registro, puedes ignorar este correo.</p>
+         </div>
+         </body>
+     </html>';
+    
+     // Enviar correo
+     $mail->send();
+     echo json_encode(["success" => true, "message" => "Se ha enviado un correo de validación que debe ser validado antes de 48H."]);
+ } catch (Exception $e) {
+     echo json_encode(["success" => true, "message" => "Registro exitoso, pero error al enviar correo: " . $mail->ErrorInfo]);
+ }
+} else {
+ echo json_encode(["success" => false, "message" => "Error al registrar el usuario."]);
+}
 } catch (PDOException $e) {
     echo json_encode(["success" => false, "message" => "Error en la base de datos: " . $e->getMessage()]);
 }

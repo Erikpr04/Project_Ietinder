@@ -196,6 +196,7 @@ function getDBprofiles($lon, $lat, $userSex, $sex_orientation, $myId,$maxdis,$us
         AND (i2.id IS NULL OR i2.matched = 0)
         AND ST_Distance_Sphere(POINT(:lon, :lat), POINT(u.longitude, u.latitude)) <= :maxDistance * 1000
         AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN :minAgeDiff AND :maxAgeDiff
+        AND u.account_status = 'active'
 ";
 
 

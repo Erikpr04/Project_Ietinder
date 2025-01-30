@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.style.display = 'flex';
 
         document.getElementById('continueButton').addEventListener('click', () => {
-            overlay.style.display = 'none';
+            overlay.style.visibility = 'visible';
         });
 
         document.getElementById('messagesButton').addEventListener('click', () => {

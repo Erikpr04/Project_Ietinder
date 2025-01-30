@@ -1,3 +1,23 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time(); ?>"/>
+    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/utils.js"></script>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">   
+
+
+    <title>SwipeIt! - Edit Photos</title>
+</head>
 <?php
 require_once './rsc/db_config.php';
 
@@ -60,9 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ":media_path" => $relative_path
                     ]);
                     $messages[] = "Imagen subida y guardada correctamente.";
-                    //Al terminar, recargamos pagina
-                    header("Location: " . $_SERVER['PHP_SELF']);
-                    exit;
                 } catch (PDOException $e) {
                     //Si da error se elimina el archivo guardado en local
                     $messages[] = "Error al guardar en la base de datos: " . $e->getMessage();
@@ -117,9 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         $messages[] = "Imagen eliminada correctamente.";
                         
-                        // Al eliminar recargamos la página
-                        header("Location: " . $_SERVER['PHP_SELF']); 
-                        exit;
                     }
                 }
             } catch (PDOException $e) {
@@ -143,24 +157,7 @@ try {
 $pdo = null;
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="./css/style.css?t=<?php echo time(); ?>"/>
-    <script src="https://kit.fontawesome.com/74d6337d15.js" crossorigin="anonymous"></script>
-    <script src="./js/jquery-3.7.1.min.js"></script>
-    <script src="./js/utils.js"></script>
 
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">   
-
-
-    <title>SwipeIt! - Edit Photos</title>
-</head>
 <body id="photos">
     
     <main class="main-container">
@@ -194,8 +191,6 @@ $pdo = null;
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
-
-                <!-- Si hay menos de 6 imagenes, se genera otro input-->
 
                 <?php if (count($photos) < 6): ?>
                     <?php for ($i = count($photos); $i < 6; $i++): ?>
