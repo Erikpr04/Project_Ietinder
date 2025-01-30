@@ -1837,7 +1837,7 @@ body#user-index {
     align-items: center;
     text-align: center;
     width: 100%;
-    height: 100%;
+    height: max-content;
     padding: 10px;
 
     background: linear-gradient(-45deg,
