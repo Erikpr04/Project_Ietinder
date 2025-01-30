@@ -42,7 +42,6 @@
             <label for="slider1">Distancia</label>
             <p id="slider1-value">50 km</p>
             <span id="slider1-min">0</span>
-
             <input type="range" id="slider1" min="0" max="200" value="50">
             <span id="slider1-max">200</span>
         </div>
@@ -79,13 +78,55 @@
         </div>
     </div>
     
-    <?php include('footer.php'); ?>
+    <?php 
+    $host = getenv('DB_HOST');
+    $dbname = getenv('DB_NAME');
+    $username = getenv('DB_USERNAME');
+    $password = getenv('DB_PASSWORD');
+
+    if (isset($_COOKIE['user_id'])) {
+        $userid = $_COOKIE['user_id'];
+    } else {
+        echo "Error, no user id";
+        exit;
+    }
+
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("Error al conectar a la base de datos: " . $e->getMessage());
+    }
+
+    $query = $pdo->prepare("SELECT name FROM User WHERE id = :user_id");
+    $query->execute([
+        ":user_id" => $userid,
+    ]);
+
+    $user = $query->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        $username = $user['name'];
+    } else {
+        echo "Error, no se encontró el usuario";
+        exit;
+    }
+
+    echo "<script>
+    var username = '$username';
+    createErrorTag('info', 'Bienvenido! , ' + username + ' 👋');
+  </script>";
+    
+    
+    
+    
+    include('footer.php'); ?>
+
+
+
+    
 
 </main>
-
-<script>
-    createErrorTag("info", "Te has logueado correctamente")
-</script>
 
 </body>
 </html>
